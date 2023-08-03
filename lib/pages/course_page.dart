@@ -35,6 +35,7 @@ class _CoursePageState extends State<CoursePage> {
   Widget build(BuildContext context) {
     if (check == 0) {
       courseModelList = courseProvider.upcomingCourseList;
+      print(courseModelList.length);
     }
 
     if (check == 1) {
