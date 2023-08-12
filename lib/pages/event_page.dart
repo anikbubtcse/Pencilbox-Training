@@ -20,7 +20,7 @@ class _EventPageState extends State<EventPage> {
 
   @override
   void didChangeDependencies() {
-    eventProvider = Provider.of(context);
+    eventProvider = Provider.of(context, listen: true);
 
     if (callOnce) {
       eventProvider.getCategoryWiseEvents(19);
