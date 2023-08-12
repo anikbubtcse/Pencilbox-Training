@@ -36,6 +36,5 @@ class EventProvider extends ChangeNotifier {
         categoryWiseEventList.add(element);
       }
     });
-    notifyListeners();
   }
 }

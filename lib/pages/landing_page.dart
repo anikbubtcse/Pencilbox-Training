@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:screen_design/provider/career_provider.dart';
 import 'package:screen_design/provider/event_provider.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import '../provider/blog_provider.dart';
@@ -18,6 +19,7 @@ class _LandingPageState extends State<LandingPage> {
   late CourseProvider courseProvider;
   late BlogProvider blogProvider;
   late EventProvider eventProvider;
+  late CareerProvider careerProvider;
   bool callOnce = true;
   late Timer timer;
 
@@ -34,12 +36,14 @@ class _LandingPageState extends State<LandingPage> {
     courseProvider = Provider.of(context);
     blogProvider = Provider.of(context);
     eventProvider = Provider.of(context);
+    careerProvider = Provider.of(context);
     if (callOnce) {
       blogProvider.getLatestBlogServiceData();
       blogProvider.getBlogCategoryServiceData();
       courseProvider.getCourseServiceData();
       blogProvider.getPopularBlogServiceData();
       blogProvider.getArchivesBlogServiceData();
+      careerProvider.getAllCareerInfo();
       eventProvider.getEvents();
       callOnce = false;
     }
