@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:screen_design/pages/about_us_page.dart';
 import 'package:screen_design/pages/blog_list_page.dart';
 import 'package:screen_design/pages/bottom_nav_page.dart';
+import 'package:screen_design/pages/career_details_page.dart';
+import 'package:screen_design/pages/career_page.dart';
 import 'package:screen_design/pages/category_detail_page.dart';
 import 'package:screen_design/pages/code_verification_page.dart';
 import 'package:screen_design/pages/contact_page.dart';
@@ -11,12 +13,14 @@ import 'package:screen_design/pages/course_module_page.dart';
 import 'package:screen_design/pages/create_new_password_page.dart';
 import 'package:screen_design/pages/dashboard_page.dart';
 import 'package:screen_design/pages/edit_profile_page.dart';
+import 'package:screen_design/pages/event_details_page.dart';
 import 'package:screen_design/pages/event_page.dart';
 import 'package:screen_design/pages/forgot_password_page.dart';
 import 'package:screen_design/pages/home_page.dart';
 import 'package:screen_design/pages/landing_page.dart';
 import 'package:screen_design/pages/login_page.dart';
 import 'package:screen_design/pages/course_page.dart';
+import 'package:screen_design/pages/mission_vision_page.dart';
 import 'package:screen_design/pages/my_course_page.dart';
 import 'package:screen_design/pages/blog_page.dart';
 import 'package:screen_design/pages/notification_controller.dart';
@@ -32,6 +36,7 @@ import 'package:screen_design/pages/splash_page.dart';
 import 'package:screen_design/pages/trainer_details_page.dart';
 import 'package:screen_design/pages/trainer_page.dart';
 import 'package:screen_design/provider/blog_provider.dart';
+import 'package:screen_design/provider/career_provider.dart';
 import 'package:screen_design/provider/course_module_provider.dart';
 import 'package:screen_design/provider/event_provider.dart';
 import 'package:screen_design/provider/trainer_provider.dart';
@@ -51,6 +56,7 @@ void main() {
     ChangeNotifierProvider(create: (_) => BlogProvider()),
     ChangeNotifierProvider(create: (_) => UserProvider()),
     ChangeNotifierProvider(create: (_) => EventProvider()),
+    ChangeNotifierProvider(create: (_) => CareerProvider()),
   ], child: MyApp()));
 }
 
@@ -108,6 +114,10 @@ class MyApp extends StatelessWidget {
             'about_us_page': (_) => AboutUsPage(),
             'Trainer_details_page': (_) => TrainerDetailsPage(),
             'event_page': (_) => EventPage(),
+            'event_details_page': (_) => EventDetailsPage(),
+            'career_page': (_) => CareerPage(),
+            'career_details_page': (_) => CareerDetailsPage(),
+            'mission_vision_page': (_) => MissionVisionPage(),
           },
         );
       },
