@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:screen_design/provider/trainer_provider.dart';
+import 'package:provider/provider.dart';
 
 class TrainerPage extends StatefulWidget {
   const TrainerPage({super.key});
@@ -10,6 +11,15 @@ class TrainerPage extends StatefulWidget {
 }
 
 class _TrainerPageState extends State<TrainerPage> {
+  late TrainerProvider trainerProvider;
+
+  @override
+  void didChangeDependencies() {
+    trainerProvider = Provider.of(context);
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,27 +35,28 @@ class _TrainerPageState extends State<TrainerPage> {
         ),
       ),
       body: ListView.builder(
-          padding: EdgeInsets.only(left: 15, top: 15, right: 15),
-          itemCount: 10,
+          padding: const EdgeInsets.only(left: 15, top: 15, right: 15),
+          itemCount: trainerProvider.trainerModelList.length,
           itemBuilder: (context, index) {
             return Card(
               elevation: 1,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8)),
               child: ListTile(
-                leading: const CircleAvatar(
-                  radius: 35,
-                  backgroundImage: AssetImage('images/photo.jpg'),
+                leading: CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(
+                      'https://pencilbox.edu.bd/${trainerProvider.trainerModelList[index].trainerImage!}'),
                 ),
                 title: Text(
-                  'John Doe',
+                  trainerProvider.trainerModelList[index].trainerName!,
                   style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: Color(0xff212121)),
                 ),
                 subtitle: Text(
-                  'Server administration & cloud management',
+                  trainerProvider.trainerModelList[index].trainerTrack!,
                   style: GoogleFonts.poppins(
                       fontSize: 10,
                       fontWeight: FontWeight.w300,
@@ -58,33 +69,8 @@ class _TrainerPageState extends State<TrainerPage> {
                       ),
                       color: Color(0xffDB1E37)),
                   onPressed: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return SizedBox(
-                            height: MediaQuery.of(context).size.width / 2,
-                            child: Card(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset('images/linkedin.svg'),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  SvgPicture.asset('images/twitter.svg'),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  SvgPicture.asset('images/facebook.svg'),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  SvgPicture.asset('images/instagram.svg'),
-                                ],
-                              ),
-                            ),
-                          );
-                        });
+                    Navigator.of(context).pushNamed('Trainer_details_page',
+                        arguments: trainerProvider.trainerModelList[index]);
                   },
                 ),
               ),

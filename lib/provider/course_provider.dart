@@ -12,6 +12,7 @@ class CourseProvider extends ChangeNotifier {
   List<CourseModel> ongoingCoursesList = [];
   List<CourseModel> oldCoursesList = [];
   List<CourseModel> collaboratedCourseList = [];
+  List<CourseModel> rplCourseList = [];
 
   getCourseServiceData() async {
     oldCoursesList.clear();
@@ -24,7 +25,6 @@ class CourseProvider extends ChangeNotifier {
       fullCourseList.add(CourseModel.fromJson(i));
     }
     notifyListeners();
-
 
     fullCourseList.sort((a, b) => b.startDate!.compareTo(a.startDate!));
 
@@ -154,5 +154,18 @@ class CourseProvider extends ChangeNotifier {
     });
 
     return trainerId;
+  }
+
+  getRplCourseList() {
+    rplCourseList.clear();
+
+    fullCourseList.forEach((element) {
+      if (element.batchType == "Certification") {
+        rplCourseList.add(element);
+      }
+    });
+    rplCourseList.sort((a, b) {
+      return b.startDate!.compareTo(a.startDate!);
+    });
   }
 }

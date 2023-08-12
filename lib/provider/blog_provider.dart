@@ -18,9 +18,12 @@ class BlogProvider extends ChangeNotifier {
     allLatestBlogList.clear();
     dynamic data = await BlogService.getLatestBlog();
 
-    for (Map i in data) {
-      allLatestBlogList.add(LatestBlogModel.fromJson(i));
+    if (data != null) {
+      for (Map i in data) {
+        allLatestBlogList.add(LatestBlogModel.fromJson(i));
+      }
     }
+
     notifyListeners();
   }
 

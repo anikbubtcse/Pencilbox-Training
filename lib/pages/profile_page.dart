@@ -60,13 +60,13 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: const Color(0xffF0F0F0),
       appBar: AppBar(
-          automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         backgroundColor: const Color(0xffFFFFFF),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: isLoggedIn == 'false' || isLoggedIn == ''
-                ? Padding(padding: EdgeInsets.only(right: 10))
+                ? const Padding(padding: EdgeInsets.only(right: 10))
                 : InkWell(
                     onTap: () {
                       Navigator.of(context).pushNamed('edit_profile_page');
@@ -85,6 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Navigator.of(context).pop();
                                 },
                                 onConfirm: () {
+                                  Navigator.of(context).pop();
                                   Navigator.of(context)
                                       .pushNamed('edit_profile_page');
                                 },
@@ -317,9 +318,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         InkWell(
                                           onTap: () {
                                             String value = userProvider
-                                                .studentInfoModel!
-                                                .success!
-                                                .linkedin!;
+                                                    .studentInfoModel!
+                                                    .success!
+                                                    .linkedin ??
+                                                "Null";
 
                                             if (value == 'Null') {
                                               Fluttertoast.showToast(
@@ -347,9 +349,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         InkWell(
                                             onTap: () {
                                               String value = userProvider
-                                                  .studentInfoModel!
-                                                  .success!
-                                                  .twitter!;
+                                                      .studentInfoModel!
+                                                      .success!
+                                                      .twitter ??
+                                                  "Null";
 
                                               if (value == 'Null') {
                                                 Fluttertoast.showToast(
@@ -377,9 +380,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         InkWell(
                                             onTap: () {
                                               String value = userProvider
-                                                  .studentInfoModel!
-                                                  .success!
-                                                  .facebook!;
+                                                      .studentInfoModel!
+                                                      .success!
+                                                      .facebook ??
+                                                  'Null';
 
                                               if (value == 'Null') {
                                                 Fluttertoast.showToast(
@@ -407,9 +411,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         InkWell(
                                             onTap: () {
                                               String value = userProvider
-                                                  .studentInfoModel!
-                                                  .success!
-                                                  .instagram!;
+                                                      .studentInfoModel!
+                                                      .success!
+                                                      .instagram ??
+                                                  'Null';
 
                                               if (value == 'Null') {
                                                 Fluttertoast.showToast(

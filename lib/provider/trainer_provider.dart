@@ -5,13 +5,12 @@ import '../models/trainer_model.dart';
 
 class TrainerProvider extends ChangeNotifier {
   List<TrainerModel> trainerModelList = [];
-  final service = TrainerService();
   String? trainerImage;
   String? trainerName;
   String? CategoryDetailPageTrainerName;
 
   getTrainerServiceData() async {
-    dynamic data = await service.getTrainerData();
+    dynamic data = await TrainerService.getTrainerData();
 
     for (Map i in data) {
       trainerModelList.add(TrainerModel.fromJson(i));
@@ -46,4 +45,5 @@ class TrainerProvider extends ChangeNotifier {
     });
     return trainerName;
   }
+
 }

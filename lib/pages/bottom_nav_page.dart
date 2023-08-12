@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:screen_design/pages/blog_page.dart';
 import 'package:screen_design/pages/course_page.dart';
 import 'package:screen_design/pages/profile_page.dart';
 import 'package:screen_design/pages/search_page.dart';
@@ -19,7 +18,6 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
     CoursePage(),
     FavoritePage(),
     ProfilePage(),
-    BlogPage(),
   ];
 
   @override
@@ -66,13 +64,6 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
                 AssetImage('images/user.png'),
               ),
               label: 'Profile'),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.image_outlined,
-              size: 30,
-            ),
-            label: 'Blogs',
-          ),
         ],
       ),
     );

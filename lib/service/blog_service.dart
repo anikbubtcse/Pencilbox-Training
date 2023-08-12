@@ -1,9 +1,9 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
 class BlogService {
   static Future<dynamic> getLatestBlog() async {
+    dynamic data;
     try {
       final response =
           await http.get(Uri.parse('https://pencilbox.edu.bd/api/latestBlog'));
@@ -12,10 +12,11 @@ class BlogService {
         final data = jsonDecode(response.body.toString());
         return data;
       } else {
-        return [];
+        return data;
       }
     } catch (e) {
-      throw e.toString();
+      print(e.toString());
+      return data;
     }
   }
 

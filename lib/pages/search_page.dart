@@ -16,14 +16,13 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController searchController = TextEditingController();
   bool isChecked = false;
   ScrollController scrollController = ScrollController();
-  late CourseProvider upcomingCourseProvider;
+  late CourseProvider courseProvider;
   String courseInfo = '';
   List<String> selectedCategoryList = [];
 
   @override
   void didChangeDependencies() {
-    upcomingCourseProvider = Provider.of(context, listen: true);
-    print(selectedCategoryList.length);
+    courseProvider = Provider.of(context, listen: true);
     super.didChangeDependencies();
   }
 
@@ -101,16 +100,16 @@ class _SearchPageState extends State<SearchPage> {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: upcomingCourseProvider.fullCourseList.length,
+                    itemCount: courseProvider.fullCourseList.length,
                     itemBuilder: (contex, index) {
                       if (courseInfo.isEmpty) {
                         return Container();
-                      } else if (upcomingCourseProvider
+                      } else if (courseProvider
                               .fullCourseList[index].trainingName
                               .toString()
                               .toLowerCase()
                               .contains(courseInfo.toLowerCase()) ||
-                          upcomingCourseProvider
+                          courseProvider
                               .fullCourseList[index].currentBatchId
                               .toString()
                               .toLowerCase()
@@ -125,7 +124,7 @@ class _SearchPageState extends State<SearchPage> {
                               onTap: () {
                                 Navigator.of(context).pushNamed(
                                     'course_module-page',
-                                    arguments: upcomingCourseProvider
+                                    arguments: courseProvider
                                         .fullCourseList[index]);
                               },
                               child: ListTile(
@@ -133,9 +132,9 @@ class _SearchPageState extends State<SearchPage> {
                                 contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 0.0, vertical: 0.0),
                                 visualDensity:
-                                    VisualDensity(horizontal: 0, vertical: -4),
+                                    const VisualDensity(horizontal: 0, vertical: -4),
                                 title: Text(
-                                  upcomingCourseProvider
+                                  courseProvider
                                       .fullCourseList[index].trainingName!,
                                   style: GoogleFonts.poppins(
                                       fontSize: 16,
@@ -143,7 +142,7 @@ class _SearchPageState extends State<SearchPage> {
                                       color: Color(0xff212121)),
                                 ),
                                 subtitle: Text(
-                                  'Batch No: ${upcomingCourseProvider.fullCourseList[index].currentBatchId!.toString()}',
+                                  'Batch No: ${courseProvider.fullCourseList[index].currentBatchId!.toString()}',
                                   style: GoogleFonts.poppins(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
@@ -320,7 +319,7 @@ class _SearchPageState extends State<SearchPage> {
                             ),
                             Container(
                               height: 280,
-                              child: upcomingCourseProvider
+                              child: courseProvider
                                       .courseCategoryList.isEmpty
                                   ? const Center(
                                       child: CircularProgressIndicator(),
@@ -330,20 +329,20 @@ class _SearchPageState extends State<SearchPage> {
                                       controller: scrollController,
                                       child: ListView.builder(
                                           controller: scrollController,
-                                          itemCount: upcomingCourseProvider
+                                          itemCount: courseProvider
                                               .courseCategoryList.length,
                                           itemBuilder: (context, index) {
                                             return Row(
                                               children: [
                                                 Checkbox(
                                                   activeColor: Colors.red,
-                                                  value: upcomingCourseProvider
+                                                  value: courseProvider
                                                       .courseCategoryList[
                                                           index]
                                                       .categoryChecked,
                                                   onChanged: (value) {
                                                     setState(() {
-                                                      upcomingCourseProvider
+                                                      courseProvider
                                                           .courseCategoryList[
                                                               index]
                                                           .categoryChecked = value!;
@@ -354,7 +353,7 @@ class _SearchPageState extends State<SearchPage> {
                                                   width: 5,
                                                 ),
                                                 Text(
-                                                  upcomingCourseProvider
+                                                  courseProvider
                                                       .courseCategoryList[
                                                           index]
                                                       .catName!,
@@ -387,18 +386,18 @@ class _SearchPageState extends State<SearchPage> {
                                   onPressed: () {
                                     for (var i = 0;
                                         i <=
-                                            upcomingCourseProvider
+                                            courseProvider
                                                     .courseCategoryList
                                                     .length -
                                                 1;
                                         i++) {
-                                      if (upcomingCourseProvider
+                                      if (courseProvider
                                               .courseCategoryList[i]
                                               .categoryChecked ==
                                           true) {
                                         setState(() {
                                           selectedCategoryList.add(
-                                              upcomingCourseProvider
+                                              courseProvider
                                                   .courseCategoryList[i]
                                                   .catName!);
                                         });
@@ -417,13 +416,13 @@ class _SearchPageState extends State<SearchPage> {
                                         });
                                         for (var i = 0;
                                             i <=
-                                                upcomingCourseProvider
+                                                courseProvider
                                                         .courseCategoryList
                                                         .length -
                                                     1;
                                             i++) {
                                           setState(() {
-                                            upcomingCourseProvider
+                                            courseProvider
                                                 .courseCategoryList[i]
                                                 .categoryChecked = false;
                                           });

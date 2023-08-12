@@ -11,7 +11,6 @@ import '../helper/helper_constant.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../provider/blog_provider.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,18 +21,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentPosition = 0;
-  bool callOnce = true;
 
-  late CourseProvider provider;
-  late BlogProvider blogProvider;
+  late CourseProvider courseProvider;
 
   @override
   void didChangeDependencies() {
-    provider = Provider.of(context, listen: true);
-    if (callOnce) {
-      provider.getCourseServiceData();
-      callOnce = false;
-    }
+    courseProvider = Provider.of(context, listen: true);
     super.didChangeDependencies();
   }
 
@@ -127,13 +120,13 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 10,
           ),
-          provider.courseCategoryList.isEmpty
+          courseProvider.courseCategoryList.isEmpty
               ? const Center(child: CircularProgressIndicator())
               : Container(
                   height: 80,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: provider.courseCategoryList.length,
+                    itemCount: courseProvider.courseCategoryList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                         width: 120,
@@ -142,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.of(context).pushNamed(
                                 'category_detail_screen',
                                 arguments: [
-                                  provider
+                                  courseProvider
                                       .courseCategoryList[index].catName,
                                   1
                                 ]);
@@ -156,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 ClipRRect(
                                     child: Image.network(
-                                  'https://pencilbox.edu.bd/${provider.courseCategoryIconList[index]}',
+                                  'https://pencilbox.edu.bd/${courseProvider.courseCategoryIconList[index]}',
                                   fit: BoxFit.cover,
                                   height: 25,
                                   width: 25,
@@ -165,8 +158,8 @@ class _HomePageState extends State<HomePage> {
                                   height: 2,
                                 ),
                                 AutoSizeText(
-                                  provider.courseCategoryList[index]
-                                          .catName ??
+                                  courseProvider
+                                          .courseCategoryList[index].catName ??
                                       '',
                                   textAlign: TextAlign.center,
                                   maxLines: 2,
@@ -202,7 +195,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 10,
           ),
-          provider.upcomingCourseList.isEmpty
+          courseProvider.upcomingCourseList.isEmpty
               ? const Center(child: CircularProgressIndicator())
               : Container(
                   height:
@@ -211,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                           : MediaQuery.of(context).size.width / 1.9,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: provider.upcomingCourseList.length,
+                    itemCount: courseProvider.upcomingCourseList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Card(
                         elevation: 5,
@@ -232,9 +225,11 @@ class _HomePageState extends State<HomePage> {
                                       child: CachedNetworkImage(
                                         fit: BoxFit.cover,
                                         imageUrl:
-                                            'https://pencilbox.edu.bd/${provider.upcomingCourseList[index].trainingImage!}',
-                                        placeholder: (context, url) => const Center(
-                                            child: CircularProgressIndicator()),
+                                            'https://pencilbox.edu.bd/${courseProvider.upcomingCourseList[index].trainingImage!}',
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                                child:
+                                                    CircularProgressIndicator()),
                                         errorWidget: (context, url, error) =>
                                             Image.asset(
                                           'images/placeholder.png',
@@ -259,9 +254,8 @@ class _HomePageState extends State<HomePage> {
                                   Consumer<TrainerProvider>(builder:
                                       (BuildContext context, value,
                                           Widget? child) {
-                                    value.getTrainerDetails(provider
-                                        .upcomingCourseList[index]
-                                        .trainerId!);
+                                    value.getTrainerDetails(courseProvider
+                                        .upcomingCourseList[index].trainerId!);
 
                                     return Positioned(
                                       bottom: 0,
@@ -308,8 +302,8 @@ class _HomePageState extends State<HomePage> {
                               ),
                               FittedBox(
                                 child: Text(
-                                  provider.upcomingCourseList[index]
-                                      .catName!,
+                                  courseProvider
+                                      .upcomingCourseList[index].catName!,
                                   style: GoogleFonts.poppins(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500,
@@ -320,7 +314,7 @@ class _HomePageState extends State<HomePage> {
                                 height: 5,
                               ),
                               Text(
-                                '${provider.upcomingCourseList[index].trainingPrice!}/-BDT',
+                                '${courseProvider.upcomingCourseList[index].trainingPrice!}/-BDT',
                                 style: GoogleFonts.poppins(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -343,7 +337,7 @@ class _HomePageState extends State<HomePage> {
                                           width: 2,
                                         ),
                                         Text(
-                                          '${provider.upcomingCourseList[index].hours}h',
+                                          '${courseProvider.upcomingCourseList[index].hours}h',
                                           style: const TextStyle(
                                               color: Color(0xff808080)),
                                         ),
@@ -360,9 +354,8 @@ class _HomePageState extends State<HomePage> {
                                         Text(
                                           HelperMethod.getDateFormat(
                                               'dd-MM-yyyy',
-                                              DateTime.parse(provider
-                                                  .upcomingCourseList[
-                                                      index]
+                                              DateTime.parse(courseProvider
+                                                  .upcomingCourseList[index]
                                                   .startDate!)),
                                           style: const TextStyle(
                                               color: Color(0xff808080)),

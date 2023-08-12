@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:screen_design/pages/about_us_page.dart';
 import 'package:screen_design/pages/blog_list_page.dart';
 import 'package:screen_design/pages/bottom_nav_page.dart';
 import 'package:screen_design/pages/category_detail_page.dart';
@@ -8,26 +9,31 @@ import 'package:screen_design/pages/code_verification_page.dart';
 import 'package:screen_design/pages/contact_page.dart';
 import 'package:screen_design/pages/course_module_page.dart';
 import 'package:screen_design/pages/create_new_password_page.dart';
+import 'package:screen_design/pages/dashboard_page.dart';
 import 'package:screen_design/pages/edit_profile_page.dart';
+import 'package:screen_design/pages/event_page.dart';
 import 'package:screen_design/pages/forgot_password_page.dart';
 import 'package:screen_design/pages/home_page.dart';
 import 'package:screen_design/pages/landing_page.dart';
 import 'package:screen_design/pages/login_page.dart';
 import 'package:screen_design/pages/course_page.dart';
 import 'package:screen_design/pages/my_course_page.dart';
-import 'package:screen_design/pages/new_blog_page.dart';
+import 'package:screen_design/pages/blog_page.dart';
 import 'package:screen_design/pages/notification_controller.dart';
 import 'package:screen_design/pages/notification_page.dart';
 import 'package:screen_design/pages/privacy_policy_page.dart';
 import 'package:screen_design/pages/profile_page.dart';
 import 'package:screen_design/pages/review_page.dart';
+import 'package:screen_design/pages/rpl_page.dart';
 import 'package:screen_design/pages/terms_condition_page.dart';
 import 'package:screen_design/pages/read_blog_page.dart';
 import 'package:screen_design/pages/registration_page.dart';
 import 'package:screen_design/pages/splash_page.dart';
+import 'package:screen_design/pages/trainer_details_page.dart';
 import 'package:screen_design/pages/trainer_page.dart';
 import 'package:screen_design/provider/blog_provider.dart';
 import 'package:screen_design/provider/course_module_provider.dart';
+import 'package:screen_design/provider/event_provider.dart';
 import 'package:screen_design/provider/trainer_provider.dart';
 import 'package:screen_design/provider/course_provider.dart';
 import 'package:provider/provider.dart';
@@ -44,6 +50,7 @@ void main() {
     ChangeNotifierProvider(create: (_) => CourseModuleProvider()),
     ChangeNotifierProvider(create: (_) => BlogProvider()),
     ChangeNotifierProvider(create: (_) => UserProvider()),
+    ChangeNotifierProvider(create: (_) => EventProvider()),
   ], child: MyApp()));
 }
 
@@ -81,7 +88,7 @@ class MyApp extends StatelessWidget {
             'read_blog_page': (_) => ReadBlogPage(),
             'blog_list_page': (_) => BlogListPage(),
             'edit_profile_page': (_) => EditProfilePage(),
-            'new_blog_page': (_) => NewBlogPage(),
+            'new_blog_page': (_) => BlogPage(),
             'forgot_password_page': (_) => ForgotPasswordPage(),
             'code_verification_page': (_) => CodeVerificationPage(),
             'create_new_password_page': (_) => CreateNewPasswordPage(),
@@ -96,6 +103,11 @@ class MyApp extends StatelessWidget {
             'my_course_page': (_) => MyCoursePage(),
             'profile_page': (_) => ProfilePage(),
             'course_module_page': (_) => CourseModulePage(),
+            'dashboard_page': (_) => DashboardPage(),
+            'rpl_page': (_) => RPLPage(),
+            'about_us_page': (_) => AboutUsPage(),
+            'Trainer_details_page': (_) => TrainerDetailsPage(),
+            'event_page': (_) => EventPage(),
           },
         );
       },

@@ -56,7 +56,6 @@ class _ReadBlogPageState extends State<ReadBlogPage> {
       ),
       body: ListView(
         children: [
-          HeaderMenu(),
           Container(
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey, width: .3)),
@@ -130,7 +129,7 @@ class _ReadBlogPageState extends State<ReadBlogPage> {
                           print(url);
                           await Share.share(url);
                         },
-                        child: const Text('Share')),
+                        child: const Text('Share', style: TextStyle(color: Colors.white),)),
                   ],
                 ),
                 Html(

@@ -1,135 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:screen_design/models/course_model.dart';
 import 'package:screen_design/provider/course_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screen_design/provider/trainer_provider.dart';
-import '../helper/helper_method.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:screen_design/provider/user_provider.dart';
 
-class CoursePage extends StatefulWidget {
-  const CoursePage({super.key});
+import '../helper/helper_method.dart';
+
+class RPLPage extends StatefulWidget {
+  const RPLPage({super.key});
 
   @override
-  State<CoursePage> createState() => _CoursePageState();
+  State<RPLPage> createState() => _RPLPageState();
 }
 
-class _CoursePageState extends State<CoursePage> {
-  List<String> coursesByDate = [
-    'Upcoming courses',
-    'Ongoing courses',
-    'Collaborated courses',
-    'Old courses',
-    'All courses'
-  ];
+class _RPLPageState extends State<RPLPage> {
   late CourseProvider courseProvider;
+  late UserProvider userProvider;
   late TrainerProvider trainerProvider;
-  late List<CourseModel> courseModelList;
-  int check = 0;
+  bool callOnce = true;
+  ScrollController scrollController = new ScrollController();
 
   @override
   void didChangeDependencies() {
     courseProvider = Provider.of(context);
+    userProvider = Provider.of(context);
     trainerProvider = Provider.of(context);
+    if (callOnce) {
+      courseProvider.getRplCourseList();
+      callOnce = false;
+    }
+
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (check == 0) {
-      courseModelList = courseProvider.upcomingCourseList;
-      print(courseModelList.length);
-    }
-
-    if (check == 1) {
-      courseModelList = courseProvider.ongoingCoursesList;
-    }
-
-    if (check == 2) {
-      courseModelList = courseProvider.collaboratedCourseList;
-    }
-
-    if (check == 3) {
-      courseModelList = courseProvider.oldCoursesList;
-    }
-
-    if (check == 4) {
-      courseModelList = courseProvider.fullCourseList;
-    }
-
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: const Color(0xffFFFFFF),
         centerTitle: true,
         title: Text(
-          'Courses',
+          'RPL Certification',
           style: GoogleFonts.poppins(
               fontSize: 16,
               fontWeight: FontWeight.w500,
               color: const Color(0xff878787)),
         ),
       ),
-      body: Container(
-        margin: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 60,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (contex, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          check = index;
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(19),
-                            border: check == index? Border.all(color: Colors.red):Border.all(color: Color(0xffDDDDDD))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            coursesByDate[index],
-                            style: GoogleFonts.poppins(
-                                color: Color(0xff262626),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                itemCount: coursesByDate.length,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            courseModelList.isEmpty
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Expanded(
-                    child: ListView.builder(
-                        itemCount: courseModelList.length,
-                        itemBuilder: (context, index) {
-                          String trainerName =
-                              trainerProvider.getMyCourseTrainerName(
-                                  courseModelList[index].trainerId!);
+      body: Column(
+        children: [
+          Expanded(
+            child: courseProvider.rplCourseList.isEmpty
+                ? const Center(child: Text('No course found!'))
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Scrollbar(
+                      thumbVisibility: true,
+                      trackVisibility: true,
+                      controller: scrollController,
+                      child: ListView.builder(
+                          controller: scrollController,
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 10),
+                          itemCount: courseProvider.rplCourseList.length,
+                          itemBuilder: (context, index) {
+                            trainerProvider.getTrainerName(
+                                courseProvider.rplCourseList[index].trainerId!);
 
-                          return InkWell(
-                            onTap: () {
-                              Navigator.of(context).pushNamed(
-                                  'course_module_page',
-                                  arguments: courseModelList[index]);
-                            },
-                            child: Card(
+                            return Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(19),
                               ),
@@ -143,26 +82,13 @@ class _CoursePageState extends State<CoursePage> {
                                       flex: 3,
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(19),
-                                        child: CachedNetworkImage(
-                                          fit: BoxFit.fill,
+                                        child: Image.network(
+                                          'https://pencilbox.edu.bd/${courseProvider.rplCourseList[index].mainImage}',
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .width /
                                               3,
-                                          imageUrl:
-                                              'https://pencilbox.edu.bd/${courseModelList[index].trainingImage}',
-                                          placeholder: (context, url) =>
-                                              const Center(
-                                                  child:
-                                                      CircularProgressIndicator()),
-                                          errorWidget: (context, url, error) =>
-                                              Image.asset(
-                                                  'images/placeholder.png',
-                                                  fit: BoxFit.fill,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      3),
+                                          fit: BoxFit.fill,
                                         ),
                                       ),
                                     ),
@@ -193,7 +119,9 @@ class _CoursePageState extends State<CoursePage> {
                                                           const EdgeInsets.only(
                                                               right: 15),
                                                       child: Text(
-                                                        courseModelList[index]
+                                                        courseProvider
+                                                            .rplCourseList[
+                                                                index]
                                                             .trainingName!,
                                                         style:
                                                             GoogleFonts.poppins(
@@ -207,7 +135,8 @@ class _CoursePageState extends State<CoursePage> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      trainerName,
+                                                      trainerProvider
+                                                          .trainerName!,
                                                       style:
                                                           GoogleFonts.poppins(
                                                         fontSize: 14,
@@ -217,6 +146,67 @@ class _CoursePageState extends State<CoursePage> {
                                                             Color(0xff716F6F),
                                                       ),
                                                     ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      '${courseProvider.rplCourseList[index].trainingPrice!.toString()}/-BDT',
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                              color: Colors.red,
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                    ),
+                                                    ElevatedButton(
+                                                        style: ButtonStyle(
+                                                            backgroundColor: MaterialStateProperty.all(DateTime.parse(courseProvider
+                                                                        .rplCourseList[
+                                                                            index]
+                                                                        .startDate!)
+                                                                    .isAfter(
+                                                                        DateTime
+                                                                            .now())
+                                                                ? Colors.red
+                                                                : Colors.grey)),
+                                                        onPressed: () {
+                                                          Navigator.of(context).pushNamed(
+                                                              'course_module_page',
+                                                              arguments:
+                                                                  courseProvider
+                                                                          .rplCourseList[
+                                                                      index]);
+                                                        },
+                                                        child: Container(
+                                                          width: 45,
+                                                          child: FittedBox(
+                                                            child: Text(
+                                                              DateTime.parse(courseProvider
+                                                                          .rplCourseList[
+                                                                              index]
+                                                                          .startDate!)
+                                                                      .isAfter(
+                                                                          DateTime
+                                                                              .now())
+                                                                  ? 'Apply'
+                                                                  : "Show Details",
+                                                              style: GoogleFonts
+                                                                  .poppins(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w300,
+                                                                color:
+                                                                    Colors.white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ))
                                                   ],
                                                 ),
                                                 Row(
@@ -236,13 +226,13 @@ class _CoursePageState extends State<CoursePage> {
                                                           width: 2,
                                                         ),
                                                         Text(
-                                                          '${courseModelList[index].hours} h',
+                                                          '${courseProvider.rplCourseList[index].hours} h',
                                                           style: GoogleFonts
                                                               .poppins(
                                                             fontSize: 12,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xff808080),
                                                           ),
                                                         ),
@@ -263,7 +253,8 @@ class _CoursePageState extends State<CoursePage> {
                                                           HelperMethod.getDateFormat(
                                                               'dd-MM-yyyy',
                                                               DateTime.parse(
-                                                                  courseModelList[
+                                                                  courseProvider
+                                                                      .rplCourseList[
                                                                           index]
                                                                       .startDate!)),
                                                           style: GoogleFonts
@@ -271,7 +262,7 @@ class _CoursePageState extends State<CoursePage> {
                                                             fontSize: 12,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xff808080),
                                                           ),
                                                         ),
@@ -302,12 +293,12 @@ class _CoursePageState extends State<CoursePage> {
                                   ],
                                 ),
                               ),
-                            ),
-                          );
-                        }),
+                            );
+                          }),
+                    ),
                   ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -47,7 +47,7 @@ class _FavoritePageState extends State<FavoritePage> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(19),
                               child: Image.asset(
-                                'images/photo.jpg',
+                                'images/placeholder.png',
                                 height: MediaQuery.of(context).size.width / 3,
                                 fit: BoxFit.cover,
                               ),

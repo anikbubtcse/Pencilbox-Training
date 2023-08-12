@@ -144,15 +144,22 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                   const SizedBox(
                     height: 20,
                   ),
-                  HomePageDrawerRow("images/workshops.svg", 'Workshops'),
+                  InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('dashboard_page');
+                      },
+                      child: isLoggedIn == false
+                          ? Container()
+                          : HomePageDrawerRow(
+                              "images/workshops.svg", 'Dashboard')),
                   const SizedBox(
                     height: 20,
                   ),
-                  HomePageDrawerRow("images/rpl.svg", 'RPL'),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  HomePageDrawerRow("images/courses.svg", 'SEIP'),
+                  InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('rpl_page');
+                      },
+                      child: HomePageDrawerRow("images/rpl.svg", 'RPL')),
                   const SizedBox(
                     height: 20,
                   ),
@@ -188,12 +195,17 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                               color: Color(0xff000000)),
                         ),
                         children: [
-                          Text(
-                            'About us',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xff000000)),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushNamed('about_us_page');
+                            },
+                            child: Text(
+                              'About us',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xff000000)),
+                            ),
                           ),
                           const SizedBox(
                             height: 8,
@@ -213,12 +225,17 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                           const SizedBox(
                             height: 8,
                           ),
-                          Text(
-                            'Event',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xff000000)),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushNamed('event_page');
+                            },
+                            child: Text(
+                              'Event',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xff000000)),
+                            ),
                           ),
                           const SizedBox(
                             height: 8,
