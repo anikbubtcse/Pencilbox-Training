@@ -10,6 +10,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
 
+import '../custom/home_page_drawer.dart';
+import '../custom/main_app_bar.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -59,50 +62,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF0F0F0),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xffFFFFFF),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: isLoggedIn == 'false' || isLoggedIn == ''
-                ? const Padding(padding: EdgeInsets.only(right: 10))
-                : InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed('edit_profile_page');
-                    },
-                    child: InkWell(
-                        onTap: () {
-                          ArtSweetAlert.show(
-                              barrierDismissible: false,
-                              context: context,
-                              artDialogArgs: ArtDialogArgs(
-                                title: "Do you want to edit your profile?",
-                                confirmButtonText: "Yes",
-                                denyButtonText: "No",
-                                type: ArtSweetAlertType.warning,
-                                onDeny: () {
-                                  Navigator.of(context).pop();
-                                },
-                                onConfirm: () {
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context)
-                                      .pushNamed('edit_profile_page');
-                                },
-                              ));
-                        },
-                        child: SvgPicture.asset('images/drawer.svg'))),
-          )
-        ],
-        centerTitle: true,
-        title: Text(
-          'Profile',
-          style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: const Color(0xff878787)),
-        ),
-      ),
+      appBar: MainAppBar(title: 'Profile'),
+      drawer: HomePageDrawer(),
       body: isLoggedIn == ''
           ? const Center(
               child: CircularProgressIndicator(),

@@ -7,7 +7,7 @@ class EventProvider extends ChangeNotifier {
   List<EventCategory> eventCategoryList = [];
   List<Events> categoryWiseEventList = [];
 
-  getEvents() async {
+  Future<void> getEvents() async {
     final data = await EventService.getEventService();
 
     if (data != null) {

@@ -40,11 +40,12 @@ class _LandingPageState extends State<LandingPage> {
       courseProvider.getCourseServiceData();
       blogProvider.getPopularBlogServiceData();
       blogProvider.getArchivesBlogServiceData();
+
       eventProvider.getEvents();
       callOnce = false;
     }
 
-    timer = Timer(const Duration(seconds: 7), () {
+    timer = Timer(const Duration(seconds: 4), () {
       Navigator.of(context, rootNavigator: true)
           .pushReplacementNamed('bottom_nav_screen');
     });
@@ -70,7 +71,7 @@ class _LandingPageState extends State<LandingPage> {
               size: 135,
               backStrokeWidth: 0,
               mergeMode: true,
-              animationDuration: 4,
+              animationDuration: 3,
             ),
             CircleAvatar(
               backgroundColor: Colors.transparent,

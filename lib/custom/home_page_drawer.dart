@@ -46,11 +46,12 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width / 1.2,
+    return SafeArea(
       child: Drawer(
+        width: MediaQuery.sizeOf(context).width/1.3,
         child: Container(
             margin: EdgeInsets.only(top: 40, left: 25),
+            width: 200,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
