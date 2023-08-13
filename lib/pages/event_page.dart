@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:screen_design/provider/blog_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:screen_design/models/event_model.dart';
 import '../helper/helper_method.dart';
 import '../provider/event_provider.dart';
 
@@ -250,7 +250,9 @@ class _EventPageState extends State<EventPage> {
                                     ),
                                     ElevatedButton(
                                         onPressed: () {
-                                          //Navigator.of(context).pushNamed();
+                                          Navigator.of(context).pushNamed(
+                                              'event_details_page',
+                                              arguments: eventProvider.categoryWiseEventList[index]);
                                         },
                                         style: ButtonStyle(
                                             shape: MaterialStateProperty.all(

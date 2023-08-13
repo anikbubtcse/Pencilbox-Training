@@ -241,32 +241,33 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                           const SizedBox(
                             height: 8,
                           ),
-                          Text(
-                            'Career',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xff000000)),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushNamed('career_page');
+                            },
+                            child: Text(
+                              'Career',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xff000000)),
+                            ),
                           ),
                           const SizedBox(
                             height: 8,
                           ),
-                          Text(
-                            'Image album',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xff000000)),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            'Our Vision & Mission',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xff000000)),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed('mission_vision_page');
+                            },
+                            child: Text(
+                              'Our Vision & Mission',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xff000000)),
+                            ),
                           ),
                           const SizedBox(
                             height: 8,
