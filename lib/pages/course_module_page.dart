@@ -7,7 +7,6 @@ import 'package:screen_design/provider/course_module_provider.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:screen_design/provider/trainer_provider.dart';
 
-
 class CourseModulePage extends StatefulWidget {
   @override
   State<CourseModulePage> createState() => _CourseModulePageState();
@@ -17,8 +16,6 @@ class _CourseModulePageState extends State<CourseModulePage> {
   CourseModel? courseModel;
   late CourseModuleProvider provider;
   bool callOnce = true;
-
-  //bool isExpanded = false;
 
   @override
   void didChangeDependencies() {
@@ -273,11 +270,11 @@ class _CourseModulePageState extends State<CourseModulePage> {
                     height: 15,
                   ),
                   provider.filteredModulesByTrainingIdList.isEmpty
-                      ? CircularProgressIndicator(
+                      ? const CircularProgressIndicator(
                           color: Colors.black,
                         )
                       : ExpansionPanelList(
-                          animationDuration: Duration(milliseconds: 500),
+                          animationDuration: const Duration(milliseconds: 500),
                           expansionCallback: (panelIndex, isExpanded) {
                             provider.filteredModulesByTrainingIdList[panelIndex]
                                 .isExpanded = !isExpanded;
@@ -290,11 +287,14 @@ class _CourseModulePageState extends State<CourseModulePage> {
                                 canTapOnHeader: true,
                                 headerBuilder: (context, isExpanded) {
                                   return ListTile(
-                                    title: Html(data: module.moduleName),
+                                    title: Html(
+                                        data: module.moduleName ?? 'Module'),
                                   );
                                 },
                                 body: ListTile(
-                                  title: Html(data: module.moduleDesc),
+                                  title: Html(
+                                      data: module.moduleDesc ??
+                                          'Nothing found!'),
                                 ));
                           }).toList(),
                         ),
@@ -324,7 +324,7 @@ class _CourseModulePageState extends State<CourseModulePage> {
                             border: Border.all(color: Colors.amber, width: 5)),
                         child: Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Container(
@@ -337,7 +337,7 @@ class _CourseModulePageState extends State<CourseModulePage> {
                                   backgroundImage: NetworkImage(
                                       'https://pencilbox.edu.bd/${provider.trainerImage!}')),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(

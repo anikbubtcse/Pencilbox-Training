@@ -1,4 +1,10 @@
 class HelperConstant {
+  static const int UPCOMINGCOURSE = 0;
+  static const int ONGOINGCOURSE = 1;
+  static const int COLLABORATEDCOURSE = 2;
+  static const int OLDCOURSE = 3;
+  static const int FULLCOURSE = 4;
+
   static const List<String> imageLink = [
     'https://www.pencilbox.edu.bd/batch-images/main/63ee10c84b80b-2023-Feb-Thu-11-17-28.Online%20Course%20on%20Excel%20Essentials.webp',
     'https://www.pencilbox.edu.bd/batch-images/main/6478949463901-2023-Jun-Thu-12-52-36.full-stack-flutter-banner.webp',

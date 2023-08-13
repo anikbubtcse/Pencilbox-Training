@@ -7,10 +7,10 @@ import 'package:screen_design/provider/trainer_provider.dart';
 import 'package:screen_design/provider/course_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import '../custom/main_app_bar.dart';
 import '../helper/helper_constant.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../provider/blog_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,36 +34,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffF0F0F0),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: Image.asset(
-                'images/pencilbox.png',
-                height: 32,
-                width: 32,
-              ),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 15),
-            child: InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed('notification_page');
-                },
-                child: const Icon(
-                  (Icons.notifications_none_outlined),
-                  size: 30,
-                )),
-          )
-        ],
-      ),
+      appBar: MainAppBar(title: ''),
       drawer: HomePageDrawer(),
       body: ListView(
         padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
@@ -115,7 +86,7 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 'Categories',
                 style: GoogleFonts.poppins(
-                    fontSize: 20, fontWeight: FontWeight.w500),
+                    fontSize: 18, fontWeight: FontWeight.w500),
               )),
           const SizedBox(
             height: 10,
@@ -184,7 +155,7 @@ class _HomePageState extends State<HomePage> {
               Text(
                 'Upcoming Courses',
                 style: GoogleFonts.poppins(
-                    fontSize: 20, fontWeight: FontWeight.w500),
+                    fontSize: 18, fontWeight: FontWeight.w500),
               ),
               Text(
                 'See all',
@@ -200,7 +171,7 @@ class _HomePageState extends State<HomePage> {
               : Container(
                   height:
                       MediaQuery.of(context).orientation == Orientation.portrait
-                          ? MediaQuery.of(context).size.width / 1.5
+                          ? MediaQuery.of(context).size.width / 1.4
                           : MediaQuery.of(context).size.width / 1.9,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -216,89 +187,90 @@ class _HomePageState extends State<HomePage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Stack(
-                                children: [
-                                  AspectRatio(
-                                    aspectRatio: 2 / 1,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(19),
-                                      child: CachedNetworkImage(
-                                        fit: BoxFit.cover,
-                                        imageUrl:
-                                            'https://pencilbox.edu.bd/${courseProvider.upcomingCourseList[index].trainingImage!}',
-                                        placeholder: (context, url) =>
-                                            const Center(
-                                                child:
-                                                    CircularProgressIndicator()),
-                                        errorWidget: (context, url, error) =>
-                                            Image.asset(
-                                          'images/placeholder.png',
+                              Container(
+                                height: MediaQuery.of(context).size.width / 2.5,
+                                child: Stack(
+                                  children: [
+                                    AspectRatio(
+                                      aspectRatio: 2 / 1,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(19),
+                                        child: CachedNetworkImage(
                                           fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                      top: 0,
-                                      right: 0,
-                                      child: CircleAvatar(
-                                        radius: 12,
-                                        backgroundColor:
-                                            Colors.grey.withOpacity(0.5),
-                                        child: const Icon(
-                                          Icons.favorite_border,
-                                          color: Colors.black,
-                                          size: 20,
-                                        ),
-                                      )),
-                                  Consumer<TrainerProvider>(builder:
-                                      (BuildContext context, value,
-                                          Widget? child) {
-                                    value.getTrainerDetails(courseProvider
-                                        .upcomingCourseList[index].trainerId!);
-
-                                    return Positioned(
-                                      bottom: 0,
-                                      left: 0,
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20.5)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(3.0),
-                                          child: Row(
-                                            children: [
-                                              ClipOval(
-                                                child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      'https://pencilbox.edu.bd/${value.trainerImage}',
-                                                  placeholder: (context, url) =>
-                                                      CircularProgressIndicator(),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Icon(Icons.error),
-                                                  height: 30,
-                                                  width: 30,
-                                                ),
-                                              ),
-                                              const SizedBox(width: 5),
-                                              Text(
-                                                value.trainerName ?? " ",
-                                                style: GoogleFonts.poppins(
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.normal),
-                                              ),
-                                            ],
+                                          imageUrl:
+                                              'https://pencilbox.edu.bd/${courseProvider.upcomingCourseList[index].trainingImage!}',
+                                          placeholder: (context, url) =>
+                                              const Center(
+                                                  child:
+                                                      CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              Image.asset(
+                                            'images/placeholder.png',
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
-                                    );
-                                  }),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 15,
+                                    ),
+                                    Positioned(
+                                        top: 0,
+                                        right: 0,
+                                        child: CircleAvatar(
+                                          radius: 12,
+                                          backgroundColor:
+                                              Colors.grey.withOpacity(0.5),
+                                          child: const Icon(
+                                            Icons.favorite_border,
+                                            color: Colors.black,
+                                            size: 20,
+                                          ),
+                                        )),
+                                    Consumer<TrainerProvider>(builder:
+                                        (BuildContext context, provider, child) {
+                                      provider.getTrainerDetails(courseProvider
+                                          .upcomingCourseList[index]
+                                          .trainerId!);
+
+                                      return Positioned(
+                                        bottom: 0,
+                                        left: 0,
+                                        child: Card(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.5)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(3.0),
+                                            child: Row(
+                                              children: [
+                                                ClipOval(
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        'https://pencilbox.edu.bd/${provider.trainerImage}',
+                                                    placeholder: (context,
+                                                            url) =>
+                                                        CircularProgressIndicator(),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Icon(Icons.error),
+                                                    height: 30,
+                                                    width: 30,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 5),
+                                                Text(
+                                                  provider.trainerName ?? " ",
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.normal),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                                  ],
+                                ),
                               ),
                               FittedBox(
                                 child: Text(
