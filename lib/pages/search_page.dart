@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:screen_design/custom/main_app_bar.dart';
 
+import '../custom/home_page_drawer.dart';
 import '../provider/course_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -37,6 +39,8 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF0F0F0),
+      appBar: MainAppBar(title: 'Search Page',),
+      drawer: HomePageDrawer(),
       body: SafeArea(
         child: Container(
             padding:

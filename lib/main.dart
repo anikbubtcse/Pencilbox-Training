@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:screen_design/pages/about_us_page.dart';
+import 'package:screen_design/pages/apply_course.dart';
 import 'package:screen_design/pages/blog_list_page.dart';
 import 'package:screen_design/pages/bottom_nav_page.dart';
 import 'package:screen_design/pages/career_details_page.dart';
@@ -15,8 +16,10 @@ import 'package:screen_design/pages/dashboard_page.dart';
 import 'package:screen_design/pages/edit_profile_page.dart';
 import 'package:screen_design/pages/event_details_page.dart';
 import 'package:screen_design/pages/event_page.dart';
+import 'package:screen_design/pages/faq_page.dart';
 import 'package:screen_design/pages/forgot_password_page.dart';
 import 'package:screen_design/pages/home_page.dart';
+import 'package:screen_design/pages/industrial_attachment.dart';
 import 'package:screen_design/pages/landing_page.dart';
 import 'package:screen_design/pages/login_page.dart';
 import 'package:screen_design/pages/course_page.dart';
@@ -39,13 +42,14 @@ import 'package:screen_design/provider/blog_provider.dart';
 import 'package:screen_design/provider/career_provider.dart';
 import 'package:screen_design/provider/course_module_provider.dart';
 import 'package:screen_design/provider/event_provider.dart';
+import 'package:screen_design/provider/faq_provider.dart';
 import 'package:screen_design/provider/trainer_provider.dart';
 import 'package:screen_design/provider/course_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screen_design/provider/user_provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+//final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -57,6 +61,7 @@ void main() {
     ChangeNotifierProvider(create: (_) => UserProvider()),
     ChangeNotifierProvider(create: (_) => EventProvider()),
     ChangeNotifierProvider(create: (_) => CareerProvider()),
+    ChangeNotifierProvider(create: (_) => FaqProvider()),
   ], child: MyApp()));
 }
 
@@ -68,7 +73,7 @@ class MyApp extends StatelessWidget {
           MediaQuery.of(context).size.height),
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
-          navigatorKey: navigatorKey,
+          //navigatorKey: navigatorKey,
           debugShowCheckedModeBanner: false,
           builder: EasyLoading.init(),
           title: 'Flutter Demo',
@@ -118,6 +123,9 @@ class MyApp extends StatelessWidget {
             'career_page': (_) => CareerPage(),
             'career_details_page': (_) => CareerDetailsPage(),
             'mission_vision_page': (_) => MissionVisionPage(),
+            'faq_page': (_) => FaqPage(),
+            'industrial_attachment_page': (_) => IndustrialAttachmentPage(),
+            'apply_course_page': (_) => ApplyCoursePage(),
           },
         );
       },
