@@ -8,6 +8,7 @@ import 'package:screen_design/pages/bottom_nav_page.dart';
 import 'package:screen_design/pages/career_details_page.dart';
 import 'package:screen_design/pages/career_page.dart';
 import 'package:screen_design/pages/category_detail_page.dart';
+import 'package:screen_design/pages/checkout_page.dart';
 import 'package:screen_design/pages/code_verification_page.dart';
 import 'package:screen_design/pages/contact_page.dart';
 import 'package:screen_design/pages/course_module_page.dart';
@@ -49,8 +50,6 @@ import 'package:provider/provider.dart';
 import 'package:screen_design/provider/user_provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-//final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => CourseProvider()),
@@ -61,10 +60,7 @@ void main() {
     ChangeNotifierProvider(create: (_) => UserProvider()),
     ChangeNotifierProvider(create: (_) => EventProvider()),
     ChangeNotifierProvider(create: (_) => CareerProvider()),
-
     ChangeNotifierProvider(create: (_) => FaqProvider()),
-
-
   ], child: MyApp()));
 }
 
@@ -126,12 +122,10 @@ class MyApp extends StatelessWidget {
             'career_page': (_) => CareerPage(),
             'career_details_page': (_) => CareerDetailsPage(),
             'mission_vision_page': (_) => MissionVisionPage(),
-
             'faq_page': (_) => FaqPage(),
             'industrial_attachment_page': (_) => IndustrialAttachmentPage(),
             'apply_course_page': (_) => ApplyCoursePage(),
-
-
+            'checkout_page': (_) => CheckoutPage(),
           },
         );
       },
