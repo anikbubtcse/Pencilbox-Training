@@ -23,6 +23,7 @@ class _LandingPageState extends State<LandingPage> {
   late BlogProvider blogProvider;
   late EventProvider eventProvider;
   late CareerProvider careerProvider;
+
   late FaqProvider faqProvider;
   late TrainerProvider trainerProvider;
   late CourseModuleProvider courseModuleProvider;
@@ -43,9 +44,11 @@ class _LandingPageState extends State<LandingPage> {
     blogProvider = Provider.of(context);
     eventProvider = Provider.of(context);
     careerProvider = Provider.of(context);
+
     faqProvider = Provider.of(context);
     trainerProvider = Provider.of(context);
     courseModuleProvider = Provider.of(context);
+
     if (callOnce) {
       blogProvider.getLatestBlogServiceData();
       blogProvider.getBlogCategoryServiceData();

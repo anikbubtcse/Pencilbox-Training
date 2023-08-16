@@ -61,7 +61,10 @@ void main() {
     ChangeNotifierProvider(create: (_) => UserProvider()),
     ChangeNotifierProvider(create: (_) => EventProvider()),
     ChangeNotifierProvider(create: (_) => CareerProvider()),
+
     ChangeNotifierProvider(create: (_) => FaqProvider()),
+
+
   ], child: MyApp()));
 }
 
@@ -123,9 +126,12 @@ class MyApp extends StatelessWidget {
             'career_page': (_) => CareerPage(),
             'career_details_page': (_) => CareerDetailsPage(),
             'mission_vision_page': (_) => MissionVisionPage(),
+
             'faq_page': (_) => FaqPage(),
             'industrial_attachment_page': (_) => IndustrialAttachmentPage(),
             'apply_course_page': (_) => ApplyCoursePage(),
+
+
           },
         );
       },
