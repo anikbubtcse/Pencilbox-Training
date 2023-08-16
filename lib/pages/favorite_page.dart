@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../custom/home_page_drawer.dart';
+import '../custom/main_app_bar.dart';
+
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
 
@@ -13,18 +16,8 @@ class _FavoritePageState extends State<FavoritePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF0F0F0),
-      appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: const Color(0xffFFFFFF),
-        centerTitle: true,
-        title: Text(
-          'Favorite',
-          style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: const Color(0xff878787)),
-        ),
-      ),
+      appBar: MainAppBar(title: 'Favorite'),
+      drawer: HomePageDrawer(),
       body: Column(
         children: [
           Expanded(

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:screen_design/custom/main_app_bar.dart';
+import 'package:screen_design/helper/helper_constant.dart';
 import 'package:screen_design/models/course_model.dart';
 import 'package:screen_design/provider/course_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screen_design/provider/trainer_provider.dart';
+import '../custom/home_page_drawer.dart';
 import '../helper/helper_method.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -36,40 +39,30 @@ class _CoursePageState extends State<CoursePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (check == 0) {
+    if (check == HelperConstant.UPCOMINGCOURSE) {
       courseModelList = courseProvider.upcomingCourseList;
       print(courseModelList.length);
     }
 
-    if (check == 1) {
+    if (check == HelperConstant.ONGOINGCOURSE) {
       courseModelList = courseProvider.ongoingCoursesList;
     }
 
-    if (check == 2) {
+    if (check == HelperConstant.COLLABORATEDCOURSE) {
       courseModelList = courseProvider.collaboratedCourseList;
     }
 
-    if (check == 3) {
+    if (check == HelperConstant.OLDCOURSE) {
       courseModelList = courseProvider.oldCoursesList;
     }
 
-    if (check == 4) {
+    if (check == HelperConstant.FULLCOURSE) {
       courseModelList = courseProvider.fullCourseList;
     }
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xffFFFFFF),
-        centerTitle: true,
-        title: Text(
-          'Courses',
-          style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: const Color(0xff878787)),
-        ),
-      ),
+      appBar: MainAppBar(title: 'Course'),
+      drawer: HomePageDrawer(),
       body: Container(
         margin: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
         child: Column(
@@ -90,7 +83,9 @@ class _CoursePageState extends State<CoursePage> {
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(19),
-                            border: check == index? Border.all(color: Colors.red):Border.all(color: Color(0xffDDDDDD))),
+                            border: check == index
+                                ? Border.all(color: Colors.red)
+                                : Border.all(color: Color(0xffDDDDDD))),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(

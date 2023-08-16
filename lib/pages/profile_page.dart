@@ -10,6 +10,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
 
+import '../custom/home_page_drawer.dart';
+import '../custom/main_app_bar.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -60,8 +63,29 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: const Color(0xffF0F0F0),
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xffFFFFFF),
+        backgroundColor: Colors.white,
+        title: Text(
+          'Profile',
+          style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xff878787)),
+        ),
+        centerTitle: true,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: Image.asset(
+                'images/pencilbox.png',
+                height: 32,
+                width: 32,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20),
@@ -94,15 +118,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: SvgPicture.asset('images/drawer.svg'))),
           )
         ],
-        centerTitle: true,
-        title: Text(
-          'Profile',
-          style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: const Color(0xff878787)),
-        ),
       ),
+      drawer: HomePageDrawer(),
       body: isLoggedIn == ''
           ? const Center(
               child: CircularProgressIndicator(),

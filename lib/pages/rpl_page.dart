@@ -4,6 +4,7 @@ import 'package:screen_design/provider/course_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screen_design/provider/trainer_provider.dart';
 import 'package:screen_design/provider/user_provider.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import '../helper/helper_method.dart';
 
@@ -163,9 +164,29 @@ class _RPLPageState extends State<RPLPage> {
                                                                   FontWeight
                                                                       .w500),
                                                     ),
-                                                    ElevatedButton(
-                                                        style: ButtonStyle(
-                                                            backgroundColor: MaterialStateProperty.all(DateTime.parse(courseProvider
+                                                    InkWell(
+                                                      onTap: () {
+                                                        Navigator.of(context).pushNamed(
+                                                            'course_module_page',
+                                                            arguments:
+                                                                courseProvider
+                                                                        .rplCourseList[
+                                                                    index]);
+                                                      },
+                                                      child: Container(
+                                                        width: 75,
+                                                        decoration: BoxDecoration(
+                                                            boxShadow: const [
+                                                              BoxShadow(
+                                                                  color: Colors
+                                                                      .black54,
+                                                                  blurRadius: 3,
+                                                                  offset:
+                                                                      Offset(
+                                                                          0.0,
+                                                                          0.25))
+                                                            ],
+                                                            color: DateTime.parse(courseProvider
                                                                         .rplCourseList[
                                                                             index]
                                                                         .startDate!)
@@ -173,40 +194,45 @@ class _RPLPageState extends State<RPLPage> {
                                                                         DateTime
                                                                             .now())
                                                                 ? Colors.red
-                                                                : Colors.grey)),
-                                                        onPressed: () {
-                                                          Navigator.of(context).pushNamed(
-                                                              'course_module_page',
-                                                              arguments:
-                                                                  courseProvider
-                                                                          .rplCourseList[
-                                                                      index]);
-                                                        },
-                                                        child: Container(
-                                                          width: 45,
-                                                          child: FittedBox(
-                                                            child: Text(
-                                                              DateTime.parse(courseProvider
-                                                                          .rplCourseList[
-                                                                              index]
-                                                                          .startDate!)
-                                                                      .isAfter(
-                                                                          DateTime
-                                                                              .now())
-                                                                  ? 'Apply'
-                                                                  : "Show Details",
-                                                              style: GoogleFonts
-                                                                  .poppins(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                                color:
-                                                                    Colors.white,
-                                                              ),
+                                                                : Colors.grey,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5)),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 8,
+                                                                  right: 8,
+                                                                  top: 5,
+                                                                  bottom: 5),
+                                                          child: AutoSizeText(
+                                                            DateTime.parse(courseProvider
+                                                                        .rplCourseList[
+                                                                            index]
+                                                                        .startDate!)
+                                                                    .isAfter(
+                                                                        DateTime
+                                                                            .now())
+                                                                ? 'Apply'
+                                                                : "Details",
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
                                                             ),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            maxLines: 1,
                                                           ),
-                                                        ))
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
                                                 Row(

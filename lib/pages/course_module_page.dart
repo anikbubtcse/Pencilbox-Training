@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:screen_design/helper/helper_method.dart';
 import 'package:screen_design/models/course_model.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:provider/provider.dart';
+import 'package:screen_design/models/trainer_model.dart';
 import 'package:screen_design/provider/course_module_provider.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:screen_design/provider/trainer_provider.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:expansion_tile_card/expansion_tile_card.dart';
 
 class CourseModulePage extends StatefulWidget {
   @override
@@ -14,20 +16,21 @@ class CourseModulePage extends StatefulWidget {
 }
 
 class _CourseModulePageState extends State<CourseModulePage> {
-  CourseModel? courseModel;
-  late CourseModuleProvider provider;
+  late CourseModel courseModel;
+  late TrainerModel trainerModel;
+  late CourseModuleProvider courseModuleProvider;
+  late TrainerProvider trainerProvider;
   bool callOnce = true;
-
-  //bool isExpanded = false;
 
   @override
   void didChangeDependencies() {
     courseModel = ModalRoute.of(context)?.settings.arguments as CourseModel;
-    provider = Provider.of(context, listen: true);
+    courseModuleProvider = Provider.of(context, listen: true);
+    trainerProvider = Provider.of(context);
     if (callOnce) {
-      provider.getCourseModuleServiceData().then((value) {
-        provider.getFilteredCourseModuleList(courseModel!.trainingId!);
-      });
+      courseModuleProvider.getFilteredCourseModuleList(courseModel.trainingId!);
+      trainerModel =
+          trainerProvider.getTrainerInfoByTrainingId(courseModel.trainerId!);
       callOnce = false;
     }
     super.didChangeDependencies();
@@ -37,325 +40,262 @@ class _CourseModulePageState extends State<CourseModulePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: const Color(0xff2E5A88),
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.class_outlined,
-              color: Colors.white,
-            ),
-            SizedBox(
-              width: 3,
-            ),
-            Text(
-              'Course details',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            )
-          ],
-        ),
+        iconTheme: const IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: double.infinity,
-              height: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Image.asset(
-                    'images/pencilbox_logo.png',
-                    width: 180,
-                    height: 90,
-                  ),
-                  const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.person),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Text('Profile')
-                    ],
-                  )
-                ],
-              ),
-            ),
-            Container(
-              height: 200,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.fitHeight,
-                      colorFilter: ColorFilter.mode(
-                          Colors.black.withOpacity(0.2), BlendMode.darken),
-                      image: const AssetImage('images/details_bg.png'))),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 25, right: 25, top: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AutoSizeText(
-                      courseModel!.trainingName!,
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.date_range,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(
-                          width: 3,
-                        ),
-                        Text(
-                          'Start Date: ${HelperMethod.getDateFormat('dd/MM/yyyy', DateTime.parse(courseModel!.startDate!))}',
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ],
-                    ),
-                    Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.access_time_filled,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(
-                          width: 3,
-                        ),
-                        Text(
-                          'End Date: ${HelperMethod.getDateFormat('dd/MM/yyyy', DateTime.parse(courseModel!.endDate!))}',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.class_outlined,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(
-                          width: 3,
-                        ),
-                        Text(
-                          'No of classes/Sessions: ${courseModel!.classNo}',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.schedule_outlined,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(
-                          width: 3,
-                        ),
-                        Text(
-                          'Registration deadline: ${HelperMethod.getDateFormat('dd/MM/yyyy', DateTime.parse(courseModel!.lastDate!))}',
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.person,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(
-                          width: 3,
-                        ),
-                        Text(
-                          'Batch No: ${courseModel!.batchId}',
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ],
+            Stack(
+              children: [
+                Container(
+                  height: 300,
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
+                CachedNetworkImage(
+                  height: MediaQuery.of(context).size.height / 3,
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.fill,
+                  imageUrl:
+                      'https://pencilbox.edu.bd/${courseModel.trainingImage!}',
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) =>
+                      Image.asset('images/placeholder.png'),
+                ),
+                Positioned(
+                  bottom: 18,
+                  left: 15,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(19)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(3),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ClipOval(
+                            child: CachedNetworkImage(
+                              height: 40,
+                              width: 40,
+                              imageUrl:
+                                  'https://pencilbox.edu.bd/${trainerModel.trainerImage}',
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Image.asset('images/placeholder.png'),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            trainerModel.trainerName!,
+                            style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ClipRRect(
-                    child: Image.network(
-                      'https://pencilbox.edu.bd/${courseModel!.mainImage!}',
-                      fit: BoxFit.contain,
-                      height: 200,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      'INTRODUCTION',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                  Text(
+                    courseModel.trainingName!,
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black),
                   ),
                   const SizedBox(
                     height: 15,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 8),
-                    child: Html(
-                      data: courseModel!.trainingShortDesc!,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      'Prerequisites',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Html(
-                      data: courseModel!.preRequisite!,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      'Training Modules',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  provider.filteredModulesByTrainingIdList.isEmpty
-                      ? CircularProgressIndicator(
-                          color: Colors.black,
-                        )
-                      : ExpansionPanelList(
-                          animationDuration: Duration(milliseconds: 500),
-                          expansionCallback: (panelIndex, isExpanded) {
-                            provider.filteredModulesByTrainingIdList[panelIndex]
-                                .isExpanded = !isExpanded;
-                            setState(() {});
-                          },
-                          children: provider.filteredModulesByTrainingIdList
-                              .map((module) {
-                            return ExpansionPanel(
-                                isExpanded: module.isExpanded ?? false,
-                                canTapOnHeader: true,
-                                headerBuilder: (context, isExpanded) {
-                                  return ListTile(
-                                    title: Html(data: module.moduleName),
-                                  );
-                                },
-                                body: ListTile(
-                                  title: Html(data: module.moduleDesc),
-                                ));
-                          }).toList(),
-                        ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      'Reviews',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Consumer<TrainerProvider>(
-                    builder: (BuildContext context, provider, Widget? child) {
-                      provider.getTrainerDetails(courseModel!.trainerId!);
-                      return Container(
-                        height: 300,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.amber, width: 5)),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                      color: Colors.amber, width: 2)),
-                              child: CircleAvatar(
-                                  radius: 60,
-                                  backgroundImage: NetworkImage(
-                                      'https://pencilbox.edu.bd/${provider.trainerImage!}')),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Trainer',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              provider.trainerName!.toUpperCase(),
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                'images/timer.png',
+                                color: Colors.grey,
+                                height: 15,
                               ),
-                            ),
-                          ],
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                '${courseModel.hours.toString()}h',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                'images/technology.png',
+                                color: Colors.grey,
+                                height: 15,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                HelperMethod.getDateFormat('dd-MM-yyyy',
+                                    DateTime.parse(courseModel.startDate!)),
+                                style: GoogleFonts.poppins(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.grey),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          courseModel.trainingPrice! == 0
+                              ? Container()
+                              : Text(
+                                  '${courseModel.trainingPrice!.toString()}/-BDT',
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.red,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          DateTime.parse(courseModel.startDate!)
+                                  .isAfter(DateTime.now())
+                              ? GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                        'apply_course_page',
+                                        arguments: courseModel);
+                                  },
+                                  child: Container(
+                                    width: 75,
+                                    decoration: BoxDecoration(
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              color: Colors.black54,
+                                              blurRadius: 3,
+                                              offset: Offset(0.0, 0.25))
+                                        ],
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8, right: 8, top: 5, bottom: 5),
+                                      child: Text(
+                                        'Apply Now',
+                                        style: GoogleFonts.poppins(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Introduction',
+                    style: GoogleFonts.poppins(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Html(
+                    data: courseModel.trainingShortDesc!,
+                    style: {
+                      'html': Style(textAlign: TextAlign.justify),
+                    },
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Html(
+                    data: 'Prerequisites: ${courseModel.preRequisite!}',
+                    style: {
+                      'html': Style(textAlign: TextAlign.justify),
+                    },
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('Training Modules',
+                      style: GoogleFonts.poppins(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      )),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount:
+                        courseModuleProvider.modulesByTrainingIdList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      print(
+                          'courseModuleProvider.modulesByTrainingIdList[index].moduleName: ${courseModuleProvider.modulesByTrainingIdList[index].moduleName}');
+
+                      return ExpansionTileCard(
+                        title: Text(
+                          courseModuleProvider
+                                  .modulesByTrainingIdList[index].moduleName ??
+                              'Module',
+                          style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black),
                         ),
+                        children: [
+                          Html(
+                            data: courseModuleProvider
+                                    .modulesByTrainingIdList[index]
+                                    .moduleDesc ??
+                                'Not Available',
+                            style: {
+                              "body": Style(
+                                  fontSize: FontSize(12), color: Colors.black),
+                            },
+                          ),
+                        ],
                       );
                     },
                   )

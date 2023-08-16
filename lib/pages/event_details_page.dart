@@ -290,10 +290,16 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: SvgPicture.asset(
+
+                                    'images/linkedin.svg',
+                                    height: 20,
+                                    width: 20,
+
                                     'images/linkedlin.svg',
                                     height: 20,
                                     width: 20,
                                     color: Colors.red,
+
                                   ),
                                 ),
                                 Padding(
@@ -307,7 +313,11 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                                 ),
                               ],
                             ),
+
+                            const SizedBox(
+
                             SizedBox(
+
                               height: 15,
                             ),
                           ],

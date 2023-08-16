@@ -13,6 +13,7 @@ class CourseProvider extends ChangeNotifier {
   List<CourseModel> oldCoursesList = [];
   List<CourseModel> collaboratedCourseList = [];
   List<CourseModel> rplCourseList = [];
+  List<CourseModel> industrialAttachmentList = [];
 
   getCourseServiceData() async {
     oldCoursesList.clear();
@@ -166,6 +167,16 @@ class CourseProvider extends ChangeNotifier {
     });
     rplCourseList.sort((a, b) {
       return b.startDate!.compareTo(a.startDate!);
+    });
+  }
+
+  getIndustrialAttachment() {
+    industrialAttachmentList.clear();
+
+    fullCourseList.forEach((element) {
+      if (element.batchType == "Industrial" && element.status == 1) {
+        industrialAttachmentList.add(element);
+      }
     });
   }
 }

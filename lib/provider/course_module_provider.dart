@@ -1,4 +1,3 @@
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 import '../models/course_module_model.dart';
@@ -6,7 +5,7 @@ import '../service/course_module_service.dart';
 
 class CourseModuleProvider extends ChangeNotifier {
   List<CourseModuleModel> courseModuleList = [];
-  List<CourseModuleModel> filteredModulesByTrainingIdList = [];
+  List<CourseModuleModel> modulesByTrainingIdList = [];
 
   Future<void> getCourseModuleServiceData() async {
     final data = await CourseModuleService.getAllModules();
@@ -18,15 +17,12 @@ class CourseModuleProvider extends ChangeNotifier {
 
   getFilteredCourseModuleList(num id) {
     print('id ${id}');
-    filteredModulesByTrainingIdList.clear();
+    modulesByTrainingIdList.clear();
     courseModuleList.forEach((element) {
       if (element.trainingId.toString() == id.toString()) {
-        filteredModulesByTrainingIdList.add(element);
-        notifyListeners();
+        modulesByTrainingIdList.add(element);
       }
     });
   }
-
-
 
 }
