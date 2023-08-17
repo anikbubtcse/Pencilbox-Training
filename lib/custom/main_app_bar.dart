@@ -33,19 +33,19 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       elevation: 1,
-      actions: [
-        Padding(
-          padding: EdgeInsets.only(right: 15),
-          child: InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed('notification_page');
-              },
-              child: const Icon(
-                (Icons.notifications_none_outlined),
-                size: 30,
-              )),
-        )
-      ],
+      // actions: [
+      //   Padding(
+      //     padding: EdgeInsets.only(right: 15),
+      //     child: InkWell(
+      //         onTap: () {
+      //           Navigator.of(context).pushNamed('notification_page');
+      //         },
+      //         child: const Icon(
+      //           (Icons.notifications_none_outlined),
+      //           size: 30,
+      //         )),
+      //   )
+      // ],
     );
   }
 

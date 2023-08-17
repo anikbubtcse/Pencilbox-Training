@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:screen_design/helper/helper_method.dart';
 import '../provider/user_provider.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 class HomePageDrawer extends StatefulWidget {
   const HomePageDrawer({super.key});
@@ -48,7 +49,7 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Drawer(
-        width: MediaQuery.sizeOf(context).width/1.3,
+        width: MediaQuery.sizeOf(context).width / 1.3,
         child: Container(
             margin: EdgeInsets.only(top: 40, left: 25),
             width: 200,
@@ -67,12 +68,18 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                   Row(
                     children: [
                       isLoggedIn && userProvider.studentInfoModel != null
-                          ? CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  'https://pencilbox.edu.bd/${userProvider.studentInfoModel!.success!.image}'),
-                              radius: 25,
-                              backgroundColor: Colors.black12,
-                            )
+                          ? userProvider.studentInfoModel!.success!.image ==
+                                  null
+                              ? const CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage('images/photo.png'),
+                                )
+                              : CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      'https://pencilbox.edu.bd/${userProvider.studentInfoModel!.success!.image}'),
+                                  radius: 25,
+                                  backgroundColor: Colors.black12,
+                                )
                           : const CircleAvatar(
                               backgroundImage: AssetImage('images/photo.png'),
                               radius: 25,
@@ -162,15 +169,7 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                       },
                       child: HomePageDrawerRow("images/rpl.svg", 'RPL')),
                   const SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed('new_blog_page');
-                      },
-                      child: HomePageDrawerRow("images/blog.svg", 'Blog')),
-                  const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   ListTileTheme(
                       contentPadding: const EdgeInsets.only(
@@ -273,7 +272,10 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                             height: 8,
                           ),
                           InkWell(
-                            onTap: () {Navigator.of(context).pushNamed('industrial_attachment_page');},
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed('industrial_attachment_page');
+                            },
                             child: Text(
                               'Industrial attachment',
                               style: GoogleFonts.poppins(
@@ -286,7 +288,9 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                             height: 8,
                           ),
                           InkWell(
-                            onTap: () {Navigator.of(context).pushNamed('faq_page');},
+                            onTap: () {
+                              Navigator.of(context).pushNamed('faq_page');
+                            },
                             child: Text(
                               'FAQ',
                               style: GoogleFonts.poppins(
@@ -345,7 +349,7 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                         ],
                       )),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   InkWell(
                       onTap: () {
@@ -356,7 +360,13 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                   const SizedBox(
                     height: 20,
                   ),
-                  HomePageDrawerRow("images/rate.svg", 'Rate Us'),
+                  InkWell(
+                      onTap: () {
+                        StoreRedirect.redirect(
+                          androidAppId: "com.pencilbox.training",
+                        );
+                      },
+                      child: HomePageDrawerRow("images/rate.svg", 'Rate Us')),
                   const SizedBox(
                     height: 20,
                   ),
@@ -405,7 +415,6 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
             type: ArtSweetAlertType.warning,
             onConfirm: () async {
               await HelperMethod.userLogOut().then((value) {
-                print(value);
                 Navigator.of(context).pushReplacementNamed('bottom_nav_screen');
               });
             },

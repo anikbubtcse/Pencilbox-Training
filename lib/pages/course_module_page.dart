@@ -40,8 +40,15 @@ class _CourseModulePageState extends State<CourseModulePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xffFFFFFF),
+        centerTitle: true,
+        title: Text(
+          'Course module',
+          style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xff878787)),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -58,12 +65,12 @@ class _CourseModulePageState extends State<CourseModulePage> {
                   fit: BoxFit.fill,
                   imageUrl:
                       'https://pencilbox.edu.bd/${courseModel.trainingImage!}',
-                  placeholder: (context, url) => CircularProgressIndicator(),
+                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) =>
                       Image.asset('images/placeholder.png'),
                 ),
                 Positioned(
-                  bottom: 18,
+                  bottom: 20,
                   left: 15,
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -75,8 +82,8 @@ class _CourseModulePageState extends State<CourseModulePage> {
                         children: [
                           ClipOval(
                             child: CachedNetworkImage(
-                              height: 40,
-                              width: 40,
+                              height: 35,
+                              width: 35,
                               imageUrl:
                                   'https://pencilbox.edu.bd/${trainerModel.trainerImage}',
                               placeholder: (context, url) =>
@@ -144,7 +151,7 @@ class _CourseModulePageState extends State<CourseModulePage> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Row(
@@ -155,7 +162,7 @@ class _CourseModulePageState extends State<CourseModulePage> {
                                 color: Colors.grey,
                                 height: 15,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text(
@@ -215,6 +222,7 @@ class _CourseModulePageState extends State<CourseModulePage> {
                                           fontSize: 10,
                                           fontWeight: FontWeight.w500,
                                         ),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
                                   ),

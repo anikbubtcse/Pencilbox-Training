@@ -214,6 +214,14 @@ class _CoursePageState extends State<CoursePage> {
                                                     ),
                                                   ],
                                                 ),
+                                                Text(
+                                                  '${courseModelList[index].trainingPrice!}/-BDT',
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.red),
+                                                ),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
