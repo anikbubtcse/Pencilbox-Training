@@ -5,7 +5,7 @@ class TermsConditionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF0F0F0),
+        backgroundColor: Color(0xffF0F0F0),
         appBar: AppBar(
           backgroundColor: const Color(0xffFFFFFF),
           centerTitle: true,

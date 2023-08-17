@@ -1,22 +1,23 @@
 class TrainerModel {
   TrainerModel({
-      this.id, 
-      this.trainerName, 
-      this.trainerTitle, 
-      this.trainerTrack, 
-      this.trainerPhone, 
-      this.trainerEmail, 
-      this.trainerAddress, 
-      this.trainerFacebook, 
-      this.trainerTwitter, 
-      this.trainerInstagram, 
-      this.trainerYoutube, 
-      this.trainerLinkdin, 
-      this.trainerBio, 
-      this.trainerImage, 
-      this.status, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.trainerName,
+    this.trainerTitle,
+    this.trainerTrack,
+    this.trainerPhone,
+    this.trainerEmail,
+    this.trainerAddress,
+    this.trainerFacebook,
+    this.trainerTwitter,
+    this.trainerInstagram,
+    this.trainerYoutube,
+    this.trainerLinkdin,
+    this.trainerBio,
+    this.trainerImage,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   TrainerModel.fromJson(dynamic json) {
     id = json['id'];
@@ -37,6 +38,7 @@ class TrainerModel {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   String? trainerName;
   String? trainerTitle;
@@ -54,41 +56,46 @@ class TrainerModel {
   num? status;
   String? createdAt;
   String? updatedAt;
-TrainerModel copyWith({  num? id,
-  String? trainerName,
-  String? trainerTitle,
-  String? trainerTrack,
-  String? trainerPhone,
-  String? trainerEmail,
-  String? trainerAddress,
-  String? trainerFacebook,
-  String? trainerTwitter,
-  String? trainerInstagram,
-  dynamic trainerYoutube,
-  String? trainerLinkdin,
-  String? trainerBio,
-  String? trainerImage,
-  num? status,
-  String? createdAt,
-  String? updatedAt,
-}) => TrainerModel(  id: id ?? this.id,
-  trainerName: trainerName ?? this.trainerName,
-  trainerTitle: trainerTitle ?? this.trainerTitle,
-  trainerTrack: trainerTrack ?? this.trainerTrack,
-  trainerPhone: trainerPhone ?? this.trainerPhone,
-  trainerEmail: trainerEmail ?? this.trainerEmail,
-  trainerAddress: trainerAddress ?? this.trainerAddress,
-  trainerFacebook: trainerFacebook ?? this.trainerFacebook,
-  trainerTwitter: trainerTwitter ?? this.trainerTwitter,
-  trainerInstagram: trainerInstagram ?? this.trainerInstagram,
-  trainerYoutube: trainerYoutube ?? this.trainerYoutube,
-  trainerLinkdin: trainerLinkdin ?? this.trainerLinkdin,
-  trainerBio: trainerBio ?? this.trainerBio,
-  trainerImage: trainerImage ?? this.trainerImage,
-  status: status ?? this.status,
-  createdAt: createdAt ?? this.createdAt,
-  updatedAt: updatedAt ?? this.updatedAt,
-);
+
+  TrainerModel copyWith({
+    num? id,
+    String? trainerName,
+    String? trainerTitle,
+    String? trainerTrack,
+    String? trainerPhone,
+    String? trainerEmail,
+    String? trainerAddress,
+    String? trainerFacebook,
+    String? trainerTwitter,
+    String? trainerInstagram,
+    dynamic trainerYoutube,
+    String? trainerLinkdin,
+    String? trainerBio,
+    String? trainerImage,
+    num? status,
+    String? createdAt,
+    String? updatedAt,
+  }) =>
+      TrainerModel(
+        id: id ?? this.id,
+        trainerName: trainerName ?? this.trainerName,
+        trainerTitle: trainerTitle ?? this.trainerTitle,
+        trainerTrack: trainerTrack ?? this.trainerTrack,
+        trainerPhone: trainerPhone ?? this.trainerPhone,
+        trainerEmail: trainerEmail ?? this.trainerEmail,
+        trainerAddress: trainerAddress ?? this.trainerAddress,
+        trainerFacebook: trainerFacebook ?? this.trainerFacebook,
+        trainerTwitter: trainerTwitter ?? this.trainerTwitter,
+        trainerInstagram: trainerInstagram ?? this.trainerInstagram,
+        trainerYoutube: trainerYoutube ?? this.trainerYoutube,
+        trainerLinkdin: trainerLinkdin ?? this.trainerLinkdin,
+        trainerBio: trainerBio ?? this.trainerBio,
+        trainerImage: trainerImage ?? this.trainerImage,
+        status: status ?? this.status,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
@@ -110,5 +117,4 @@ TrainerModel copyWith({  num? id,
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }

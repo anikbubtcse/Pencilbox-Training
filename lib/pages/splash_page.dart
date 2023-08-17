@@ -19,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
           child: Column(
             children: [
               const SizedBox(
-                height: 60,
+                height: 50,
               ),
               ClipRRect(
                 child: Image.asset(
@@ -27,9 +27,6 @@ class _SplashPageState extends State<SplashPage> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width / 1.2,
                 ),
-              ),
-              const SizedBox(
-                height: 15,
               ),
               Text(
                 'Better way to learning is calling you!',
@@ -40,11 +37,11 @@ class _SplashPageState extends State<SplashPage> {
                     color: Color(0xff000000)),
               ),
               const SizedBox(
-                height: 30,
+                height: 25,
               ),
               Text(
-                'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                textAlign: TextAlign.center,
+                'PencilBox Training Institute provide training in IT sector. Our mission is to provide international standard training in Bangladesh\'s IT sector.',
+                textAlign: TextAlign.justify,
                 style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.w300,

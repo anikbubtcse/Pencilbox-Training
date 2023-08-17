@@ -89,7 +89,6 @@ class _LoginPageState extends State<LoginPage> {
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide:
                                     BorderSide(color: Color(0xffD0D5DD))),
-
                           ),
                         ),
                       ),
@@ -276,37 +275,37 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 48,
-                        decoration: BoxDecoration(
-                            color: Color(0xffE4E7EB),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'images/apple.png',
-                              height: 24,
-                              width: 24,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            FittedBox(
-                              child: Text(
-                                'Login with Apple ID',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xff4B5768)),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width,
+                      //   height: 48,
+                      //   decoration: BoxDecoration(
+                      //       color: Color(0xffE4E7EB),
+                      //       borderRadius: BorderRadius.circular(8)),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       Image.asset(
+                      //         'images/apple.png',
+                      //         height: 24,
+                      //         width: 24,
+                      //       ),
+                      //       const SizedBox(
+                      //         width: 5,
+                      //       ),
+                      //       FittedBox(
+                      //         child: Text(
+                      //           'Login with Apple ID',
+                      //           style: GoogleFonts.poppins(
+                      //               fontSize: 16,
+                      //               fontWeight: FontWeight.w500,
+                      //               color: Color(0xff4B5768)),
+                      //         ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
                       const SizedBox(
-                        height: 50,
+                        height: 30,
                       ),
                       FittedBox(
                         child: Container(

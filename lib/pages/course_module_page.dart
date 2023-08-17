@@ -63,7 +63,7 @@ class _CourseModulePageState extends State<CourseModulePage> {
                       Image.asset('images/placeholder.png'),
                 ),
                 Positioned(
-                  bottom: 18,
+                  bottom: 20,
                   left: 15,
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -75,8 +75,8 @@ class _CourseModulePageState extends State<CourseModulePage> {
                         children: [
                           ClipOval(
                             child: CachedNetworkImage(
-                              height: 40,
-                              width: 40,
+                              height: 35,
+                              width: 35,
                               imageUrl:
                                   'https://pencilbox.edu.bd/${trainerModel.trainerImage}',
                               placeholder: (context, url) =>
@@ -144,7 +144,7 @@ class _CourseModulePageState extends State<CourseModulePage> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Row(
@@ -155,7 +155,7 @@ class _CourseModulePageState extends State<CourseModulePage> {
                                 color: Colors.grey,
                                 height: 15,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text(

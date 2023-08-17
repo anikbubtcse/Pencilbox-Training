@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 class CourseProvider extends ChangeNotifier {
   List<CourseModel> fullCourseList = [];
   List<CourseModel> upcomingCourseList = [];
+  List<CourseModel> carouselSliderCourseList = [];
   List<CourseModel> courseCategoryList = [];
   List<String> courseCategoryIconList = [];
   List<CourseModel> filteredCourseList = [];
@@ -178,5 +179,14 @@ class CourseProvider extends ChangeNotifier {
         industrialAttachmentList.add(element);
       }
     });
+  }
+
+  getCarouselSliderCourses() {
+    carouselSliderCourseList.clear();
+    for (dynamic i in upcomingCourseList) {
+      if (carouselSliderCourseList.length < 5) {
+        carouselSliderCourseList.add(i);
+      }
+    }
   }
 }

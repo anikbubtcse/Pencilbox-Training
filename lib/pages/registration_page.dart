@@ -463,35 +463,35 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       const SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 48,
-                        decoration: BoxDecoration(
-                            color: Color(0xffE4E7EB),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'images/apple.png',
-                              height: 24,
-                              width: 24,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            FittedBox(
-                              child: Text(
-                                'Continue with Apple ID',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xff4B5768)),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width,
+                      //   height: 48,
+                      //   decoration: BoxDecoration(
+                      //       color: Color(0xffE4E7EB),
+                      //       borderRadius: BorderRadius.circular(8)),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       Image.asset(
+                      //         'images/apple.png',
+                      //         height: 24,
+                      //         width: 24,
+                      //       ),
+                      //       const SizedBox(
+                      //         width: 5,
+                      //       ),
+                      //       FittedBox(
+                      //         child: Text(
+                      //           'Continue with Apple ID',
+                      //           style: GoogleFonts.poppins(
+                      //               fontSize: 16,
+                      //               fontWeight: FontWeight.w500,
+                      //               color: Color(0xff4B5768)),
+                      //         ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                 )

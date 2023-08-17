@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:screen_design/helper/helper_method.dart';
 import 'package:flutter_html/flutter_html.dart';
-import '../custom/header.dart';
-import '../custom/header_menu.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ReadBlogPage extends StatefulWidget {
   const ReadBlogPage({super.key});
@@ -46,12 +45,14 @@ class _ReadBlogPageState extends State<ReadBlogPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff2E5A88),
-        iconTheme: IconThemeData(color: Colors.white),
-        //main app bar
-        title: Header(
-          icon: Icons.comment_outlined,
-          title: 'Blog Details',
+        backgroundColor: const Color(0xffFFFFFF),
+        centerTitle: true,
+        title: Text(
+          'Blog details',
+          style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xff878787)),
         ),
       ),
       body: ListView(
@@ -129,7 +130,10 @@ class _ReadBlogPageState extends State<ReadBlogPage> {
                           print(url);
                           await Share.share(url);
                         },
-                        child: const Text('Share', style: TextStyle(color: Colors.white),)),
+                        child: const Text(
+                          'Share',
+                          style: TextStyle(color: Colors.white),
+                        )),
                   ],
                 ),
                 Html(

@@ -39,7 +39,9 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF0F0F0),
-      appBar: MainAppBar(title: 'Search Page',),
+      appBar: MainAppBar(
+        title: 'Search Page',
+      ),
       drawer: HomePageDrawer(),
       body: SafeArea(
         child: Container(
@@ -113,8 +115,7 @@ class _SearchPageState extends State<SearchPage> {
                               .toString()
                               .toLowerCase()
                               .contains(courseInfo.toLowerCase()) ||
-                          courseProvider
-                              .fullCourseList[index].currentBatchId
+                          courseProvider.fullCourseList[index].currentBatchId
                               .toString()
                               .toLowerCase()
                               .startsWith(courseInfo.toLowerCase())) {
@@ -128,15 +129,15 @@ class _SearchPageState extends State<SearchPage> {
                               onTap: () {
                                 Navigator.of(context).pushNamed(
                                     'course_module-page',
-                                    arguments: courseProvider
-                                        .fullCourseList[index]);
+                                    arguments:
+                                        courseProvider.fullCourseList[index]);
                               },
                               child: ListTile(
                                 dense: true,
                                 contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 0.0, vertical: 0.0),
-                                visualDensity:
-                                    const VisualDensity(horizontal: 0, vertical: -4),
+                                visualDensity: const VisualDensity(
+                                    horizontal: 0, vertical: -4),
                                 title: Text(
                                   courseProvider
                                       .fullCourseList[index].trainingName!,
@@ -323,8 +324,7 @@ class _SearchPageState extends State<SearchPage> {
                             ),
                             Container(
                               height: 280,
-                              child: courseProvider
-                                      .courseCategoryList.isEmpty
+                              child: courseProvider.courseCategoryList.isEmpty
                                   ? const Center(
                                       child: CircularProgressIndicator(),
                                     )
@@ -341,15 +341,15 @@ class _SearchPageState extends State<SearchPage> {
                                                 Checkbox(
                                                   activeColor: Colors.red,
                                                   value: courseProvider
-                                                      .courseCategoryList[
-                                                          index]
+                                                      .courseCategoryList[index]
                                                       .categoryChecked,
                                                   onChanged: (value) {
                                                     setState(() {
                                                       courseProvider
-                                                          .courseCategoryList[
-                                                              index]
-                                                          .categoryChecked = value!;
+                                                              .courseCategoryList[
+                                                                  index]
+                                                              .categoryChecked =
+                                                          value!;
                                                     });
                                                   },
                                                 ),
@@ -358,8 +358,7 @@ class _SearchPageState extends State<SearchPage> {
                                                 ),
                                                 Text(
                                                   courseProvider
-                                                      .courseCategoryList[
-                                                          index]
+                                                      .courseCategoryList[index]
                                                       .catName!,
                                                   style: GoogleFonts.poppins(
                                                       fontSize: 14,
@@ -391,12 +390,10 @@ class _SearchPageState extends State<SearchPage> {
                                     for (var i = 0;
                                         i <=
                                             courseProvider
-                                                    .courseCategoryList
-                                                    .length -
+                                                    .courseCategoryList.length -
                                                 1;
                                         i++) {
-                                      if (courseProvider
-                                              .courseCategoryList[i]
+                                      if (courseProvider.courseCategoryList[i]
                                               .categoryChecked ==
                                           true) {
                                         setState(() {
@@ -426,8 +423,7 @@ class _SearchPageState extends State<SearchPage> {
                                                     1;
                                             i++) {
                                           setState(() {
-                                            courseProvider
-                                                .courseCategoryList[i]
+                                            courseProvider.courseCategoryList[i]
                                                 .categoryChecked = false;
                                           });
                                         }

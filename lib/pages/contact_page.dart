@@ -10,6 +10,8 @@ import 'package:screen_design/service/ContactService.dart';
 import 'package:screen_design/service/subscription_service.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ContactPage extends StatefulWidget {
   @override
@@ -493,60 +495,67 @@ class _ContactPageState extends State<ContactPage> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 70,
-                        height: 48,
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.red)),
-                            onPressed: () async {
-                              if (formKeySubscriber.currentState!.validate()) {
-                                EasyLoading.show();
+                      InkWell(
+                        onTap: () async {
+                          if (formKeySubscriber.currentState!.validate()) {
+                            EasyLoading.show();
 
-                                dynamic data = await SubscriptionService
-                                    .subscribeUserService(
-                                        subscriptionController.text);
+                            dynamic data =
+                                await SubscriptionService.subscribeUserService(
+                                    subscriptionController.text);
 
-                                EasyLoading.dismiss();
-                                subscriptionController.clear();
+                            EasyLoading.dismiss();
+                            subscriptionController.clear();
 
-                                if (data != null) {
-                                  ArtSweetAlert.show(
-                                      context: context,
-                                      artDialogArgs: ArtDialogArgs(
-                                        type: ArtSweetAlertType.success,
-                                        title: "Congratulations!",
-                                        text: data["success"],
-                                        confirmButtonText: 'OK',
-                                        onConfirm: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ));
-                                }
+                            if (data != null) {
+                              ArtSweetAlert.show(
+                                  context: context,
+                                  artDialogArgs: ArtDialogArgs(
+                                    type: ArtSweetAlertType.success,
+                                    title: "Congratulations!",
+                                    text: data["success"],
+                                    confirmButtonText: 'OK',
+                                    onConfirm: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ));
+                            }
 
-                                if (data == null) {
-                                  ArtSweetAlert.show(
-                                      context: context,
-                                      artDialogArgs: ArtDialogArgs(
-                                        type: ArtSweetAlertType.warning,
-                                        title: "Oops! Sorry",
-                                        text: 'Something went wrong',
-                                        confirmButtonText: 'OK',
-                                        onConfirm: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ));
-                                }
-                              }
-                            },
-                            child: FittedBox(
-                              child: Text('Subscribe',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xffFFFFFF))),
-                            )),
+                            if (data == null) {
+                              ArtSweetAlert.show(
+                                  context: context,
+                                  artDialogArgs: ArtDialogArgs(
+                                    type: ArtSweetAlertType.warning,
+                                    title: "Oops! Sorry",
+                                    text: 'Something went wrong',
+                                    confirmButtonText: 'OK',
+                                    onConfirm: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ));
+                            }
+                          }
+                        },
+                        child: Container(
+                          height: 48,
+                          decoration: BoxDecoration(
+                              color: Color(0xffDB1E37),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(6),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Subscribe',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xffFFFFFF)),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
                       )
                     ],
                   ),
@@ -644,7 +653,52 @@ class _ContactPageState extends State<ContactPage> {
                 ),
               ),
               const SizedBox(
-                height: 15,
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                      onTap: () {
+                        String url = HelperConstant.pencilbox_linkedin;
+                        Uri uri = Uri.parse(url);
+                        url_launcher(uri);
+                      },
+                      child: SvgPicture.asset('images/linkedin.svg')),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  InkWell(
+                      onTap: () {
+                        String url = HelperConstant.pencilbox_youtube;
+                        Uri uri = Uri.parse(url);
+                        url_launcher(uri);
+                      },
+                      child: SvgPicture.asset('images/youtube.svg')),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  InkWell(
+                      onTap: () {
+                        String url = HelperConstant.pencilbox_facebook;
+                        Uri uri = Uri.parse(url);
+                        url_launcher(uri);
+                      },
+                      child: SvgPicture.asset('images/facebook.svg')),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  InkWell(
+                      onTap: () {
+                        String url = HelperConstant.pencilbox_instagram;
+                        Uri uri = Uri.parse(url);
+                        url_launcher(uri);
+                      },
+                      child: SvgPicture.asset('images/instagram.svg')),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
               )
             ],
           ),
@@ -656,6 +710,16 @@ class _ContactPageState extends State<ContactPage> {
   void _launchUrl() async {
     if (!await launchUrl(Uri.parse(HelperConstant.cameraPosition))) {
       throw Exception('Could not launch the URL');
+    }
+  }
+
+  void url_launcher(Uri uri) async {
+    try {
+      if (!await launchUrl(uri)) {
+        throw Exception('Could not launch $uri');
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: 'Something went wrong!');
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:screen_design/pages/blog_page.dart';
 import 'package:screen_design/pages/course_page.dart';
 import 'package:screen_design/pages/profile_page.dart';
 import 'package:screen_design/pages/search_page.dart';
@@ -16,7 +17,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
     HomePage(),
     SearchPage(),
     CoursePage(),
-    FavoritePage(),
+    BlogPage(),
     ProfilePage(),
   ];
 
@@ -55,9 +56,9 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage('images/favorite.png'),
+              AssetImage('images/blog.png'),
             ),
-            label: 'Favorite',
+            label: 'Blog',
           ),
           BottomNavigationBarItem(
               icon: ImageIcon(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:screen_design/custom/header.dart';
 import 'package:screen_design/helper/helper_method.dart';
 import 'package:screen_design/provider/course_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -17,10 +16,12 @@ class CategoryDetailPage extends StatefulWidget {
 class _CategoryDetailPageState extends State<CategoryDetailPage> {
   late CourseProvider upcomingCourseProvider;
   bool callOnce = true;
+  late String caregoryName;
 
   @override
   void didChangeDependencies() {
     final args = ModalRoute.of(context)?.settings.arguments as List;
+    caregoryName = args[0];
 
     upcomingCourseProvider = Provider.of(context, listen: true);
 
@@ -29,8 +30,6 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
     }
     callOnce = false;
 
-    print(args[0]);
-
     super.didChangeDependencies();
   }
 
@@ -38,9 +37,15 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff2E5A88),
-        iconTheme: const IconThemeData(color: Colors.white),
-        title: Header(title: 'Category Courses', icon: Icons.class_outlined),
+        backgroundColor: const Color(0xffFFFFFF),
+        centerTitle: true,
+        title: Text(
+          caregoryName,
+          style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xff878787)),
+        ),
       ),
       body: Container(
         padding: EdgeInsets.all(12),

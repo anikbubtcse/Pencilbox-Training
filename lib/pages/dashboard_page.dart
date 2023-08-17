@@ -199,8 +199,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 child: Image.asset(
                   'images/pencilbox_logo.png',
                   fit: BoxFit.contain,
-                )
-            ),
+                )),
             Text(
               'Rate this course: ',
               style: GoogleFonts.poppins(
@@ -220,8 +219,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     direction: Axis.horizontal,
                     allowHalfRating: true,
                     itemCount: 5,
-                    itemPadding:
-                        const EdgeInsets.symmetric(horizontal: 2.0),
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
                     itemBuilder: (context, _) => const Icon(
                       Icons.star,
                       color: Colors.amber,
