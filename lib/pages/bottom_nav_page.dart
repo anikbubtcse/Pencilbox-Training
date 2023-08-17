@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:screen_design/pages/blog_page.dart';
 import 'package:screen_design/pages/course_page.dart';
 import 'package:screen_design/pages/profile_page.dart';
 import 'package:screen_design/pages/search_page.dart';
@@ -11,27 +12,27 @@ class BottomNavigationPage extends StatefulWidget {
 }
 
 class _BottomNavigationPageState extends State<BottomNavigationPage> {
-  int _selectedIndex = 0;
+  int selectedIndex = 0;
   List<Widget> pages = [
     HomePage(),
     SearchPage(),
     CoursePage(),
-    FavoritePage(),
+    BlogPage(),
     ProfilePage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[_selectedIndex],
+      body: pages[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Color(0xffDE1E36),
         unselectedItemColor: Color(0xff000000),
         type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
+        currentIndex: selectedIndex,
         onTap: (value) {
           setState(() {
-            _selectedIndex = value;
+            selectedIndex = value;
           });
         },
         items: const [
@@ -55,9 +56,9 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage('images/favorite.png'),
+              AssetImage('images/blog.png'),
             ),
-            label: 'Favorite',
+            label: 'Blog',
           ),
           BottomNavigationBarItem(
               icon: ImageIcon(

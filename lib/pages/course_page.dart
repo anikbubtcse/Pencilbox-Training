@@ -214,6 +214,14 @@ class _CoursePageState extends State<CoursePage> {
                                                     ),
                                                   ],
                                                 ),
+                                                Text(
+                                                  '${courseModelList[index].trainingPrice!}/-BDT',
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.red),
+                                                ),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -237,7 +245,7 @@ class _CoursePageState extends State<CoursePage> {
                                                             fontSize: 12,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xff808080),
                                                           ),
                                                         ),
@@ -266,7 +274,7 @@ class _CoursePageState extends State<CoursePage> {
                                                             fontSize: 12,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xff808080),
                                                           ),
                                                         ),

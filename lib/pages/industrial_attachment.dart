@@ -9,7 +9,8 @@ class IndustrialAttachmentPage extends StatefulWidget {
   const IndustrialAttachmentPage({super.key});
 
   @override
-  State<IndustrialAttachmentPage> createState() => _IndustrialAttachmentPageState();
+  State<IndustrialAttachmentPage> createState() =>
+      _IndustrialAttachmentPageState();
 }
 
 class _IndustrialAttachmentPageState extends State<IndustrialAttachmentPage> {

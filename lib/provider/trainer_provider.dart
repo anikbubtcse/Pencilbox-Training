@@ -8,7 +8,7 @@ class TrainerProvider extends ChangeNotifier {
   List<TrainerModel> trainerModelList = [];
   String? trainerImage;
   String? trainerName;
-  String? CategoryDetailPageTrainerName;
+  TrainerModel? categoryDetailPageTrainerModel;
   List<TrainingScheduleModel> trainingSchedulesByBatchIdList = [];
   List<TrainingScheduleModel> allTrainingSchedulesList = [];
 
@@ -30,10 +30,10 @@ class TrainerProvider extends ChangeNotifier {
     });
   }
 
-  getTrainerName(int id) {
+  getTrainerModel(int id) {
     trainerModelList.forEach((element) {
       if (element.id == id) {
-        CategoryDetailPageTrainerName = element.trainerName;
+        categoryDetailPageTrainerModel = element;
       }
     });
   }

@@ -13,6 +13,7 @@ class BlogPage extends StatefulWidget {
 }
 
 class _BlogPageState extends State<BlogPage> {
+  TextEditingController blogController = TextEditingController();
   late BlogProvider blogProvider;
   int popUpValue = 0;
   bool isChecked = false;
@@ -48,6 +49,7 @@ class _BlogPageState extends State<BlogPage> {
                   child: SizedBox(
                     height: 50,
                     child: TextField(
+                      controller: blogController,
                       onChanged: (value) {
                         setState(() {
                           blogInfo = value;
@@ -66,6 +68,26 @@ class _BlogPageState extends State<BlogPage> {
                         });
                       },
                       decoration: InputDecoration(
+                        suffixIcon: blogController.text.isNotEmpty
+                            ? Padding(
+                                padding: const EdgeInsetsDirectional.only(
+                                    start: 12.0),
+                                child: IconButton(
+                                  iconSize: 20,
+                                  icon: const Icon(
+                                    Icons.cancel,
+                                    color: Colors.grey,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      blogController.clear();
+                                      isChecked = false;
+                                      blogInfo = '';
+                                    });
+                                  },
+                                ),
+                              )
+                            : null,
                         label: Text(
                           'Search for article',
                           style: GoogleFonts.poppins(

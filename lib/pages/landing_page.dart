@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:screen_design/provider/area_provider.dart';
 import 'package:screen_design/provider/career_provider.dart';
 import 'package:screen_design/provider/event_provider.dart';
 import 'package:screen_design/provider/faq_provider.dart';
 import 'package:screen_design/provider/trainer_provider.dart';
+import 'package:screen_design/provider/user_provider.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import '../provider/blog_provider.dart';
 import '../provider/course_module_provider.dart';
@@ -23,19 +25,20 @@ class _LandingPageState extends State<LandingPage> {
   late BlogProvider blogProvider;
   late EventProvider eventProvider;
   late CareerProvider careerProvider;
-
+  late UserProvider userProvider;
   late FaqProvider faqProvider;
   late TrainerProvider trainerProvider;
   late CourseModuleProvider courseModuleProvider;
+  late AreaProvider areaProvider;
   bool callOnce = true;
   late Timer timer;
 
   @override
   void initState() {
-    super.initState();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp, // Fix the orientation to portrait mode
     ]);
+    super.initState();
   }
 
   @override
@@ -44,10 +47,11 @@ class _LandingPageState extends State<LandingPage> {
     blogProvider = Provider.of(context);
     eventProvider = Provider.of(context);
     careerProvider = Provider.of(context);
-
     faqProvider = Provider.of(context);
     trainerProvider = Provider.of(context);
     courseModuleProvider = Provider.of(context);
+    userProvider = Provider.of(context);
+    areaProvider = Provider.of(context);
 
     if (callOnce) {
       blogProvider.getLatestBlogServiceData();
@@ -61,12 +65,14 @@ class _LandingPageState extends State<LandingPage> {
       trainerProvider.getTrainerServiceData();
       trainerProvider.getAllTrainingSchedules();
       courseModuleProvider.getCourseModuleServiceData();
+      userProvider.getAllStudentReviews();
+      areaProvider.getAllDistrict();
+      areaProvider.getAllSubDistrict();
       callOnce = false;
     }
 
     timer = Timer(const Duration(seconds: 5), () {
-      Navigator.of(context, rootNavigator: true)
-          .pushReplacementNamed('bottom_nav_screen');
+      Navigator.of(context).pushReplacementNamed('bottom_nav_screen');
     });
     super.didChangeDependencies();
   }

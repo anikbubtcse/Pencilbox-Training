@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:screen_design/helper/helper_constant.dart';
@@ -34,197 +32,202 @@ class _AboutUsPageState extends State<AboutUsPage> {
               color: const Color(0xff878787)),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            Center(
-                child: Image.asset(
-              'images/pencilbox_logo.png',
-              width: MediaQuery.of(context).size.width / 1.5,
-            )),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Text(
-                HelperConstant.aboutUs,
-                style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black),
-                textAlign: TextAlign.justify,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(
+                height: 10,
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Text('Subscribe to our newsletter',
-                  style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black)),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Text('Do not miss any exciting offers by pencilbox',
+              Center(
+                  child: Image.asset(
+                'images/pencilbox_logo.png',
+                width: MediaQuery.of(context).size.width / 1.5,
+              )),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Text(
+                  HelperConstant.aboutUs,
+                  maxLines: 15,
                   style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black)),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Form(
-              key: formKeySubscriber,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: subscriptionController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please give your email address';
-                          } else if (!EmailValidator.validate(value)) {
-                            return 'Please provide a valid email address';
-                          } else {
-                            return null;
-                          }
-                        },
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(8),
-                          filled: true,
-                          fillColor: Color(0xffF9F9F9),
-                          hintText: 'example@gmail.com',
-                          hintStyle: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xffA9A9A9)),
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey)),
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey)),
-                          errorBorder: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.transparent)),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 70,
-                      height: 48,
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.amber)),
-                          onPressed: () async {
-                            if (formKeySubscriber.currentState!.validate()) {
-                              EasyLoading.show();
-
-                              dynamic data = await SubscriptionService
-                                  .subscribeUserService(
-                                      subscriptionController.text);
-
-                              EasyLoading.dismiss();
-                              subscriptionController.clear();
-
-                              if (data != null) {
-                                ArtSweetAlert.show(
-                                    context: context,
-                                    artDialogArgs: ArtDialogArgs(
-                                      type: ArtSweetAlertType.success,
-                                      title: "Congratulations!",
-                                      text: data["success"],
-                                      confirmButtonText: 'OK',
-                                      onConfirm: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ));
-                              }
-
-                              if (data == null) {
-                                ArtSweetAlert.show(
-                                    context: context,
-                                    artDialogArgs: ArtDialogArgs(
-                                      type: ArtSweetAlertType.warning,
-                                      title: "Oops! Sorry",
-                                      text: 'Something went wrong',
-                                      confirmButtonText: 'OK',
-                                      onConfirm: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ));
-                              }
-                            }
-                          },
-                          child: FittedBox(
-                            child: Text('Subscribe',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xffFFFFFF))),
-                          )),
-                    )
-                  ],
+                      color: Colors.black),
+                  textAlign: TextAlign.justify,
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 19,
-            ),
-            Column(
-              children: [
-                Image.asset(
-                  'images/sponsor.png',
-                  height: 100,
-                  width: double.infinity,
-                ),
-                Image.asset(
-                  'images/payment.png',
-                  height: 25,
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.fitWidth,
-                ),
-                Stack(
-                  children: [
-                    Image.asset(
-                      'images/rectangle.png',
-                      height: 55,
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.fitWidth,
-                    ),
-                    Positioned(
-                      top: 20,
-                      left: 50,
-                      right: 50,
-                      child: FittedBox(
-                        child: Text(
-                          "Copyright 2023 PencilBox Training Institute. All rights reserved.",
-                          style: GoogleFonts.poppins(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white),
+              const SizedBox(
+                height: 10,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text('Subscribe to our newsletter',
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black)),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Text('Do not miss any exciting offers by pencilbox',
+                    style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black)),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Form(
+                key: formKeySubscriber,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: subscriptionController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please give your email address';
+                            } else if (!EmailValidator.validate(value)) {
+                              return 'Please provide a valid email address';
+                            } else {
+                              return null;
+                            }
+                          },
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(8),
+                            filled: true,
+                            fillColor: Color(0xffF9F9F9),
+                            hintText: 'example@gmail.com',
+                            hintStyle: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xffA9A9A9)),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey)),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey)),
+                            errorBorder: const OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          if (formKeySubscriber.currentState!.validate()) {
+                            EasyLoading.show();
+
+                            dynamic data =
+                                await SubscriptionService.subscribeUserService(
+                                    subscriptionController.text);
+
+                            EasyLoading.dismiss();
+                            subscriptionController.clear();
+
+                            if (data != null) {
+                              ArtSweetAlert.show(
+                                  context: context,
+                                  artDialogArgs: ArtDialogArgs(
+                                    type: ArtSweetAlertType.success,
+                                    title: "Congratulations!",
+                                    text: data["success"],
+                                    confirmButtonText: 'OK',
+                                    onConfirm: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ));
+                            }
+
+                            if (data == null) {
+                              ArtSweetAlert.show(
+                                  context: context,
+                                  artDialogArgs: ArtDialogArgs(
+                                    type: ArtSweetAlertType.warning,
+                                    title: "Oops! Sorry",
+                                    text: 'Something went wrong',
+                                    confirmButtonText: 'OK',
+                                    onConfirm: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ));
+                            }
+                          }
+                        },
+                        child: Container(
+                          height: 48,
+                          width: 85,
+                          decoration: BoxDecoration(
+                              color: Color(0xffDB1E37),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(6),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Subscribe',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xffFFFFFF)),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(
+                'images/sponsor.png',
+                fit: BoxFit.fitWidth,
+              ),
+              Image.asset(
+                'images/payment.png',
+                width: MediaQuery.of(context).size.width,
+                fit: BoxFit.fitWidth,
+              ),
+              Container(
+                  width: double.infinity,
+                  color: Color(0xff0C3252),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(
+                        "Copyright ${DateTime.now().year} PencilBox Training Institute. All rights reserved.",
+                        style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  )),
+            ],
+          ),
+        ],
       ),
     );
   }

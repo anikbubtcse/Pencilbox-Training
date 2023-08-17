@@ -252,7 +252,9 @@ class _EventPageState extends State<EventPage> {
                                         onPressed: () {
                                           Navigator.of(context).pushNamed(
                                               'event_details_page',
-                                              arguments: eventProvider.categoryWiseEventList[index]);
+                                              arguments: eventProvider
+                                                      .categoryWiseEventList[
+                                                  index]);
                                         },
                                         style: ButtonStyle(
                                             shape: MaterialStateProperty.all(

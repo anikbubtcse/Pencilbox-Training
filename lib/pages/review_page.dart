@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:screen_design/provider/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class ReviewPage extends StatefulWidget {
   const ReviewPage({super.key});
@@ -10,6 +12,14 @@ class ReviewPage extends StatefulWidget {
 }
 
 class _ReviewPageState extends State<ReviewPage> {
+  late UserProvider userProvider;
+
+  @override
+  void didChangeDependencies() {
+    userProvider = Provider.of(context);
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,10 +54,11 @@ class _ReviewPageState extends State<ReviewPage> {
                           padding: const EdgeInsets.all(20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                '40',
+                                userProvider.allStudentReviews.length
+                                    .toString(),
                                 style: GoogleFonts.poppins(
                                     fontSize: 26,
                                     fontWeight: FontWeight.w600,
@@ -81,7 +92,7 @@ class _ReviewPageState extends State<ReviewPage> {
                           padding: const EdgeInsets.all(20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -121,7 +132,7 @@ class _ReviewPageState extends State<ReviewPage> {
               Text(
                 'Student review',
                 style: GoogleFonts.poppins(
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -133,7 +144,7 @@ class _ReviewPageState extends State<ReviewPage> {
                 child: ListView.builder(
                   padding: EdgeInsets.only(left: 10),
                   scrollDirection: Axis.horizontal,
-                  itemCount: 10,
+                  itemCount: userProvider.allSortedStudentReviews.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       width: MediaQuery.of(context).size.width / 1.3,
@@ -145,19 +156,21 @@ class _ReviewPageState extends State<ReviewPage> {
                           child: Column(
                             children: [
                               ListTile(
-                                leading: const CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('images/photo.jpg'),
+                                leading: CircleAvatar(
+                                  radius: 35,
+                                  backgroundImage: NetworkImage(
+                                      'https://pencilbox.edu.bd/${userProvider.allSortedStudentReviews[index].photo!}'),
                                 ),
                                 title: Text(
-                                  'John Doe',
+                                  userProvider
+                                      .allSortedStudentReviews[index].name!,
                                   style: GoogleFonts.poppins(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
                                       color: Color(0xff233646)),
                                 ),
                                 subtitle: Text(
-                                  'Developer',
+                                  'Student',
                                   style: GoogleFonts.poppins(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w300,
@@ -176,7 +189,8 @@ class _ReviewPageState extends State<ReviewPage> {
                               ),
                               Flexible(
                                 child: Text(
-                                  'The world has become so fast paced that people don’t want to stand by reading a page of information, they would much rather look at a presentation and understand the message. It has come to a point where images and videos are used more to technological aspects.',
+                                  userProvider
+                                      .allSortedStudentReviews[index].desc!,
                                   style: GoogleFonts.poppins(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w300,
