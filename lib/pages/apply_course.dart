@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:screen_design/helper/helper_method.dart';
@@ -193,7 +192,7 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                       ),
                       Text(
                         '${e.trainingDay} ' +
-                            '(${DateFormat('hh:mm a').format(DateTime.parse('${DateFormat('yyyy-MM-dd').format(DateTime.now())} ' + e.startTime!))} - ${DateFormat('hh:mm a').format(DateTime.parse('${DateFormat('yyyy-MM-dd').format(DateTime.now())} ' + e.endTime!))})',
+                            '(${DateFormat('hh:mm a').format(DateTime.parse('${DateFormat('yyyy-MM-dd').format(DateTime.now())} ${e.startTime!}'))} - ${DateFormat('hh:mm a').format(DateTime.parse('${DateFormat('yyyy-MM-dd').format(DateTime.now())} ' + e.endTime!))})',
                         style: GoogleFonts.poppins(
                             fontSize: 14,
                             fontWeight: FontWeight.w300,
@@ -245,7 +244,7 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                                 borderSide: BorderSide(color: Colors.red)),
                             hintText: "John Stewart",
                             hintStyle: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xff999999))),
                       ),
@@ -286,7 +285,7 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                                 borderSide: BorderSide(color: Colors.red)),
                             hintText: "anikbubtcse@gmail.com",
                             hintStyle: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xff999999))),
                       ),
@@ -298,10 +297,11 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                               color: Color(0xff191D23))),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       TextFormField(
+                        keyboardType: TextInputType.phone,
                         controller: phoneNumberController,
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -329,7 +329,7 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                                 borderSide: BorderSide(color: Colors.red)),
                             hintText: "01752045464",
                             hintStyle: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xff999999))),
                       ),
@@ -435,12 +435,12 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                         arguments: [courseModel, data['course_reg_id']]);
                   },
                   showCancelBtn: true,
-                  cancelButtonText: 'Cancel',
+                  cancelButtonText: 'Pay Later',
                   type: ArtSweetAlertType.success,
                   title: 'Congratulations',
                   text:
                       'Registration succesful for ' + courseModel.trainingName!,
-                  confirmButtonText: 'pay online'));
+                  confirmButtonText: 'Pay Online'));
         } else {
           EasyLoading.dismiss();
           ArtSweetAlert.show(

@@ -66,7 +66,7 @@ class _RPLPageState extends State<RPLPage> {
                               left: 20, right: 20, top: 10),
                           itemCount: courseProvider.rplCourseList.length,
                           itemBuilder: (context, index) {
-                            trainerProvider.getTrainerName(
+                            trainerProvider.getTrainerModel(
                                 courseProvider.rplCourseList[index].trainerId!);
 
                             return Card(
@@ -174,17 +174,16 @@ class _RPLPageState extends State<RPLPage> {
                                                                     index]);
                                                       },
                                                       child: Container(
-                                                        width: 75,
                                                         decoration: BoxDecoration(
                                                             boxShadow: const [
                                                               BoxShadow(
                                                                   color: Colors
                                                                       .black54,
-                                                                  blurRadius: 3,
+                                                                  blurRadius: 2,
                                                                   offset:
                                                                       Offset(
                                                                           0.0,
-                                                                          0.25))
+                                                                          0.20))
                                                             ],
                                                             color: DateTime.parse(courseProvider
                                                                         .rplCourseList[
@@ -200,13 +199,7 @@ class _RPLPageState extends State<RPLPage> {
                                                                     .circular(
                                                                         5)),
                                                         child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 8,
-                                                                  right: 8,
-                                                                  top: 5,
-                                                                  bottom: 5),
+                                                          padding: const EdgeInsets.all(6.0),
                                                           child: AutoSizeText(
                                                             DateTime.parse(courseProvider
                                                                         .rplCourseList[
@@ -216,7 +209,7 @@ class _RPLPageState extends State<RPLPage> {
                                                                         DateTime
                                                                             .now())
                                                                 ? 'Apply'
-                                                                : "Details",
+                                                                : "See details",
                                                             style: GoogleFonts
                                                                 .poppins(
                                                               color:

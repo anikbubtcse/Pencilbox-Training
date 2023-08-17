@@ -15,11 +15,9 @@ class ContactService {
         return data;
       } else {
         return data;
-
       }
     } catch (e) {
       return data;
-
     }
   }
 }

@@ -24,5 +24,4 @@ class CourseModuleProvider extends ChangeNotifier {
       }
     });
   }
-
 }

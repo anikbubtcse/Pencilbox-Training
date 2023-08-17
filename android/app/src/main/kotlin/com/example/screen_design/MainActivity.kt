@@ -1,6 +1,6 @@
-package com.example.screen_design
+package com.pencilbox.training
 
 import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity: FlutterActivity() {
+class MainActivity : FlutterActivity() {
 }

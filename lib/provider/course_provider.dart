@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 class CourseProvider extends ChangeNotifier {
   List<CourseModel> fullCourseList = [];
   List<CourseModel> upcomingCourseList = [];
+  List<CourseModel> carouselSliderCourseList = [];
   List<CourseModel> courseCategoryList = [];
   List<String> courseCategoryIconList = [];
   List<CourseModel> filteredCourseList = [];
@@ -14,6 +15,8 @@ class CourseProvider extends ChangeNotifier {
   List<CourseModel> collaboratedCourseList = [];
   List<CourseModel> rplCourseList = [];
   List<CourseModel> industrialAttachmentList = [];
+  List<CourseModel> coursesByTrainerIdList = [];
+  List<CourseModel> favoriteCoursesList = [];
 
   getCourseServiceData() async {
     oldCoursesList.clear();
@@ -128,7 +131,6 @@ class CourseProvider extends ChangeNotifier {
           }
         });
       }
-      print('filteredCourseList ${filteredCourseList.length}');
     }
 
     filteredCourseList.sort((a, b) => b.startDate!.compareTo(a.startDate!));
@@ -176,6 +178,24 @@ class CourseProvider extends ChangeNotifier {
     fullCourseList.forEach((element) {
       if (element.batchType == "Industrial" && element.status == 1) {
         industrialAttachmentList.add(element);
+      }
+    });
+  }
+
+  getCarouselSliderCourses() {
+    carouselSliderCourseList.clear();
+    for (dynamic i in upcomingCourseList) {
+      if (carouselSliderCourseList.length < 5) {
+        carouselSliderCourseList.add(i);
+      }
+    }
+  }
+
+  getCoursesByTrainerID(num id) {
+    coursesByTrainerIdList.clear();
+    fullCourseList.forEach((element) {
+      if (element.trainerId == id) {
+        coursesByTrainerIdList.add(element);
       }
     });
   }

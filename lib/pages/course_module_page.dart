@@ -40,8 +40,15 @@ class _CourseModulePageState extends State<CourseModulePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xffFFFFFF),
+        centerTitle: true,
+        title: Text(
+          'Course module',
+          style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xff878787)),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -49,58 +56,67 @@ class _CourseModulePageState extends State<CourseModulePage> {
           children: [
             Stack(
               children: [
-                Container(
-                  height: 300,
-                ),
-                CachedNetworkImage(
-                  height: MediaQuery.of(context).size.height / 3,
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.fill,
-                  imageUrl:
-                      'https://pencilbox.edu.bd/${courseModel.trainingImage!}',
-                  placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) =>
-                      Image.asset('images/placeholder.png'),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 25),
+                  child: CachedNetworkImage(
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.fill,
+                    imageUrl:
+                        'https://pencilbox.edu.bd/${courseModel.trainingImage!}',
+                    placeholder: (context, url) =>
+                        Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        Image.asset('images/placeholder.png'),
+                  ),
                 ),
                 Positioned(
-                  bottom: 18,
+                  bottom: 0,
                   left: 15,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(19)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(3),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ClipOval(
-                            child: CachedNetworkImage(
-                              height: 40,
-                              width: 40,
-                              imageUrl:
-                                  'https://pencilbox.edu.bd/${trainerModel.trainerImage}',
-                              placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  Image.asset('images/placeholder.png'),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed('Trainer_details_page',
+                          arguments: trainerModel);
+                    },
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(19)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ClipOval(
+                              child: CachedNetworkImage(
+                                height: 35,
+                                width: 35,
+                                imageUrl:
+                                    'https://pencilbox.edu.bd/${trainerModel.trainerImage}',
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset('images/placeholder.png'),
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            trainerModel.trainerName!,
-                            style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black),
-                          )
-                        ],
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              trainerModel.trainerName!,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ],
+            ),
+            SizedBox(
+              height: 15,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
@@ -144,7 +160,7 @@ class _CourseModulePageState extends State<CourseModulePage> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Row(
@@ -155,7 +171,7 @@ class _CourseModulePageState extends State<CourseModulePage> {
                                 color: Colors.grey,
                                 height: 15,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text(
@@ -215,6 +231,7 @@ class _CourseModulePageState extends State<CourseModulePage> {
                                           fontSize: 10,
                                           fontWeight: FontWeight.w500,
                                         ),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
                                   ),

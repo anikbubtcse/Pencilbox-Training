@@ -82,4 +82,20 @@ class UserService {
       return data;
     }
   }
+
+  static Future<dynamic> getStudentReviews() async {
+    dynamic data;
+    try {
+      final response = await http
+          .get(Uri.parse('https://pencilbox.edu.bd/api/students-review'));
+      if (response.statusCode == 200) {
+        data = jsonDecode(response.body.toString());
+        return data;
+      } else {
+        return data;
+      }
+    } catch (e) {
+      return data;
+    }
+  }
 }
