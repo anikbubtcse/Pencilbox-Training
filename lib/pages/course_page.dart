@@ -245,7 +245,7 @@ class _CoursePageState extends State<CoursePage> {
                                                             fontSize: 12,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xff808080),
                                                           ),
                                                         ),
@@ -274,7 +274,7 @@ class _CoursePageState extends State<CoursePage> {
                                                             fontSize: 12,
                                                             fontWeight:
                                                                 FontWeight.w300,
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xff808080),
                                                           ),
                                                         ),

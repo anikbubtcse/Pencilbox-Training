@@ -13,6 +13,7 @@ import '../provider/course_module_provider.dart';
 import '../provider/course_provider.dart';
 import 'package:provider/provider.dart';
 
+
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
 
@@ -32,6 +33,7 @@ class _LandingPageState extends State<LandingPage> {
   late AreaProvider areaProvider;
   bool callOnce = true;
   late Timer timer;
+
 
   @override
   void initState() {
@@ -72,7 +74,8 @@ class _LandingPageState extends State<LandingPage> {
     }
 
     timer = Timer(const Duration(seconds: 5), () {
-      Navigator.of(context).pushReplacementNamed('bottom_nav_screen');
+     Navigator.of(context).pushReplacementNamed('bottom_nav_screen');
+     // Navigator.of(context).pushReplacementNamed('checkout_page');
     });
     super.didChangeDependencies();
   }

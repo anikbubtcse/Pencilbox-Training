@@ -6,6 +6,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/services.dart';
 import 'package:screen_design/custom/home_page_drawer.dart';
 import 'package:screen_design/helper/helper_method.dart';
+import 'package:screen_design/models/course_model.dart';
 import 'package:screen_design/provider/trainer_provider.dart';
 import 'package:screen_design/provider/course_provider.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ import '../custom/main_app_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:upgrader/upgrader.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,9 +28,23 @@ class _HomePageState extends State<HomePage> {
   int currentPosition = 0;
   late CourseProvider courseProvider;
   late StreamSubscription<ConnectivityResult> subscription;
+  List<String> favoriteList = [];
+
+
+  addToFavorite() async {
+    final SharedPreferences favoritePrefs =
+        await SharedPreferences.getInstance();
+    favoriteList = favoritePrefs.getStringList('items')??[];
+    favoriteList.forEach((element) {
+      print('INITIAL ${element}');
+    });
+
+  }
 
   @override
-  void initState() {
+  initState() {
+    addToFavorite();
+
     checkConnectivity();
     subscription = Connectivity()
         .onConnectivityChanged
@@ -97,7 +113,7 @@ class _HomePageState extends State<HomePage> {
               height: 10,
             ),
             DotsIndicator(
-              dotsCount: courseProvider.carouselSliderCourseList.length == 0
+              dotsCount: courseProvider.carouselSliderCourseList.isEmpty
                   ? 1
                   : courseProvider.carouselSliderCourseList.length,
               position: currentPosition,
@@ -247,14 +263,28 @@ class _HomePageState extends State<HomePage> {
                                       Positioned(
                                           top: 0,
                                           right: 0,
-                                          child: CircleAvatar(
-                                            radius: 12,
-                                            backgroundColor:
-                                                Colors.grey.withOpacity(0.5),
-                                            child: const Icon(
-                                              Icons.favorite_border,
-                                              color: Colors.black,
-                                              size: 20,
+                                          child: InkWell(
+                                            onTap: () {
+                                              final course= courseProvider.upcomingCourseList[index];
+                                              addOrRemoveFromFavList(course);
+
+                                            },
+                                            child: CircleAvatar(
+                                              radius: 12,
+                                              backgroundColor:
+                                                  Colors.grey.withOpacity(0.5),
+                                              child: Icon(
+                                                Icons.favorite,
+                                                color: favoriteList.contains(
+                                                        courseProvider
+                                                            .upcomingCourseList[
+                                                                index]
+                                                            .id
+                                                            .toString())
+                                                    ? Colors.red
+                                                    : Colors.black,
+                                                size: 20,
+                                              ),
                                             ),
                                           )),
                                       Consumer<TrainerProvider>(builder:
@@ -457,5 +487,74 @@ class _HomePageState extends State<HomePage> {
     if (status == "Not Connected") {
       showNoNetworkDialog();
     } else {}
+  }
+
+  void addOrRemoveFromFavList(CourseModel course) async{
+
+    if(favoriteList.contains(course.id.toString())){
+      favoriteList.remove(course.id.toString());
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('The course has been removed from your favourite list')));
+    }
+    else {
+      favoriteList.add(course.id.toString());
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('The course has been added to your favourite list')));
+    }
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    Set<String> stringSet = Set<String>();
+    stringSet.addAll(favoriteList);
+    favoriteList.clear();
+    favoriteList.addAll(stringSet);
+    await prefs.setStringList('items', favoriteList);
+    setState(() {});
+
+
+    // if (favoriteList.contains(
+    //     courseProvider
+    //         .upcomingCourseList[index]
+    //         .id
+    //         .toString())) {
+    //   setState(() async {
+    //     favoriteList.remove(
+    //         courseProvider
+    //             .upcomingCourseList[
+    //         index]
+    //             .id
+    //             .toString());
+    //
+    //     final SharedPreferences
+    //     prefs =
+    //     await SharedPreferences
+    //         .getInstance();
+    //     await prefs.setStringList(
+    //         'items', favoriteList);
+    //     var snackBar = SnackBar(
+    //         content: Text(
+    //             'The course has been removed from your favourite list'));
+    //     ScaffoldMessenger.of(context)
+    //         .showSnackBar(snackBar);
+    //   });
+    // } else {
+    //   setState(() async {
+    //     favoriteList.add(
+    //         courseProvider
+    //             .upcomingCourseList[
+    //         index]
+    //             .id
+    //             .toString());
+    //
+    //     final SharedPreferences
+    //     prefs =
+    //     await SharedPreferences
+    //         .getInstance();
+    //     await prefs.setStringList(
+    //         'items', favoriteList);
+    //     var snackBar = SnackBar(
+    //         content: Text(
+    //             'The course has been added to your favourite list'));
+    //     ScaffoldMessenger.of(context)
+    //         .showSnackBar(snackBar);
+    //   });
+    // }
   }
 }

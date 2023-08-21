@@ -14,7 +14,7 @@ class CategoryDetailPage extends StatefulWidget {
 }
 
 class _CategoryDetailPageState extends State<CategoryDetailPage> {
-  late CourseProvider upcomingCourseProvider;
+  late CourseProvider courseProvider;
   bool callOnce = true;
   late String caregoryName;
 
@@ -23,10 +23,10 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
     final args = ModalRoute.of(context)?.settings.arguments as List;
     caregoryName = args[0];
 
-    upcomingCourseProvider = Provider.of(context, listen: true);
+    courseProvider = Provider.of(context, listen: true);
 
     if (callOnce) {
-      upcomingCourseProvider.getFilteredCategoryDetail(args[0], args[1]);
+      courseProvider.getFilteredCategoryDetail(args[0], args[1]);
     }
     callOnce = false;
 
@@ -53,7 +53,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
           children: [
             Expanded(
               child: ListView.builder(
-                  itemCount: upcomingCourseProvider.filteredCourseList.length,
+                  itemCount: courseProvider.filteredCourseList.length,
                   itemBuilder: (context, index) {
                     return Card(
                       elevation: 5,
@@ -67,7 +67,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                                 topRight: Radius.circular(10)),
                             child: CachedNetworkImage(
                               imageUrl:
-                                  'https://pencilbox.edu.bd/${upcomingCourseProvider.filteredCourseList[index].mainImage}',
+                                  'https://pencilbox.edu.bd/${courseProvider.filteredCourseList[index].mainImage}',
                               placeholder: (context, url) =>
                                   CircularProgressIndicator(),
                               errorWidget: (context, url, error) =>
@@ -93,7 +93,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                                     ),
                                     FittedBox(
                                       child: Text(
-                                        'Start Date: ${HelperMethod.getDateFormat('dd-MM-yyyy', DateTime.parse(upcomingCourseProvider.filteredCourseList[index].startDate!))}',
+                                        'Start Date: ${HelperMethod.getDateFormat('dd-MM-yyyy', DateTime.parse(courseProvider.filteredCourseList[index].startDate!))}',
                                         style: GoogleFonts.poppins(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
@@ -113,7 +113,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                                     ),
                                     FittedBox(
                                       child: Text(
-                                        'Duration: ${upcomingCourseProvider.filteredCourseList[index].hours}'
+                                        'Duration: ${courseProvider.filteredCourseList[index].hours}'
                                         'h',
                                         style: GoogleFonts.poppins(
                                             fontSize: 12,
@@ -124,22 +124,83 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                                   ],
                                 ),
                                 Consumer<TrainerProvider>(
-                                  builder: (BuildContext context, value,
+                                  builder: (BuildContext context, provider,
                                       Widget? child) {
-                                    value.getTrainerName(upcomingCourseProvider
+                                    provider.getTrainerModel(courseProvider
                                         .filteredCourseList[index].trainerId!);
 
                                     return InkWell(
                                       onTap: () {
                                         ArtSweetAlert.show(
-                                            context: context,
-                                            artDialogArgs: ArtDialogArgs(
-                                                type: ArtSweetAlertType.success,
-                                                title:
-                                                    "Trainer :- ${value.CategoryDetailPageTrainerName}",
-                                                text: "${upcomingCourseProvider.filteredCourseList[index].trainingName} \n" +
-                                                    'Batch No: ${upcomingCourseProvider.filteredCourseList[index].currentBatchId}\n' +
-                                                    'Last date: ${upcomingCourseProvider.filteredCourseList[index].lastDate}'));
+                                          context: context,
+                                          artDialogArgs: ArtDialogArgs(
+                                            type: ArtSweetAlertType.success,
+                                            customColumns: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {
+                                                      Navigator.of(context).pop();
+                                                      Navigator.of(context).pushNamed(
+                                                          'Trainer_details_page',
+                                                          arguments: provider
+                                                              .categoryDetailPageTrainerModel!);
+                                                    },
+                                                    child: Text(
+                                                      'Trainer: ${provider.categoryDetailPageTrainerModel!.trainerName}',
+                                                      style: GoogleFonts.poppins(
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                    "${courseProvider.filteredCourseList[index].trainingName}",
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: Colors.black),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 3,
+                                                  ),
+                                                  Text(
+                                                    'Batch No: ${courseProvider.filteredCourseList[index].currentBatchId}',
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: Colors.black),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 3,
+                                                  ),
+                                                  Text(
+                                                    'Last date: ${courseProvider.filteredCourseList[index].lastDate}',
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: Colors.black),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        );
                                       },
                                       child: const Icon(Icons.info_outline,
                                           color: Colors.amberAccent),
@@ -155,7 +216,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                           Padding(
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: AutoSizeText(
-                              upcomingCourseProvider
+                              courseProvider
                                   .filteredCourseList[index].trainingName!,
                               style: GoogleFonts.poppins(
                                   fontSize: 12,
@@ -174,55 +235,64 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Course Fees: ${upcomingCourseProvider.filteredCourseList[index].trainingPrice}/-BDT',
+                                  'Course Fees: ${courseProvider.filteredCourseList[index].trainingPrice}/-BDT',
                                   style: GoogleFonts.poppins(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500,
                                       color: Colors.red),
                                 ),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          'course_module-page',
-                                          arguments: upcomingCourseProvider
-                                              .filteredCourseList[index]);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      primary: DateTime.parse(
-                                                      upcomingCourseProvider
-                                                          .filteredCourseList[
-                                                              index]
-                                                          .startDate!)
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                        'course_module-page',
+                                        arguments: courseProvider
+                                            .filteredCourseList[index]);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            color: Colors.black54,
+                                            blurRadius: 3,
+                                            offset: Offset(0.0, 0.25))
+                                      ],
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: DateTime.parse(courseProvider
+                                                      .filteredCourseList[index]
+                                                      .startDate!)
                                                   .isAfter(DateTime.now()) &&
-                                              upcomingCourseProvider
+                                              courseProvider
                                                       .filteredCourseList[index]
                                                       .status ==
                                                   1
                                           ? Colors.red
                                           : Colors.grey, // Background color
                                     ),
-                                    child: DateTime.parse(upcomingCourseProvider
+                                    child: DateTime.parse(courseProvider
                                                     .filteredCourseList[index]
                                                     .startDate!)
                                                 .isAfter(DateTime.now()) &&
-                                            upcomingCourseProvider
+                                            courseProvider
                                                     .filteredCourseList[index]
                                                     .status ==
                                                 1
                                         ? Text(
                                             'Apply Now',
                                             style: GoogleFonts.poppins(
-                                                fontSize: 14,
+                                                fontSize: 12,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.white),
                                           )
                                         : Text(
                                             "Show Details",
                                             style: GoogleFonts.poppins(
-                                                fontSize: 14,
+                                                fontSize: 12,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.white),
-                                          ))
+                                          ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),

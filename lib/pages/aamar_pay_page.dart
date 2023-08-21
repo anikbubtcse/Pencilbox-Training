@@ -41,7 +41,7 @@ class _AamarPayPageState extends State<AamarPayPage> {
               isLoading = loading;
             });
           },
-          //This will return the payment event with a message
+          // This will return the payment event with a message
           status: (EventState event, String message) {
             if (event == EventState.error) {
               setState(() {
