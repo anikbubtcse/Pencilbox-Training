@@ -15,6 +15,7 @@ class CourseProvider extends ChangeNotifier {
   List<CourseModel> collaboratedCourseList = [];
   List<CourseModel> rplCourseList = [];
   List<CourseModel> industrialAttachmentList = [];
+  List<CourseModel> coursesByTrainerIdList = [];
 
   getCourseServiceData() async {
     oldCoursesList.clear();
@@ -188,5 +189,14 @@ class CourseProvider extends ChangeNotifier {
         carouselSliderCourseList.add(i);
       }
     }
+  }
+
+  getCoursesByTrainerID(num id) {
+    coursesByTrainerIdList.clear();
+    fullCourseList.forEach((element) {
+      if (element.trainerId == id) {
+        coursesByTrainerIdList.add(element);
+      }
+    });
   }
 }

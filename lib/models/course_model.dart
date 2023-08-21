@@ -88,6 +88,8 @@ class CourseModel {
     _status = status;
   }
 
+
+
   CourseModel.fromJson(dynamic json) {
     _id = json['id'];
     _catId = json['cat_id'];

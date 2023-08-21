@@ -27,6 +27,11 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
+
+dependency_overrides:
+#  webview_flutter: ^4.2.2
+  http: ^1.1.0
+
 dependencies:
   flutter:
     sdk: flutter
@@ -36,12 +41,19 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  flutter_bkash: ^0.1.3
+
+dependency_overrides:
+  http: ^1.1.0
+
+
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  http: ^0.13.5
-  provider: ^6.0.5
+
+  provider:
   intl: ^0.18.1
   carousel_slider: ^4.2.1
   dots_indicator: ^3.0.0
@@ -64,8 +76,9 @@ dev_dependencies:
   store_redirect: ^2.0.1
   connectivity_plus: ^4.0.2
   new_version_plus: ^0.0.10
-  aamarpay: ^1.0.6
   upgrader: ^8.1.0
+  aamarpay: ^1.0.6
+
 
 
 

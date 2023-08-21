@@ -425,7 +425,6 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
         var data = jsonDecode(response.body.toString());
         if (data['304'] == null) {
           EasyLoading.dismiss();
-
           ArtSweetAlert.show(
               context: context,
               artDialogArgs: ArtDialogArgs(

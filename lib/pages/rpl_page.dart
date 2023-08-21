@@ -66,7 +66,7 @@ class _RPLPageState extends State<RPLPage> {
                               left: 20, right: 20, top: 10),
                           itemCount: courseProvider.rplCourseList.length,
                           itemBuilder: (context, index) {
-                            trainerProvider.getTrainerName(
+                            trainerProvider.getTrainerModel(
                                 courseProvider.rplCourseList[index].trainerId!);
 
                             return Card(

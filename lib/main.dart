@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:screen_design/pages/aamar_pay.dart';
+import 'package:screen_design/pages/aamar_pay_page.dart';
 import 'package:screen_design/pages/about_us_page.dart';
 import 'package:screen_design/pages/apply_course.dart';
 import 'package:screen_design/pages/blog_list_page.dart';

@@ -56,58 +56,67 @@ class _CourseModulePageState extends State<CourseModulePage> {
           children: [
             Stack(
               children: [
-                Container(
-                  height: 300,
-                ),
-                CachedNetworkImage(
-                  height: MediaQuery.of(context).size.height / 3,
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.fill,
-                  imageUrl:
-                      'https://pencilbox.edu.bd/${courseModel.trainingImage!}',
-                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) =>
-                      Image.asset('images/placeholder.png'),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 25),
+                  child: CachedNetworkImage(
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.fill,
+                    imageUrl:
+                        'https://pencilbox.edu.bd/${courseModel.trainingImage!}',
+                    placeholder: (context, url) =>
+                        Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        Image.asset('images/placeholder.png'),
+                  ),
                 ),
                 Positioned(
-                  bottom: 20,
+                  bottom: 0,
                   left: 15,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(19)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(3),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ClipOval(
-                            child: CachedNetworkImage(
-                              height: 35,
-                              width: 35,
-                              imageUrl:
-                                  'https://pencilbox.edu.bd/${trainerModel.trainerImage}',
-                              placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  Image.asset('images/placeholder.png'),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed('Trainer_details_page',
+                          arguments: trainerModel);
+                    },
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(19)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ClipOval(
+                              child: CachedNetworkImage(
+                                height: 35,
+                                width: 35,
+                                imageUrl:
+                                    'https://pencilbox.edu.bd/${trainerModel.trainerImage}',
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset('images/placeholder.png'),
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            trainerModel.trainerName!,
-                            style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black),
-                          )
-                        ],
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              trainerModel.trainerName!,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ],
+            ),
+            SizedBox(
+              height: 15,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
