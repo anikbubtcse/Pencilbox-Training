@@ -215,8 +215,7 @@ class _CoursePageState extends State<CoursePage> {
                                                   ],
                                                 ),
                                                 Text(
-                                                  '${courseModelList[index]
-                                                      .trainingPrice!}/-BDT',
+                                                  '${courseModelList[index].trainingPrice!}/-BDT',
                                                   style: GoogleFonts.poppins(
                                                       fontSize: 14,
                                                       fontWeight:

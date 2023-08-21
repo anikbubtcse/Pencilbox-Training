@@ -12,7 +12,7 @@ class BottomNavigationPage extends StatefulWidget {
 }
 
 class _BottomNavigationPageState extends State<BottomNavigationPage> {
-  int _selectedIndex = 0;
+  int selectedIndex = 0;
   List<Widget> pages = [
     HomePage(),
     SearchPage(),
@@ -24,15 +24,15 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[_selectedIndex],
+      body: pages[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Color(0xffDE1E36),
         unselectedItemColor: Color(0xff000000),
         type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
+        currentIndex: selectedIndex,
         onTap: (value) {
           setState(() {
-            _selectedIndex = value;
+            selectedIndex = value;
           });
         },
         items: const [

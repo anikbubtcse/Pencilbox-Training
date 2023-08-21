@@ -38,40 +38,46 @@ class _TrainerPageState extends State<TrainerPage> {
           padding: const EdgeInsets.only(left: 15, top: 15, right: 15),
           itemCount: trainerProvider.trainerModelList.length,
           itemBuilder: (context, index) {
-            return Card(
-              elevation: 1,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 25,
-                  backgroundImage: NetworkImage(
-                      'https://pencilbox.edu.bd/${trainerProvider.trainerModelList[index].trainerImage!}'),
-                ),
-                title: Text(
-                  trainerProvider.trainerModelList[index].trainerName!,
-                  style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff212121)),
-                ),
-                subtitle: Text(
-                  trainerProvider.trainerModelList[index].trainerTrack!,
-                  style: GoogleFonts.poppins(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w300,
-                      color: Color(0xff616161)),
-                ),
-                trailing: IconButton(
-                  icon: const ImageIcon(
-                      AssetImage(
-                        'images/chat.png',
-                      ),
-                      color: Color(0xffDB1E37)),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed('Trainer_details_page',
-                        arguments: trainerProvider.trainerModelList[index]);
-                  },
+            return InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed('Trainer_details_page',
+                    arguments: trainerProvider.trainerModelList[index]);
+              },
+              child: Card(
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius: 25,
+                    backgroundImage: NetworkImage(
+                        'https://pencilbox.edu.bd/${trainerProvider.trainerModelList[index].trainerImage!}'),
+                  ),
+                  title: Text(
+                    trainerProvider.trainerModelList[index].trainerName!,
+                    style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff212121)),
+                  ),
+                  subtitle: Text(
+                    trainerProvider.trainerModelList[index].trainerTrack!,
+                    style: GoogleFonts.poppins(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w300,
+                        color: Color(0xff616161)),
+                  ),
+                  trailing: IconButton(
+                    icon: const ImageIcon(
+                        AssetImage(
+                          'images/chat.png',
+                        ),
+                        color: Color(0xffDB1E37)),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('Trainer_details_page',
+                          arguments: trainerProvider.trainerModelList[index]);
+                    },
+                  ),
                 ),
               ),
             );

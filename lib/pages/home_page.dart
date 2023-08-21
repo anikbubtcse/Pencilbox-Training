@@ -323,12 +323,55 @@ class _HomePageState extends State<HomePage> {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                Text(
-                                  '${courseProvider.upcomingCourseList[index].trainingPrice!}/-BDT',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xffDB1E37)),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '${courseProvider.upcomingCourseList[index].trainingPrice!}/-BDT',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xffDB1E37)),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pushNamed(
+                                            'course_module_page',
+                                            arguments: courseProvider
+                                                .upcomingCourseList[index]);
+                                      },
+                                      child: Container(
+                                        width: 75,
+                                        decoration: BoxDecoration(
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  color: Colors.black54,
+                                                  blurRadius: 3,
+                                                  offset: Offset(0.0, 0.25))
+                                            ],
+                                            color: Colors.red,
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8,
+                                              right: 8,
+                                              top: 5,
+                                              bottom: 5),
+                                          child: Text(
+                                            'Apply Now',
+                                            style: GoogleFonts.poppins(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 const SizedBox(
                                   height: 5,

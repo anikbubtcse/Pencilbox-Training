@@ -29,13 +29,14 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: Color(0xff2E5A88),
+        backgroundColor: const Color(0xffFFFFFF),
         centerTitle: true,
         title: Text(
           'Your Enrolled Courses',
           style: GoogleFonts.poppins(
-              fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xff878787)),
         ),
       ),
       body: ListView.builder(
@@ -64,12 +65,14 @@ class _DashboardPageState extends State<DashboardPage> {
             }
 
             return ExpansionTileCard(
-              title: FittedBox(
-                  child: Text(training!.trainingName!,
-                      style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black))),
+              title: Text(
+                training!.trainingName!,
+                style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black),
+                maxLines: 2,
+              ),
               subtitle: RichText(
                 text: TextSpan(
                   text: 'Course Status: ',
@@ -246,9 +249,12 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             )
           ],
-          confirmButtonText: 'Close',
+          confirmButtonText: 'Share',
           onConfirm: () {
             Navigator.of(context).pop();
+            var snackBar = SnackBar(
+                content: Text('Thank you. Your review has been recorded'));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }),
     );
   }

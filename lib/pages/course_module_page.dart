@@ -40,8 +40,15 @@ class _CourseModulePageState extends State<CourseModulePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xffFFFFFF),
+        centerTitle: true,
+        title: Text(
+          'Course module',
+          style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xff878787)),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -58,7 +65,7 @@ class _CourseModulePageState extends State<CourseModulePage> {
                   fit: BoxFit.fill,
                   imageUrl:
                       'https://pencilbox.edu.bd/${courseModel.trainingImage!}',
-                  placeholder: (context, url) => CircularProgressIndicator(),
+                  placeholder: (context, url) => Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) =>
                       Image.asset('images/placeholder.png'),
                 ),
@@ -215,6 +222,7 @@ class _CourseModulePageState extends State<CourseModulePage> {
                                           fontSize: 10,
                                           fontWeight: FontWeight.w500,
                                         ),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
                                   ),

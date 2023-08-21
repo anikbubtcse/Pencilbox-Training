@@ -68,12 +68,18 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                   Row(
                     children: [
                       isLoggedIn && userProvider.studentInfoModel != null
-                          ? CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  'https://pencilbox.edu.bd/${userProvider.studentInfoModel!.success!.image}'),
-                              radius: 25,
-                              backgroundColor: Colors.black12,
-                            )
+                          ? userProvider.studentInfoModel!.success!.image ==
+                                  null
+                              ? const CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage('images/photo.png'),
+                                )
+                              : CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      'https://pencilbox.edu.bd/${userProvider.studentInfoModel!.success!.image}'),
+                                  radius: 25,
+                                  backgroundColor: Colors.black12,
+                                )
                           : const CircleAvatar(
                               backgroundImage: AssetImage('images/photo.png'),
                               radius: 25,
@@ -163,7 +169,7 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                       },
                       child: HomePageDrawerRow("images/rpl.svg", 'RPL')),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   ListTileTheme(
                       contentPadding: const EdgeInsets.only(
@@ -343,7 +349,7 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                         ],
                       )),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   InkWell(
                       onTap: () {

@@ -301,6 +301,7 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                         height: 8,
                       ),
                       TextFormField(
+                        keyboardType: TextInputType.phone,
                         controller: phoneNumberController,
                         validator: (value) {
                           if (value!.isEmpty) {

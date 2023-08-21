@@ -495,6 +495,9 @@ class _ContactPageState extends State<ContactPage> {
                           ),
                         ),
                       ),
+                      SizedBox(
+                        width: 10,
+                      ),
                       InkWell(
                         onTap: () async {
                           if (formKeySubscriber.currentState!.validate()) {
@@ -538,6 +541,7 @@ class _ContactPageState extends State<ContactPage> {
                         },
                         child: Container(
                           height: 48,
+                          width: 85,
                           decoration: BoxDecoration(
                               color: Color(0xffDB1E37),
                               borderRadius: BorderRadius.circular(5)),
@@ -548,7 +552,7 @@ class _ContactPageState extends State<ContactPage> {
                               child: Text(
                                 'Subscribe',
                                 style: GoogleFonts.poppins(
-                                    fontSize: 10,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w600,
                                     color: Color(0xffFFFFFF)),
                                 textAlign: TextAlign.center,
@@ -564,34 +568,39 @@ class _ContactPageState extends State<ContactPage> {
               const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'images/map.png',
-                      height: 30,
-                      width: 30,
-                    ),
-                    const SizedBox(
-                      width: 50,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('EDB Trade Centre (5th Floor)',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black)),
-                          Text('93 Kazi Nazrul Islam Avenue, Dhaka-1215',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black)),
-                        ],
+                child: InkWell(
+                  onTap: () {
+                    _launchUrl();
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'images/map.png',
+                        height: 30,
+                        width: 30,
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        width: 50,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('EDB Trade Centre (5th Floor)',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black)),
+                            Text('93 Kazi Nazrul Islam Avenue, Dhaka-1215',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -599,34 +608,39 @@ class _ContactPageState extends State<ContactPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'images/phone.png',
-                      height: 30,
-                      width: 30,
-                    ),
-                    const SizedBox(
-                      width: 50,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('+88 01714 121719',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black)),
-                          Text('+88 02 410 100 90',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black)),
-                        ],
+                child: InkWell(
+                  onTap: () {
+                    launchDialer('+8801714121719');
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'images/phone.png',
+                        height: 30,
+                        width: 30,
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        width: 50,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('+88 01714 121719',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black)),
+                            Text('+88 02 410 100 90',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -634,22 +648,27 @@ class _ContactPageState extends State<ContactPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'images/mail.png',
-                      height: 30,
-                      width: 30,
-                    ),
-                    const SizedBox(
-                      width: 50,
-                    ),
-                    Text('info@pencilbox.edu.bd',
-                        style: GoogleFonts.poppins(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black)),
-                  ],
+                child: InkWell(
+                  onTap: () {
+                    launchEmail('info@pencilbox.edu.bd');
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'images/mail.png',
+                        height: 30,
+                        width: 30,
+                      ),
+                      const SizedBox(
+                        width: 50,
+                      ),
+                      Text('info@pencilbox.edu.bd',
+                          style: GoogleFonts.poppins(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black)),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -721,5 +740,22 @@ class _ContactPageState extends State<ContactPage> {
     } catch (e) {
       Fluttertoast.showToast(msg: 'Something went wrong!');
     }
+  }
+
+  launchDialer(String number) async {
+    String url = 'tel:' + number;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Application unable to open dialer.';
+    }
+  }
+
+  launchEmail(String email) {
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: email,
+    );
+    launchUrl(emailLaunchUri);
   }
 }

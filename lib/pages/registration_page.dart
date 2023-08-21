@@ -229,7 +229,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             decoration: InputDecoration(
                               suffixIcon: _obsecureText
                                   ? IconButton(
-                                      icon: Icon(Icons.remove_red_eye),
+                                      icon: Icon(Icons.visibility_off),
                                       onPressed: () {
                                         setState(() {
                                           _obsecureText = false;
@@ -237,7 +237,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                       },
                                     )
                                   : IconButton(
-                                      icon: Icon(Icons.remove_red_eye_outlined),
+                                      icon: Icon(Icons.visibility),
                                       onPressed: () {
                                         setState(() {
                                           _obsecureText = true;
@@ -285,7 +285,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             decoration: InputDecoration(
                               suffixIcon: confirmObsecureText
                                   ? IconButton(
-                                      icon: Icon(Icons.remove_red_eye),
+                                      icon: Icon(Icons.visibility_off),
                                       onPressed: () {
                                         setState(() {
                                           confirmObsecureText = false;
@@ -293,7 +293,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                       },
                                     )
                                   : IconButton(
-                                      icon: Icon(Icons.remove_red_eye_outlined),
+                                      icon: Icon(Icons.visibility),
                                       onPressed: () {
                                         setState(() {
                                           confirmObsecureText = true;

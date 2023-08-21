@@ -132,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                             decoration: InputDecoration(
                               suffixIcon: _obsecureText
                                   ? IconButton(
-                                      icon: Icon(Icons.remove_red_eye),
+                                      icon: Icon(Icons.visibility_off),
                                       onPressed: () {
                                         setState(() {
                                           _obsecureText = false;
@@ -140,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                                       },
                                     )
                                   : IconButton(
-                                      icon: Icon(Icons.remove_red_eye_outlined),
+                                      icon: Icon(Icons.visibility),
                                       onPressed: () {
                                         setState(() {
                                           _obsecureText = true;
@@ -193,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                                             onConfirm: () {
                                               Navigator.of(context).pop();
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       'bottom_nav_screen');
                                             }));
                                   } else {
