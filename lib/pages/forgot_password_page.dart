@@ -164,7 +164,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   height: 48,
                   child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed('code_verification_page');
+                        Navigator.of(context)
+                            .pushNamed('code_verification_page');
                       },
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(

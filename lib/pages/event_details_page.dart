@@ -245,7 +245,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Container(
@@ -257,7 +257,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 )),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Row(

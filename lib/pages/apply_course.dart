@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:screen_design/helper/helper_method.dart';
@@ -5,6 +6,10 @@ import 'package:screen_design/models/course_model.dart';
 import 'package:screen_design/provider/trainer_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:art_sweetalert/art_sweetalert.dart';
+import 'package:http/http.dart' as http;
+import 'package:email_validator/email_validator.dart';
 
 class ApplyCoursePage extends StatefulWidget {
   const ApplyCoursePage({super.key});
@@ -20,13 +25,15 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
   bool callOnce = true;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController fullNameController = TextEditingController();
-  TextEditingController emaiNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
 
   @override
   void didChangeDependencies() {
     courseModel = ModalRoute.of(context)!.settings.arguments as CourseModel;
     trainerProvider = Provider.of(context);
+    print('courseModel.batchId: ${courseModel.batchId}');
+    print('courseModel.trainingId: ${courseModel.trainingId}');
 
     if (callOnce) {
       trainerProvider.getTrainingSchedulesByBatchId(courseModel.batchId!);
@@ -186,7 +193,7 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                       ),
                       Text(
                         '${e.trainingDay} ' +
-                            '(${DateFormat('hh:mm a').format(DateTime.parse('${DateFormat('yyyy-MM-dd').format(DateTime.now())} ' + e.startTime!))} - ${DateFormat('hh:mm a').format(DateTime.parse('${DateFormat('yyyy-MM-dd').format(DateTime.now())} ' + e.endTime!))})',
+                            '(${DateFormat('hh:mm a').format(DateTime.parse('${DateFormat('yyyy-MM-dd').format(DateTime.now())} ${e.startTime!}'))} - ${DateFormat('hh:mm a').format(DateTime.parse('${DateFormat('yyyy-MM-dd').format(DateTime.now())} ' + e.endTime!))})',
                         style: GoogleFonts.poppins(
                             fontSize: 14,
                             fontWeight: FontWeight.w300,
@@ -238,7 +245,7 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                                 borderSide: BorderSide(color: Colors.red)),
                             hintText: "John Stewart",
                             hintStyle: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xff999999))),
                       ),
@@ -254,13 +261,15 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                         height: 8,
                       ),
                       TextFormField(
-                        controller: emaiNameController,
+                        controller: emailController,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Email is required';
+                          } else if (!EmailValidator.validate(value)) {
+                            return 'Please give us a valid email';
+                          } else {
+                            return null;
                           }
-
-                          return null;
                         },
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(8),
@@ -279,7 +288,7 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                                 borderSide: BorderSide(color: Colors.red)),
                             hintText: "anikbubtcse@gmail.com",
                             hintStyle: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xff999999))),
                       ),
@@ -291,17 +300,23 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                               color: Color(0xff191D23))),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       TextFormField(
-                        controller: emaiNameController,
+                        keyboardType: TextInputType.phone,
+                        controller: phoneNumberController,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Phone Number is required';
+                          } else if (value.length != 11) {
+                            return 'The phone number must be 11 digits';
+                          } else if (!value
+                              .contains(RegExp(r'^01[3-9][0-9]{8}$'))) {
+                            return 'The phone number format is invalid';
+                          } else {
+                            return null;
                           }
-
-                          return null;
                         },
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(8),
@@ -320,7 +335,7 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                                 borderSide: BorderSide(color: Colors.red)),
                             hintText: "01752045464",
                             hintStyle: GoogleFonts.poppins(
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xff999999))),
                       ),
@@ -367,7 +382,7 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -380,7 +395,7 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                         ? null
                         : () {
                             if (formKey.currentState!.validate()) {
-                              print('Coming up ....');
+                              completeRegistration();
                             }
                           },
                     child: Text(
@@ -396,5 +411,71 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
             ),
           )),
     );
+  }
+
+  completeRegistration() async {
+    EasyLoading.show();
+
+    try {
+      final response = await http.post(
+          Uri.parse('https://pencilbox.edu.bd/api/course-registration'),
+          body: {
+            'email_address': emailController.text,
+            'phone_number': phoneNumberController.text,
+            'batch_id': courseModel.batchId.toString(),
+            'training_id': courseModel.trainingId.toString(),
+            'full_name': fullNameController.text,
+            'only_course': '6'
+          });
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+        if (data['304'] == null) {
+          EasyLoading.dismiss();
+
+          ArtSweetAlert.show(
+              context: context,
+              artDialogArgs: ArtDialogArgs(
+                  onConfirm: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).pushReplacementNamed('checkout_page',
+                        arguments: [courseModel, data['course_reg_id']]);
+                  },
+                  showCancelBtn: true,
+                  cancelButtonText: 'Pay Later',
+                  type: ArtSweetAlertType.success,
+                  title: 'Congratulations',
+                  text:
+                      'Registration succesful for ' + courseModel.trainingName!,
+                  confirmButtonText: 'Pay Online'));
+        } else {
+          EasyLoading.dismiss();
+          ArtSweetAlert.show(
+              context: context,
+              artDialogArgs: ArtDialogArgs(
+                  type: ArtSweetAlertType.danger,
+                  title: 'Opps..!',
+                  text: data['304'],
+                  confirmButtonText: 'Ok'));
+        }
+      } else {
+        EasyLoading.dismiss();
+        ArtSweetAlert.show(
+            context: context,
+            artDialogArgs: ArtDialogArgs(
+                type: ArtSweetAlertType.danger,
+                title: 'Opps..!',
+                text: 'Something went wrong',
+                confirmButtonText: 'Ok'));
+      }
+    } catch (e) {
+      EasyLoading.dismiss();
+      ArtSweetAlert.show(
+          context: context,
+          artDialogArgs: ArtDialogArgs(
+              type: ArtSweetAlertType.danger,
+              title: 'Opps..!',
+              text: 'Something went wrong',
+              confirmButtonText: 'Ok'));
+    }
   }
 }

@@ -1,13 +1,15 @@
 class StudentInfoModel {
   StudentInfoModel({
-      Success? success, 
-      List<AllTransactions>? allTransactions,}){
+    Success? success,
+    List<AllTransactions>? allTransactions,
+  }) {
     _success = success;
     _allTransactions = allTransactions;
-}
+  }
 
   StudentInfoModel.fromJson(dynamic json) {
-    _success = json['success'] != null ? Success.fromJson(json['success']) : null;
+    _success =
+        json['success'] != null ? Success.fromJson(json['success']) : null;
     if (json['allTransactions'] != null) {
       _allTransactions = [];
       json['allTransactions'].forEach((v) {
@@ -15,14 +17,21 @@ class StudentInfoModel {
       });
     }
   }
+
   Success? _success;
   List<AllTransactions>? _allTransactions;
-StudentInfoModel copyWith({  Success? success,
-  List<AllTransactions>? allTransactions,
-}) => StudentInfoModel(  success: success ?? _success,
-  allTransactions: allTransactions ?? _allTransactions,
-);
+
+  StudentInfoModel copyWith({
+    Success? success,
+    List<AllTransactions>? allTransactions,
+  }) =>
+      StudentInfoModel(
+        success: success ?? _success,
+        allTransactions: allTransactions ?? _allTransactions,
+      );
+
   Success? get success => _success;
+
   List<AllTransactions>? get allTransactions => _allTransactions;
 
   Map<String, dynamic> toJson() {
@@ -31,27 +40,28 @@ StudentInfoModel copyWith({  Success? success,
       map['success'] = _success?.toJson();
     }
     if (_allTransactions != null) {
-      map['allTransactions'] = _allTransactions?.map((v) => v.toJson()).toList();
+      map['allTransactions'] =
+          _allTransactions?.map((v) => v.toJson()).toList();
     }
     return map;
   }
-
 }
 
 class AllTransactions {
   AllTransactions({
-      num? id, 
-      num? studentId, 
-      num? batchId, 
-      num? courseId, 
-      num? amount, 
-      dynamic paymentStatus, 
-      num? paymentType, 
-      String? paymentNote, 
-      String? discountType, 
-      num? discountAmount, 
-      String? createdAt, 
-      String? updatedAt,}){
+    num? id,
+    num? studentId,
+    num? batchId,
+    num? courseId,
+    num? amount,
+    dynamic paymentStatus,
+    num? paymentType,
+    String? paymentNote,
+    String? discountType,
+    num? discountAmount,
+    String? createdAt,
+    String? updatedAt,
+  }) {
     _id = id;
     _studentId = studentId;
     _batchId = batchId;
@@ -64,7 +74,7 @@ class AllTransactions {
     _discountAmount = discountAmount;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
-}
+  }
 
   AllTransactions.fromJson(dynamic json) {
     _id = json['id'];
@@ -80,6 +90,7 @@ class AllTransactions {
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
   }
+
   num? _id;
   num? _studentId;
   num? _batchId;
@@ -92,42 +103,58 @@ class AllTransactions {
   num? _discountAmount;
   String? _createdAt;
   String? _updatedAt;
-AllTransactions copyWith({  num? id,
-  num? studentId,
-  num? batchId,
-  num? courseId,
-  num? amount,
-  dynamic paymentStatus,
-  num? paymentType,
-  String? paymentNote,
-  String? discountType,
-  num? discountAmount,
-  String? createdAt,
-  String? updatedAt,
-}) => AllTransactions(  id: id ?? _id,
-  studentId: studentId ?? _studentId,
-  batchId: batchId ?? _batchId,
-  courseId: courseId ?? _courseId,
-  amount: amount ?? _amount,
-  paymentStatus: paymentStatus ?? _paymentStatus,
-  paymentType: paymentType ?? _paymentType,
-  paymentNote: paymentNote ?? _paymentNote,
-  discountType: discountType ?? _discountType,
-  discountAmount: discountAmount ?? _discountAmount,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-);
+
+  AllTransactions copyWith({
+    num? id,
+    num? studentId,
+    num? batchId,
+    num? courseId,
+    num? amount,
+    dynamic paymentStatus,
+    num? paymentType,
+    String? paymentNote,
+    String? discountType,
+    num? discountAmount,
+    String? createdAt,
+    String? updatedAt,
+  }) =>
+      AllTransactions(
+        id: id ?? _id,
+        studentId: studentId ?? _studentId,
+        batchId: batchId ?? _batchId,
+        courseId: courseId ?? _courseId,
+        amount: amount ?? _amount,
+        paymentStatus: paymentStatus ?? _paymentStatus,
+        paymentType: paymentType ?? _paymentType,
+        paymentNote: paymentNote ?? _paymentNote,
+        discountType: discountType ?? _discountType,
+        discountAmount: discountAmount ?? _discountAmount,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+      );
+
   num? get id => _id;
+
   num? get studentId => _studentId;
+
   num? get batchId => _batchId;
+
   num? get courseId => _courseId;
+
   num? get amount => _amount;
+
   dynamic get paymentStatus => _paymentStatus;
+
   num? get paymentType => _paymentType;
+
   String? get paymentNote => _paymentNote;
+
   String? get discountType => _discountType;
+
   num? get discountAmount => _discountAmount;
+
   String? get createdAt => _createdAt;
+
   String? get updatedAt => _updatedAt;
 
   Map<String, dynamic> toJson() {
@@ -146,40 +173,40 @@ AllTransactions copyWith({  num? id,
     map['updated_at'] = _updatedAt;
     return map;
   }
-
 }
 
 class Success {
   Success({
-      num? id, 
-      String? uniqueStudentId, 
-      String? username, 
-      String? fullName, 
-      String? emailAddress, 
-      String? password, 
-      String? cusCountry, 
-      String? cusState, 
-      String? cusCity, 
-      String? cusAdd1, 
-      String? cusAdd2, 
-      String? cusPostcode, 
-      String? facebook, 
-      String? instagram, 
-      String? linkedin, 
-      String? twitter, 
-      String? about, 
-      String? image, 
-      dynamic isCertified, 
-      String? phoneNumber, 
-      num? status, 
-      String? token, 
-      String? passwordToken, 
-      num? passwordTokenStatus, 
-      dynamic lastIpAddress, 
-      String? createdAt, 
-      String? updatedAt, 
-      List<Billing>? billing, 
-      List<CourseRegStudents>? courseRegStudents,}){
+    num? id,
+    String? uniqueStudentId,
+    String? username,
+    String? fullName,
+    String? emailAddress,
+    String? password,
+    String? cusCountry,
+    String? cusState,
+    String? cusCity,
+    String? cusAdd1,
+    String? cusAdd2,
+    String? cusPostcode,
+    String? facebook,
+    String? instagram,
+    String? linkedin,
+    String? twitter,
+    String? about,
+    String? image,
+    dynamic isCertified,
+    String? phoneNumber,
+    num? status,
+    String? token,
+    String? passwordToken,
+    num? passwordTokenStatus,
+    dynamic lastIpAddress,
+    String? createdAt,
+    String? updatedAt,
+    List<Billing>? billing,
+    List<CourseRegStudents>? courseRegStudents,
+  }) {
     _id = id;
     _uniqueStudentId = uniqueStudentId;
     _username = username;
@@ -209,7 +236,7 @@ class Success {
     _updatedAt = updatedAt;
     _billing = billing;
     _courseRegStudents = courseRegStudents;
-}
+  }
 
   Success.fromJson(dynamic json) {
     _id = json['id'];
@@ -252,6 +279,7 @@ class Success {
       });
     }
   }
+
   num? _id;
   String? _uniqueStudentId;
   String? _username;
@@ -281,93 +309,126 @@ class Success {
   String? _updatedAt;
   List<Billing>? _billing;
   List<CourseRegStudents>? _courseRegStudents;
-Success copyWith({  num? id,
-  String? uniqueStudentId,
-  String? username,
-  String? fullName,
-  String? emailAddress,
-  String? password,
-  String? cusCountry,
-  String? cusState,
-  String? cusCity,
-  String? cusAdd1,
-  String? cusAdd2,
-  String? cusPostcode,
-  String? facebook,
-  String? instagram,
-  String? linkedin,
-  String? twitter,
-  String? about,
-  String? image,
-  dynamic isCertified,
-  String? phoneNumber,
-  num? status,
-  String? token,
-  String? passwordToken,
-  num? passwordTokenStatus,
-  dynamic lastIpAddress,
-  String? createdAt,
-  String? updatedAt,
-  List<Billing>? billing,
-  List<CourseRegStudents>? courseRegStudents,
-}) => Success(  id: id ?? _id,
-  uniqueStudentId: uniqueStudentId ?? _uniqueStudentId,
-  username: username ?? _username,
-  fullName: fullName ?? _fullName,
-  emailAddress: emailAddress ?? _emailAddress,
-  password: password ?? _password,
-  cusCountry: cusCountry ?? _cusCountry,
-  cusState: cusState ?? _cusState,
-  cusCity: cusCity ?? _cusCity,
-  cusAdd1: cusAdd1 ?? _cusAdd1,
-  cusAdd2: cusAdd2 ?? _cusAdd2,
-  cusPostcode: cusPostcode ?? _cusPostcode,
-  facebook: facebook ?? _facebook,
-  instagram: instagram ?? _instagram,
-  linkedin: linkedin ?? _linkedin,
-  twitter: twitter ?? _twitter,
-  about: about ?? _about,
-  image: image ?? _image,
-  isCertified: isCertified ?? _isCertified,
-  phoneNumber: phoneNumber ?? _phoneNumber,
-  status: status ?? _status,
-  token: token ?? _token,
-  passwordToken: passwordToken ?? _passwordToken,
-  passwordTokenStatus: passwordTokenStatus ?? _passwordTokenStatus,
-  lastIpAddress: lastIpAddress ?? _lastIpAddress,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-  billing: billing ?? _billing,
-  courseRegStudents: courseRegStudents ?? _courseRegStudents,
-);
+
+  Success copyWith({
+    num? id,
+    String? uniqueStudentId,
+    String? username,
+    String? fullName,
+    String? emailAddress,
+    String? password,
+    String? cusCountry,
+    String? cusState,
+    String? cusCity,
+    String? cusAdd1,
+    String? cusAdd2,
+    String? cusPostcode,
+    String? facebook,
+    String? instagram,
+    String? linkedin,
+    String? twitter,
+    String? about,
+    String? image,
+    dynamic isCertified,
+    String? phoneNumber,
+    num? status,
+    String? token,
+    String? passwordToken,
+    num? passwordTokenStatus,
+    dynamic lastIpAddress,
+    String? createdAt,
+    String? updatedAt,
+    List<Billing>? billing,
+    List<CourseRegStudents>? courseRegStudents,
+  }) =>
+      Success(
+        id: id ?? _id,
+        uniqueStudentId: uniqueStudentId ?? _uniqueStudentId,
+        username: username ?? _username,
+        fullName: fullName ?? _fullName,
+        emailAddress: emailAddress ?? _emailAddress,
+        password: password ?? _password,
+        cusCountry: cusCountry ?? _cusCountry,
+        cusState: cusState ?? _cusState,
+        cusCity: cusCity ?? _cusCity,
+        cusAdd1: cusAdd1 ?? _cusAdd1,
+        cusAdd2: cusAdd2 ?? _cusAdd2,
+        cusPostcode: cusPostcode ?? _cusPostcode,
+        facebook: facebook ?? _facebook,
+        instagram: instagram ?? _instagram,
+        linkedin: linkedin ?? _linkedin,
+        twitter: twitter ?? _twitter,
+        about: about ?? _about,
+        image: image ?? _image,
+        isCertified: isCertified ?? _isCertified,
+        phoneNumber: phoneNumber ?? _phoneNumber,
+        status: status ?? _status,
+        token: token ?? _token,
+        passwordToken: passwordToken ?? _passwordToken,
+        passwordTokenStatus: passwordTokenStatus ?? _passwordTokenStatus,
+        lastIpAddress: lastIpAddress ?? _lastIpAddress,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+        billing: billing ?? _billing,
+        courseRegStudents: courseRegStudents ?? _courseRegStudents,
+      );
+
   num? get id => _id;
+
   String? get uniqueStudentId => _uniqueStudentId;
+
   String? get username => _username;
+
   String? get fullName => _fullName;
+
   String? get emailAddress => _emailAddress;
+
   String? get password => _password;
+
   String? get cusCountry => _cusCountry;
+
   String? get cusState => _cusState;
+
   String? get cusCity => _cusCity;
+
   String? get cusAdd1 => _cusAdd1;
+
   String? get cusAdd2 => _cusAdd2;
+
   String? get cusPostcode => _cusPostcode;
+
   String? get facebook => _facebook;
+
   String? get instagram => _instagram;
+
   String? get linkedin => _linkedin;
+
   String? get twitter => _twitter;
+
   String? get about => _about;
+
   String? get image => _image;
+
   dynamic get isCertified => _isCertified;
+
   String? get phoneNumber => _phoneNumber;
+
   num? get status => _status;
+
   String? get token => _token;
+
   String? get passwordToken => _passwordToken;
+
   num? get passwordTokenStatus => _passwordTokenStatus;
+
   dynamic get lastIpAddress => _lastIpAddress;
+
   String? get createdAt => _createdAt;
+
   String? get updatedAt => _updatedAt;
+
   List<Billing>? get billing => _billing;
+
   List<CourseRegStudents>? get courseRegStudents => _courseRegStudents;
 
   Map<String, dynamic> toJson() {
@@ -403,28 +464,29 @@ Success copyWith({  num? id,
       map['billing'] = _billing?.map((v) => v.toJson()).toList();
     }
     if (_courseRegStudents != null) {
-      map['course_reg_students'] = _courseRegStudents?.map((v) => v.toJson()).toList();
+      map['course_reg_students'] =
+          _courseRegStudents?.map((v) => v.toJson()).toList();
     }
     return map;
   }
-
 }
 
 class CourseRegStudents {
   CourseRegStudents({
-      num? id, 
-      String? fullName, 
-      String? emailAddress, 
-      String? phoneNumber, 
-      num? studentId, 
-      num? batchId, 
-      num? trainingId, 
-      String? pay, 
-      num? status, 
-      dynamic industrialStudent, 
-      String? createdAt, 
-      String? updatedAt, 
-      Batch? batch,}){
+    num? id,
+    String? fullName,
+    String? emailAddress,
+    String? phoneNumber,
+    num? studentId,
+    num? batchId,
+    num? trainingId,
+    String? pay,
+    num? status,
+    dynamic industrialStudent,
+    String? createdAt,
+    String? updatedAt,
+    Batch? batch,
+  }) {
     _id = id;
     _fullName = fullName;
     _emailAddress = emailAddress;
@@ -438,7 +500,7 @@ class CourseRegStudents {
     _createdAt = createdAt;
     _updatedAt = updatedAt;
     _batch = batch;
-}
+  }
 
   CourseRegStudents.fromJson(dynamic json) {
     _id = json['id'];
@@ -455,6 +517,7 @@ class CourseRegStudents {
     _updatedAt = json['updated_at'];
     _batch = json['batch'] != null ? Batch.fromJson(json['batch']) : null;
   }
+
   num? _id;
   String? _fullName;
   String? _emailAddress;
@@ -468,45 +531,62 @@ class CourseRegStudents {
   String? _createdAt;
   String? _updatedAt;
   Batch? _batch;
-CourseRegStudents copyWith({  num? id,
-  String? fullName,
-  String? emailAddress,
-  String? phoneNumber,
-  num? studentId,
-  num? batchId,
-  num? trainingId,
-  String? pay,
-  num? status,
-  dynamic industrialStudent,
-  String? createdAt,
-  String? updatedAt,
-  Batch? batch,
-}) => CourseRegStudents(  id: id ?? _id,
-  fullName: fullName ?? _fullName,
-  emailAddress: emailAddress ?? _emailAddress,
-  phoneNumber: phoneNumber ?? _phoneNumber,
-  studentId: studentId ?? _studentId,
-  batchId: batchId ?? _batchId,
-  trainingId: trainingId ?? _trainingId,
-  pay: pay ?? _pay,
-  status: status ?? _status,
-  industrialStudent: industrialStudent ?? _industrialStudent,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-  batch: batch ?? _batch,
-);
+
+  CourseRegStudents copyWith({
+    num? id,
+    String? fullName,
+    String? emailAddress,
+    String? phoneNumber,
+    num? studentId,
+    num? batchId,
+    num? trainingId,
+    String? pay,
+    num? status,
+    dynamic industrialStudent,
+    String? createdAt,
+    String? updatedAt,
+    Batch? batch,
+  }) =>
+      CourseRegStudents(
+        id: id ?? _id,
+        fullName: fullName ?? _fullName,
+        emailAddress: emailAddress ?? _emailAddress,
+        phoneNumber: phoneNumber ?? _phoneNumber,
+        studentId: studentId ?? _studentId,
+        batchId: batchId ?? _batchId,
+        trainingId: trainingId ?? _trainingId,
+        pay: pay ?? _pay,
+        status: status ?? _status,
+        industrialStudent: industrialStudent ?? _industrialStudent,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+        batch: batch ?? _batch,
+      );
+
   num? get id => _id;
+
   String? get fullName => _fullName;
+
   String? get emailAddress => _emailAddress;
+
   String? get phoneNumber => _phoneNumber;
+
   num? get studentId => _studentId;
+
   num? get batchId => _batchId;
+
   num? get trainingId => _trainingId;
+
   String? get pay => _pay;
+
   num? get status => _status;
+
   dynamic get industrialStudent => _industrialStudent;
+
   String? get createdAt => _createdAt;
+
   String? get updatedAt => _updatedAt;
+
   Batch? get batch => _batch;
 
   Map<String, dynamic> toJson() {
@@ -528,40 +608,40 @@ CourseRegStudents copyWith({  num? id,
     }
     return map;
   }
-
 }
 
 class Batch {
   Batch({
-      num? id, 
-      String? batchType, 
-      num? trainingId, 
-      num? currentBatchId, 
-      String? batchName, 
-      num? trainingPrice, 
-      String? batchDesc, 
-      num? collaborative, 
-      dynamic collaBatchId, 
-      dynamic collaBatchName, 
-      dynamic partnerName, 
-      num? classNo, 
-      num? hours, 
-      num? seat, 
-      String? startDate, 
-      String? endDate, 
-      String? lastDate, 
-      dynamic earlyBirdDate, 
-      num? discountPrice, 
-      String? promotionalDesc, 
-      String? venue, 
-      String? mainImage, 
-      dynamic imageAlterText, 
-      num? featured, 
-      num? publicationStatus, 
-      num? status, 
-      String? createdAt, 
-      String? updatedAt, 
-      Training? training,}){
+    num? id,
+    String? batchType,
+    num? trainingId,
+    num? currentBatchId,
+    String? batchName,
+    num? trainingPrice,
+    String? batchDesc,
+    num? collaborative,
+    dynamic collaBatchId,
+    dynamic collaBatchName,
+    dynamic partnerName,
+    num? classNo,
+    num? hours,
+    num? seat,
+    String? startDate,
+    String? endDate,
+    String? lastDate,
+    dynamic earlyBirdDate,
+    num? discountPrice,
+    String? promotionalDesc,
+    String? venue,
+    String? mainImage,
+    dynamic imageAlterText,
+    num? featured,
+    num? publicationStatus,
+    num? status,
+    String? createdAt,
+    String? updatedAt,
+    Training? training,
+  }) {
     _id = id;
     _batchType = batchType;
     _trainingId = trainingId;
@@ -591,7 +671,7 @@ class Batch {
     _createdAt = createdAt;
     _updatedAt = updatedAt;
     _training = training;
-}
+  }
 
   Batch.fromJson(dynamic json) {
     _id = json['id'];
@@ -622,8 +702,10 @@ class Batch {
     _status = json['status'];
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
-    _training = json['training'] != null ? Training.fromJson(json['training']) : null;
+    _training =
+        json['training'] != null ? Training.fromJson(json['training']) : null;
   }
+
   num? _id;
   String? _batchType;
   num? _trainingId;
@@ -653,93 +735,126 @@ class Batch {
   String? _createdAt;
   String? _updatedAt;
   Training? _training;
-Batch copyWith({  num? id,
-  String? batchType,
-  num? trainingId,
-  num? currentBatchId,
-  String? batchName,
-  num? trainingPrice,
-  String? batchDesc,
-  num? collaborative,
-  dynamic collaBatchId,
-  dynamic collaBatchName,
-  dynamic partnerName,
-  num? classNo,
-  num? hours,
-  num? seat,
-  String? startDate,
-  String? endDate,
-  String? lastDate,
-  dynamic earlyBirdDate,
-  num? discountPrice,
-  String? promotionalDesc,
-  String? venue,
-  String? mainImage,
-  dynamic imageAlterText,
-  num? featured,
-  num? publicationStatus,
-  num? status,
-  String? createdAt,
-  String? updatedAt,
-  Training? training,
-}) => Batch(  id: id ?? _id,
-  batchType: batchType ?? _batchType,
-  trainingId: trainingId ?? _trainingId,
-  currentBatchId: currentBatchId ?? _currentBatchId,
-  batchName: batchName ?? _batchName,
-  trainingPrice: trainingPrice ?? _trainingPrice,
-  batchDesc: batchDesc ?? _batchDesc,
-  collaborative: collaborative ?? _collaborative,
-  collaBatchId: collaBatchId ?? _collaBatchId,
-  collaBatchName: collaBatchName ?? _collaBatchName,
-  partnerName: partnerName ?? _partnerName,
-  classNo: classNo ?? _classNo,
-  hours: hours ?? _hours,
-  seat: seat ?? _seat,
-  startDate: startDate ?? _startDate,
-  endDate: endDate ?? _endDate,
-  lastDate: lastDate ?? _lastDate,
-  earlyBirdDate: earlyBirdDate ?? _earlyBirdDate,
-  discountPrice: discountPrice ?? _discountPrice,
-  promotionalDesc: promotionalDesc ?? _promotionalDesc,
-  venue: venue ?? _venue,
-  mainImage: mainImage ?? _mainImage,
-  imageAlterText: imageAlterText ?? _imageAlterText,
-  featured: featured ?? _featured,
-  publicationStatus: publicationStatus ?? _publicationStatus,
-  status: status ?? _status,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-  training: training ?? _training,
-);
+
+  Batch copyWith({
+    num? id,
+    String? batchType,
+    num? trainingId,
+    num? currentBatchId,
+    String? batchName,
+    num? trainingPrice,
+    String? batchDesc,
+    num? collaborative,
+    dynamic collaBatchId,
+    dynamic collaBatchName,
+    dynamic partnerName,
+    num? classNo,
+    num? hours,
+    num? seat,
+    String? startDate,
+    String? endDate,
+    String? lastDate,
+    dynamic earlyBirdDate,
+    num? discountPrice,
+    String? promotionalDesc,
+    String? venue,
+    String? mainImage,
+    dynamic imageAlterText,
+    num? featured,
+    num? publicationStatus,
+    num? status,
+    String? createdAt,
+    String? updatedAt,
+    Training? training,
+  }) =>
+      Batch(
+        id: id ?? _id,
+        batchType: batchType ?? _batchType,
+        trainingId: trainingId ?? _trainingId,
+        currentBatchId: currentBatchId ?? _currentBatchId,
+        batchName: batchName ?? _batchName,
+        trainingPrice: trainingPrice ?? _trainingPrice,
+        batchDesc: batchDesc ?? _batchDesc,
+        collaborative: collaborative ?? _collaborative,
+        collaBatchId: collaBatchId ?? _collaBatchId,
+        collaBatchName: collaBatchName ?? _collaBatchName,
+        partnerName: partnerName ?? _partnerName,
+        classNo: classNo ?? _classNo,
+        hours: hours ?? _hours,
+        seat: seat ?? _seat,
+        startDate: startDate ?? _startDate,
+        endDate: endDate ?? _endDate,
+        lastDate: lastDate ?? _lastDate,
+        earlyBirdDate: earlyBirdDate ?? _earlyBirdDate,
+        discountPrice: discountPrice ?? _discountPrice,
+        promotionalDesc: promotionalDesc ?? _promotionalDesc,
+        venue: venue ?? _venue,
+        mainImage: mainImage ?? _mainImage,
+        imageAlterText: imageAlterText ?? _imageAlterText,
+        featured: featured ?? _featured,
+        publicationStatus: publicationStatus ?? _publicationStatus,
+        status: status ?? _status,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+        training: training ?? _training,
+      );
+
   num? get id => _id;
+
   String? get batchType => _batchType;
+
   num? get trainingId => _trainingId;
+
   num? get currentBatchId => _currentBatchId;
+
   String? get batchName => _batchName;
+
   num? get trainingPrice => _trainingPrice;
+
   String? get batchDesc => _batchDesc;
+
   num? get collaborative => _collaborative;
+
   dynamic get collaBatchId => _collaBatchId;
+
   dynamic get collaBatchName => _collaBatchName;
+
   dynamic get partnerName => _partnerName;
+
   num? get classNo => _classNo;
+
   num? get hours => _hours;
+
   num? get seat => _seat;
+
   String? get startDate => _startDate;
+
   String? get endDate => _endDate;
+
   String? get lastDate => _lastDate;
+
   dynamic get earlyBirdDate => _earlyBirdDate;
+
   num? get discountPrice => _discountPrice;
+
   String? get promotionalDesc => _promotionalDesc;
+
   String? get venue => _venue;
+
   String? get mainImage => _mainImage;
+
   dynamic get imageAlterText => _imageAlterText;
+
   num? get featured => _featured;
+
   num? get publicationStatus => _publicationStatus;
+
   num? get status => _status;
+
   String? get createdAt => _createdAt;
+
   String? get updatedAt => _updatedAt;
+
   Training? get training => _training;
 
   Map<String, dynamic> toJson() {
@@ -777,28 +892,28 @@ Batch copyWith({  num? id,
     }
     return map;
   }
-
 }
 
 class Training {
   Training({
-      num? id, 
-      num? catId, 
-      dynamic trainingTitle, 
-      dynamic trainingSubTitle, 
-      String? trainingMetaDesc, 
-      String? metaKeywords, 
-      String? h2ForSeo, 
-      String? trainingName, 
-      String? trainingSlug, 
-      String? trainingShortDesc, 
-      String? preRequisite, 
-      String? certificateCode, 
-      String? trainingImage, 
-      num? publicationStatus, 
-      num? status, 
-      String? createdAt, 
-      String? updatedAt,}){
+    num? id,
+    num? catId,
+    dynamic trainingTitle,
+    dynamic trainingSubTitle,
+    String? trainingMetaDesc,
+    String? metaKeywords,
+    String? h2ForSeo,
+    String? trainingName,
+    String? trainingSlug,
+    String? trainingShortDesc,
+    String? preRequisite,
+    String? certificateCode,
+    String? trainingImage,
+    num? publicationStatus,
+    num? status,
+    String? createdAt,
+    String? updatedAt,
+  }) {
     _id = id;
     _catId = catId;
     _trainingTitle = trainingTitle;
@@ -816,7 +931,7 @@ class Training {
     _status = status;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
-}
+  }
 
   Training.fromJson(dynamic json) {
     _id = json['id'];
@@ -837,6 +952,7 @@ class Training {
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
   }
+
   num? _id;
   num? _catId;
   dynamic _trainingTitle;
@@ -854,57 +970,78 @@ class Training {
   num? _status;
   String? _createdAt;
   String? _updatedAt;
-Training copyWith({  num? id,
-  num? catId,
-  dynamic trainingTitle,
-  dynamic trainingSubTitle,
-  String? trainingMetaDesc,
-  String? metaKeywords,
-  String? h2ForSeo,
-  String? trainingName,
-  String? trainingSlug,
-  String? trainingShortDesc,
-  String? preRequisite,
-  String? certificateCode,
-  String? trainingImage,
-  num? publicationStatus,
-  num? status,
-  String? createdAt,
-  String? updatedAt,
-}) => Training(  id: id ?? _id,
-  catId: catId ?? _catId,
-  trainingTitle: trainingTitle ?? _trainingTitle,
-  trainingSubTitle: trainingSubTitle ?? _trainingSubTitle,
-  trainingMetaDesc: trainingMetaDesc ?? _trainingMetaDesc,
-  metaKeywords: metaKeywords ?? _metaKeywords,
-  h2ForSeo: h2ForSeo ?? _h2ForSeo,
-  trainingName: trainingName ?? _trainingName,
-  trainingSlug: trainingSlug ?? _trainingSlug,
-  trainingShortDesc: trainingShortDesc ?? _trainingShortDesc,
-  preRequisite: preRequisite ?? _preRequisite,
-  certificateCode: certificateCode ?? _certificateCode,
-  trainingImage: trainingImage ?? _trainingImage,
-  publicationStatus: publicationStatus ?? _publicationStatus,
-  status: status ?? _status,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-);
+
+  Training copyWith({
+    num? id,
+    num? catId,
+    dynamic trainingTitle,
+    dynamic trainingSubTitle,
+    String? trainingMetaDesc,
+    String? metaKeywords,
+    String? h2ForSeo,
+    String? trainingName,
+    String? trainingSlug,
+    String? trainingShortDesc,
+    String? preRequisite,
+    String? certificateCode,
+    String? trainingImage,
+    num? publicationStatus,
+    num? status,
+    String? createdAt,
+    String? updatedAt,
+  }) =>
+      Training(
+        id: id ?? _id,
+        catId: catId ?? _catId,
+        trainingTitle: trainingTitle ?? _trainingTitle,
+        trainingSubTitle: trainingSubTitle ?? _trainingSubTitle,
+        trainingMetaDesc: trainingMetaDesc ?? _trainingMetaDesc,
+        metaKeywords: metaKeywords ?? _metaKeywords,
+        h2ForSeo: h2ForSeo ?? _h2ForSeo,
+        trainingName: trainingName ?? _trainingName,
+        trainingSlug: trainingSlug ?? _trainingSlug,
+        trainingShortDesc: trainingShortDesc ?? _trainingShortDesc,
+        preRequisite: preRequisite ?? _preRequisite,
+        certificateCode: certificateCode ?? _certificateCode,
+        trainingImage: trainingImage ?? _trainingImage,
+        publicationStatus: publicationStatus ?? _publicationStatus,
+        status: status ?? _status,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+      );
+
   num? get id => _id;
+
   num? get catId => _catId;
+
   dynamic get trainingTitle => _trainingTitle;
+
   dynamic get trainingSubTitle => _trainingSubTitle;
+
   String? get trainingMetaDesc => _trainingMetaDesc;
+
   String? get metaKeywords => _metaKeywords;
+
   String? get h2ForSeo => _h2ForSeo;
+
   String? get trainingName => _trainingName;
+
   String? get trainingSlug => _trainingSlug;
+
   String? get trainingShortDesc => _trainingShortDesc;
+
   String? get preRequisite => _preRequisite;
+
   String? get certificateCode => _certificateCode;
+
   String? get trainingImage => _trainingImage;
+
   num? get publicationStatus => _publicationStatus;
+
   num? get status => _status;
+
   String? get createdAt => _createdAt;
+
   String? get updatedAt => _updatedAt;
 
   Map<String, dynamic> toJson() {
@@ -928,24 +1065,24 @@ Training copyWith({  num? id,
     map['updated_at'] = _updatedAt;
     return map;
   }
-
 }
 
 class Billing {
   Billing({
-      num? id, 
-      num? studentId, 
-      num? batchId, 
-      num? courseId, 
-      String? amount, 
-      num? paymentType, 
-      String? paymentNote, 
-      String? discountType, 
-      num? discountAmount, 
-      String? createdAt, 
-      String? updatedAt, 
-      CourseRegStudents? courseRegStudents, 
-      List<Payment>? payment,}){
+    num? id,
+    num? studentId,
+    num? batchId,
+    num? courseId,
+    String? amount,
+    num? paymentType,
+    String? paymentNote,
+    String? discountType,
+    num? discountAmount,
+    String? createdAt,
+    String? updatedAt,
+    CourseRegStudents? courseRegStudents,
+    List<Payment>? payment,
+  }) {
     _id = id;
     _studentId = studentId;
     _batchId = batchId;
@@ -959,7 +1096,7 @@ class Billing {
     _updatedAt = updatedAt;
     _courseRegStudents = courseRegStudents;
     _payment = payment;
-}
+  }
 
   Billing.fromJson(dynamic json) {
     _id = json['id'];
@@ -973,7 +1110,9 @@ class Billing {
     _discountAmount = json['discount_amount'];
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
-    _courseRegStudents = json['course_reg_students'] != null ? CourseRegStudents.fromJson(json['course_reg_students']) : null;
+    _courseRegStudents = json['course_reg_students'] != null
+        ? CourseRegStudents.fromJson(json['course_reg_students'])
+        : null;
     if (json['payment'] != null) {
       _payment = [];
       json['payment'].forEach((v) {
@@ -981,6 +1120,7 @@ class Billing {
       });
     }
   }
+
   num? _id;
   num? _studentId;
   num? _batchId;
@@ -994,45 +1134,62 @@ class Billing {
   String? _updatedAt;
   CourseRegStudents? _courseRegStudents;
   List<Payment>? _payment;
-Billing copyWith({  num? id,
-  num? studentId,
-  num? batchId,
-  num? courseId,
-  String? amount,
-  num? paymentType,
-  String? paymentNote,
-  String? discountType,
-  num? discountAmount,
-  String? createdAt,
-  String? updatedAt,
-  CourseRegStudents? courseRegStudents,
-  List<Payment>? payment,
-}) => Billing(  id: id ?? _id,
-  studentId: studentId ?? _studentId,
-  batchId: batchId ?? _batchId,
-  courseId: courseId ?? _courseId,
-  amount: amount ?? _amount,
-  paymentType: paymentType ?? _paymentType,
-  paymentNote: paymentNote ?? _paymentNote,
-  discountType: discountType ?? _discountType,
-  discountAmount: discountAmount ?? _discountAmount,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-  courseRegStudents: courseRegStudents ?? _courseRegStudents,
-  payment: payment ?? _payment,
-);
+
+  Billing copyWith({
+    num? id,
+    num? studentId,
+    num? batchId,
+    num? courseId,
+    String? amount,
+    num? paymentType,
+    String? paymentNote,
+    String? discountType,
+    num? discountAmount,
+    String? createdAt,
+    String? updatedAt,
+    CourseRegStudents? courseRegStudents,
+    List<Payment>? payment,
+  }) =>
+      Billing(
+        id: id ?? _id,
+        studentId: studentId ?? _studentId,
+        batchId: batchId ?? _batchId,
+        courseId: courseId ?? _courseId,
+        amount: amount ?? _amount,
+        paymentType: paymentType ?? _paymentType,
+        paymentNote: paymentNote ?? _paymentNote,
+        discountType: discountType ?? _discountType,
+        discountAmount: discountAmount ?? _discountAmount,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+        courseRegStudents: courseRegStudents ?? _courseRegStudents,
+        payment: payment ?? _payment,
+      );
+
   num? get id => _id;
+
   num? get studentId => _studentId;
+
   num? get batchId => _batchId;
+
   num? get courseId => _courseId;
+
   String? get amount => _amount;
+
   num? get paymentType => _paymentType;
+
   String? get paymentNote => _paymentNote;
+
   String? get discountType => _discountType;
+
   num? get discountAmount => _discountAmount;
+
   String? get createdAt => _createdAt;
+
   String? get updatedAt => _updatedAt;
+
   CourseRegStudents? get courseRegStudents => _courseRegStudents;
+
   List<Payment>? get payment => _payment;
 
   Map<String, dynamic> toJson() {
@@ -1056,26 +1213,26 @@ Billing copyWith({  num? id,
     }
     return map;
   }
-
 }
 
 class Payment {
   Payment({
-      num? id, 
-      num? billingId, 
-      String? payStatus, 
-      String? amount, 
-      String? pgTxnid, 
-      String? merTxnid, 
-      String? bankTxn, 
-      String? cardType, 
-      String? optA, 
-      String? ipAddress, 
-      String? cardNumber, 
-      String? cardHolder, 
-      String? payTime, 
-      String? createdAt, 
-      String? updatedAt,}){
+    num? id,
+    num? billingId,
+    String? payStatus,
+    String? amount,
+    String? pgTxnid,
+    String? merTxnid,
+    String? bankTxn,
+    String? cardType,
+    String? optA,
+    String? ipAddress,
+    String? cardNumber,
+    String? cardHolder,
+    String? payTime,
+    String? createdAt,
+    String? updatedAt,
+  }) {
     _id = id;
     _billingId = billingId;
     _payStatus = payStatus;
@@ -1091,7 +1248,7 @@ class Payment {
     _payTime = payTime;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
-}
+  }
 
   Payment.fromJson(dynamic json) {
     _id = json['id'];
@@ -1110,6 +1267,7 @@ class Payment {
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
   }
+
   num? _id;
   num? _billingId;
   String? _payStatus;
@@ -1125,51 +1283,70 @@ class Payment {
   String? _payTime;
   String? _createdAt;
   String? _updatedAt;
-Payment copyWith({  num? id,
-  num? billingId,
-  String? payStatus,
-  String? amount,
-  String? pgTxnid,
-  String? merTxnid,
-  String? bankTxn,
-  String? cardType,
-  String? optA,
-  String? ipAddress,
-  String? cardNumber,
-  String? cardHolder,
-  String? payTime,
-  String? createdAt,
-  String? updatedAt,
-}) => Payment(  id: id ?? _id,
-  billingId: billingId ?? _billingId,
-  payStatus: payStatus ?? _payStatus,
-  amount: amount ?? _amount,
-  pgTxnid: pgTxnid ?? _pgTxnid,
-  merTxnid: merTxnid ?? _merTxnid,
-  bankTxn: bankTxn ?? _bankTxn,
-  cardType: cardType ?? _cardType,
-  optA: optA ?? _optA,
-  ipAddress: ipAddress ?? _ipAddress,
-  cardNumber: cardNumber ?? _cardNumber,
-  cardHolder: cardHolder ?? _cardHolder,
-  payTime: payTime ?? _payTime,
-  createdAt: createdAt ?? _createdAt,
-  updatedAt: updatedAt ?? _updatedAt,
-);
+
+  Payment copyWith({
+    num? id,
+    num? billingId,
+    String? payStatus,
+    String? amount,
+    String? pgTxnid,
+    String? merTxnid,
+    String? bankTxn,
+    String? cardType,
+    String? optA,
+    String? ipAddress,
+    String? cardNumber,
+    String? cardHolder,
+    String? payTime,
+    String? createdAt,
+    String? updatedAt,
+  }) =>
+      Payment(
+        id: id ?? _id,
+        billingId: billingId ?? _billingId,
+        payStatus: payStatus ?? _payStatus,
+        amount: amount ?? _amount,
+        pgTxnid: pgTxnid ?? _pgTxnid,
+        merTxnid: merTxnid ?? _merTxnid,
+        bankTxn: bankTxn ?? _bankTxn,
+        cardType: cardType ?? _cardType,
+        optA: optA ?? _optA,
+        ipAddress: ipAddress ?? _ipAddress,
+        cardNumber: cardNumber ?? _cardNumber,
+        cardHolder: cardHolder ?? _cardHolder,
+        payTime: payTime ?? _payTime,
+        createdAt: createdAt ?? _createdAt,
+        updatedAt: updatedAt ?? _updatedAt,
+      );
+
   num? get id => _id;
+
   num? get billingId => _billingId;
+
   String? get payStatus => _payStatus;
+
   String? get amount => _amount;
+
   String? get pgTxnid => _pgTxnid;
+
   String? get merTxnid => _merTxnid;
+
   String? get bankTxn => _bankTxn;
+
   String? get cardType => _cardType;
+
   String? get optA => _optA;
+
   String? get ipAddress => _ipAddress;
+
   String? get cardNumber => _cardNumber;
+
   String? get cardHolder => _cardHolder;
+
   String? get payTime => _payTime;
+
   String? get createdAt => _createdAt;
+
   String? get updatedAt => _updatedAt;
 
   Map<String, dynamic> toJson() {
@@ -1191,9 +1368,4 @@ Payment copyWith({  num? id,
     map['updated_at'] = _updatedAt;
     return map;
   }
-
 }
-
-
-
-

@@ -23,7 +23,7 @@ class BlogService {
   static Future<dynamic> getPopularBlog() async {
     try {
       final response =
-      await http.get(Uri.parse('https://pencilbox.edu.bd/api/popularBlog'));
+          await http.get(Uri.parse('https://pencilbox.edu.bd/api/popularBlog'));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body.toString());
@@ -39,7 +39,7 @@ class BlogService {
   static Future<dynamic> getBlogCategory() async {
     try {
       final response =
-      await http.get(Uri.parse('https://pencilbox.edu.bd/api/blogCats'));
+          await http.get(Uri.parse('https://pencilbox.edu.bd/api/blogCats'));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body.toString());
@@ -54,8 +54,8 @@ class BlogService {
 
   static Future<dynamic> getArchivesBlog() async {
     try {
-      final response =
-      await http.get(Uri.parse('https://pencilbox.edu.bd/api/blogArchives'));
+      final response = await http
+          .get(Uri.parse('https://pencilbox.edu.bd/api/blogArchives'));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body.toString());
@@ -67,5 +67,4 @@ class BlogService {
       throw e.toString();
     }
   }
-
 }

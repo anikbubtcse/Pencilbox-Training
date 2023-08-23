@@ -1,10 +1,11 @@
 class BlogCategoryModel {
   BlogCategoryModel({
-      this.id, 
-      this.catName, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.blog,});
+    this.id,
+    this.catName,
+    this.createdAt,
+    this.updatedAt,
+    this.blog,
+  });
 
   BlogCategoryModel.fromJson(dynamic json) {
     id = json['id'];
@@ -18,22 +19,28 @@ class BlogCategoryModel {
       });
     }
   }
+
   num? id;
   String? catName;
   String? createdAt;
   String? updatedAt;
   List<Blog>? blog;
-BlogCategoryModel copyWith({  num? id,
-  String? catName,
-  String? createdAt,
-  String? updatedAt,
-  List<Blog>? blog,
-}) => BlogCategoryModel(  id: id ?? this.id,
-  catName: catName ?? this.catName,
-  createdAt: createdAt ?? this.createdAt,
-  updatedAt: updatedAt ?? this.updatedAt,
-  blog: blog ?? this.blog,
-);
+
+  BlogCategoryModel copyWith({
+    num? id,
+    String? catName,
+    String? createdAt,
+    String? updatedAt,
+    List<Blog>? blog,
+  }) =>
+      BlogCategoryModel(
+        id: id ?? this.id,
+        catName: catName ?? this.catName,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        blog: blog ?? this.blog,
+      );
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
@@ -45,16 +52,16 @@ BlogCategoryModel copyWith({  num? id,
     }
     return map;
   }
-
 }
 
 class Blog {
   Blog({
-      this.id, 
-      this.blogId, 
-      this.catId, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.blogId,
+    this.catId,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Blog.fromJson(dynamic json) {
     id = json['id'];
@@ -63,22 +70,28 @@ class Blog {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
+
   num? id;
   num? blogId;
   num? catId;
   String? createdAt;
   String? updatedAt;
-Blog copyWith({  num? id,
-  num? blogId,
-  num? catId,
-  String? createdAt,
-  String? updatedAt,
-}) => Blog(  id: id ?? this.id,
-  blogId: blogId ?? this.blogId,
-  catId: catId ?? this.catId,
-  createdAt: createdAt ?? this.createdAt,
-  updatedAt: updatedAt ?? this.updatedAt,
-);
+
+  Blog copyWith({
+    num? id,
+    num? blogId,
+    num? catId,
+    String? createdAt,
+    String? updatedAt,
+  }) =>
+      Blog(
+        id: id ?? this.id,
+        blogId: blogId ?? this.blogId,
+        catId: catId ?? this.catId,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
@@ -88,5 +101,4 @@ Blog copyWith({  num? id,
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }

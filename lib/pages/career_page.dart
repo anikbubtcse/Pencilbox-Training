@@ -67,7 +67,6 @@ class _CareerPageState extends State<CareerPage> {
                                   const SizedBox(
                                     height: 10,
                                   ),
-
                                   Text(
                                     careerData.title!,
                                     style: GoogleFonts.poppins(
@@ -78,7 +77,6 @@ class _CareerPageState extends State<CareerPage> {
                                   const SizedBox(
                                     height: 10,
                                   ),
-
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -109,7 +107,6 @@ class _CareerPageState extends State<CareerPage> {
                                           )),
                                     ],
                                   )
-
                                 ],
                               ),
                             ),
