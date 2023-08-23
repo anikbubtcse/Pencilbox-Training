@@ -154,6 +154,17 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                   ),
                   InkWell(
                       onTap: () {
+                        Navigator.of(context).pushNamed('favorite_page');
+                      },
+                      child: isLoggedIn == false
+                          ? Container()
+                          : HomePageDrawerRow(
+                              "images/heart.svg", 'My Favorite')),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                      onTap: () {
                         Navigator.of(context).pushNamed('dashboard_page');
                       },
                       child: isLoggedIn == false
@@ -394,7 +405,7 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                   const SizedBox(
                     height: 15,
                   ),
-                  Text('App version 1.0.1',
+                  Text('App version 1.2.0',
                       style: GoogleFonts.poppins(
                           fontSize: 14, fontWeight: FontWeight.w300))
                 ],

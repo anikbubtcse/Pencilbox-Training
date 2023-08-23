@@ -9,6 +9,7 @@ import 'package:screen_design/provider/trainer_provider.dart';
 import '../custom/home_page_drawer.dart';
 import '../helper/helper_method.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CoursePage extends StatefulWidget {
   const CoursePage({super.key});
@@ -29,6 +30,19 @@ class _CoursePageState extends State<CoursePage> {
   late TrainerProvider trainerProvider;
   late List<CourseModel> courseModelList;
   int check = 0;
+  List<String> favoriteList = [];
+
+  addToFavorite() async {
+    final SharedPreferences favoritePrefs =
+        await SharedPreferences.getInstance();
+    favoriteList = favoritePrefs.getStringList('items') ?? [];
+  }
+
+  @override
+  void initState() {
+    addToFavorite();
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -41,7 +55,6 @@ class _CoursePageState extends State<CoursePage> {
   Widget build(BuildContext context) {
     if (check == HelperConstant.UPCOMINGCOURSE) {
       courseModelList = courseProvider.upcomingCourseList;
-      print(courseModelList.length);
     }
 
     if (check == HelperConstant.ONGOINGCOURSE) {
@@ -288,13 +301,23 @@ class _CoursePageState extends State<CoursePage> {
                                               top: -15,
                                               right: -10,
                                               child: IconButton(
-                                                  onPressed: () {},
-                                                  icon: const Icon(
+                                                  onPressed: () {
+                                                    final course =
+                                                        courseModelList[index];
+                                                    addOrRemoveFromFavList(
+                                                        course);
+                                                  },
+                                                  icon: Icon(
                                                     Icons
                                                         .favorite_border_outlined,
-                                                    color: Color(
-                                                      0xffDB1E37,
-                                                    ),
+                                                    color:
+                                                        favoriteList.contains(
+                                                                courseModelList[
+                                                                        index]
+                                                                    .id
+                                                                    .toString())
+                                                            ? Colors.red
+                                                            : Colors.black,
                                                     size: 13,
                                                   )),
                                             )
@@ -313,5 +336,26 @@ class _CoursePageState extends State<CoursePage> {
         ),
       ),
     );
+  }
+
+  void addOrRemoveFromFavList(CourseModel course) async {
+    if (favoriteList.contains(course.id.toString())) {
+      favoriteList.remove(course.id.toString());
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Successfully Removed from your favourite list')));
+    } else {
+      favoriteList.add(course.id.toString());
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Successfully Added to your favourite list')));
+    }
+
+    final SharedPreferences favoritePrefs =
+        await SharedPreferences.getInstance();
+    Set<String> stringSet = Set<String>();
+    stringSet.addAll(favoriteList);
+    favoriteList.clear();
+    favoriteList.addAll(stringSet);
+    await favoritePrefs.setStringList('items', favoriteList);
+    setState(() {});
   }
 }

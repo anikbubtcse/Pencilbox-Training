@@ -6,6 +6,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/services.dart';
 import 'package:screen_design/custom/home_page_drawer.dart';
 import 'package:screen_design/helper/helper_method.dart';
+import 'package:screen_design/models/course_model.dart';
 import 'package:screen_design/provider/trainer_provider.dart';
 import 'package:screen_design/provider/course_provider.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   addToFavorite() async {
     final SharedPreferences favoritePrefs =
         await SharedPreferences.getInstance();
-    favoriteList = favoritePrefs.getStringList('items')!;
+    favoriteList = favoritePrefs.getStringList('items') ?? [];
   }
 
   @override
@@ -259,61 +260,16 @@ class _HomePageState extends State<HomePage> {
                                           right: 0,
                                           child: InkWell(
                                             onTap: () {
-                                              if (favoriteList.contains(
-                                                  courseProvider
-                                                      .upcomingCourseList[index]
-                                                      .id
-                                                      .toString())) {
-                                                setState(() async {
-                                                  favoriteList.remove(
-                                                      courseProvider
-                                                          .upcomingCourseList[
-                                                              index]
-                                                          .id
-                                                          .toString());
-
-                                                  final SharedPreferences
-                                                      prefs =
-                                                      await SharedPreferences
-                                                          .getInstance();
-                                                  await prefs.setStringList(
-                                                      'items', favoriteList);
-
-                                                  var snackBar = SnackBar(
-                                                      content: Text(
-                                                          'The course has been removed from your favourite list'));
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(snackBar);
-                                                });
-                                              } else {
-                                                setState(() async {
-                                                  favoriteList.add(
-                                                      courseProvider
-                                                          .upcomingCourseList[
-                                                              index]
-                                                          .id
-                                                          .toString());
-
-                                                  final SharedPreferences
-                                                      prefs =
-                                                      await SharedPreferences
-                                                          .getInstance();
-                                                  await prefs.setStringList(
-                                                      'items', favoriteList);
-                                                  var snackBar = SnackBar(
-                                                      content: Text(
-                                                          'The course has been added to your favourite list'));
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(snackBar);
-                                                });
-                                              }
+                                              final course = courseProvider
+                                                  .upcomingCourseList[index];
+                                              addOrRemoveFromFavList(course);
                                             },
                                             child: CircleAvatar(
                                               radius: 12,
                                               backgroundColor:
                                                   Colors.grey.withOpacity(0.5),
                                               child: Icon(
-                                                Icons.favorite_border,
+                                                Icons.favorite_outline,
                                                 color: favoriteList.contains(
                                                         courseProvider
                                                             .upcomingCourseList[
@@ -526,5 +482,25 @@ class _HomePageState extends State<HomePage> {
     if (status == "Not Connected") {
       showNoNetworkDialog();
     } else {}
+  }
+
+  void addOrRemoveFromFavList(CourseModel course) async {
+    if (favoriteList.contains(course.id.toString())) {
+      favoriteList.remove(course.id.toString());
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Successfully Removed from your favourite list')));
+    } else {
+      favoriteList.add(course.id.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Successfully Added to your favourite list')));
+    }
+
+    final SharedPreferences favoritePrefs = await SharedPreferences.getInstance();
+    Set<String> stringSet = Set<String>();
+    stringSet.addAll(favoriteList);
+    favoriteList.clear();
+    favoriteList.addAll(stringSet);
+    await favoritePrefs.setStringList('items', favoriteList);
+    setState(() {});
   }
 }

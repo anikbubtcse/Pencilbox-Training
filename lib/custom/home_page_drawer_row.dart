@@ -17,7 +17,11 @@ class _HomePageDrawerRowState extends State<HomePageDrawerRow> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SvgPicture.asset(widget.imageLink),
+        SvgPicture.asset(
+          widget.imageLink,
+          height: 24,
+          width: 24,
+        ),
         const SizedBox(
           width: 15,
         ),

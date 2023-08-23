@@ -48,12 +48,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Create an Account",
-                  style: GoogleFonts.poppins(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff191919)),
+                SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    "Create an Account",
+                    style: GoogleFonts.poppins(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff191919)),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 const SizedBox(
                   height: 15,
@@ -417,49 +421,49 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'or',
-                          style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xff999DA3)),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 48,
-                        decoration: BoxDecoration(
-                            color: Color(0xffE4E7EB),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'images/google.png',
-                              height: 24,
-                              width: 24,
-                              fit: BoxFit.cover,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            FittedBox(
-                              child: Text(
-                                'Continue with Google',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xff4B5768)),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                      // Align(
+                      //   alignment: Alignment.center,
+                      //   child: Text(
+                      //     'or',
+                      //     style: GoogleFonts.poppins(
+                      //         fontSize: 14,
+                      //         fontWeight: FontWeight.w400,
+                      //         color: Color(0xff999DA3)),
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width,
+                      //   height: 48,
+                      //   decoration: BoxDecoration(
+                      //       color: Color(0xffE4E7EB),
+                      //       borderRadius: BorderRadius.circular(8)),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       Image.asset(
+                      //         'images/google.png',
+                      //         height: 24,
+                      //         width: 24,
+                      //         fit: BoxFit.cover,
+                      //       ),
+                      //       const SizedBox(
+                      //         width: 5,
+                      //       ),
+                      //       FittedBox(
+                      //         child: Text(
+                      //           'Continue with Google',
+                      //           style: GoogleFonts.poppins(
+                      //               fontSize: 16,
+                      //               fontWeight: FontWeight.w500,
+                      //               color: Color(0xff4B5768)),
+                      //         ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 10,
                       ),
