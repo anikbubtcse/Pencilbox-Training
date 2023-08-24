@@ -7,7 +7,6 @@ import 'package:screen_design/models/billing_detail_student_model.dart';
 import 'package:screen_design/models/course_model.dart';
 import 'package:screen_design/provider/area_provider.dart';
 
-
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});
 
@@ -31,17 +30,23 @@ class _CheckoutPageState extends State<CheckoutPage> {
   bool showSubDistrictDropdown = false;
   bool showPartialPaymentInfo = false;
   int partialAmount = 0;
-  // late CourseModel courseModel;
-  // late int courseRegId;
-  bool onlinePayment=true;
-  bool bkashPayment=false;
+  late CourseModel courseModel;
+  late int courseRegId;
+  String paymentMethod='online';
+  double charge=3;
+  String chargeText='Online Charge';
+  late double finalTotal;
 
   @override
   void didChangeDependencies() {
     // final arguments = ModalRoute.of(context)!.settings.arguments as List;
-    // courseModel = arguments[0];
-    // courseRegId = arguments[1];
+    //  courseModel = arguments[0];
+    //  courseRegId = arguments[1];
+    courseModel = CourseModel(
+        trainingName: 'Flutter', trainingPrice: 1000, trainerId: 121);
+    courseRegId = 11222;
 
+    finalTotal=getFinalTotal(courseModel.trainingPrice!,3.0);
 
     super.didChangeDependencies();
   }
@@ -439,14 +444,27 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                          //  Expanded(child: Text(courseModel.trainingName!)),
-                            // Expanded(
-                            //     child: Text(
-                            //   '৳ ${courseModel.trainingPrice}',
-                            //   textAlign: TextAlign.end,
-                            // ))
+                            Expanded(child: Text(courseModel.trainingName!)),
+                            Expanded(
+                                child: Text(
+                              '৳ ${courseModel.trainingPrice}',
+                              textAlign: TextAlign.end,
+                            ))
                           ],
                         ),
+                        SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(child: Text('${chargeText}')),
+                            Expanded(
+                                child: Text(
+                                  '${charge}%',
+                                  textAlign: TextAlign.end,
+                                ))
+                          ],
+                        ),
+
                         const SizedBox(
                           height: 5,
                         ),
@@ -470,11 +488,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(child: Text('Remaining payment ')),
-                              // Expanded(
-                              //     child: Text(
-                              //   '৳ ${courseModel.trainingPrice! - partialAmount}',
-                              //   textAlign: TextAlign.end,
-                              // ))
+                              Expanded(
+                                  child: Text(
+                                '৳ ${courseModel.trainingPrice! - partialAmount}',
+                                textAlign: TextAlign.end,
+                              ))
                             ],
                           ),
                         const SizedBox(
@@ -494,26 +512,34 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               'TOTAL',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            // Text(
-                            //   '৳ ${courseModel.trainingPrice}',
-                            //   style: TextStyle(fontWeight: FontWeight.bold),
-                            // )
+                            Text(
+                              '৳ ${finalTotal}',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
                           ],
                         ),
+                        SizedBox(
+                          height: 20,
+                        ),
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             setState(() {
-                              onlinePayment=true;
-                              bkashPayment=false;
+                              paymentMethod='online';
+                              finalTotal= getFinalTotal(courseModel.trainingPrice!, 3);
+                              charge=3;
                             });
+                            print('paymentMethod ${paymentMethod}');
                           },
                           child: Row(
                             children: [
                               Container(
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle, border: Border.all()),
-                                child:  Icon(
-                                  onlinePayment==true?Icons.circle:Icons.circle_outlined,
+                                    shape: BoxShape.circle,
+                                    border: Border.all()),
+                                child: Icon(
+                                  paymentMethod=='online'
+                                      ? Icons.circle
+                                      : Icons.circle_outlined,
                                   size: 15,
                                 ),
                               ),
@@ -521,71 +547,76 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 width: 5,
                               ),
                               Text('Online Payment'),
-                              InkWell(
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Text('/ Partial Payment'),
-                                ),
-                                onTap: () {
-                                  {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                              title: Text('Partial Payment'),
-                                              content: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  const Text(
-                                                      'How much amount you want to pay?'),
-                                                  TextField(
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    controller:
-                                                        partialPaymentController,
-                                                    decoration: InputDecoration(),
-                                                  )
-                                                ],
-                                              ),
-                                              actions: [
-                                                ElevatedButton(
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        showPartialPaymentInfo =
-                                                            true;
-                                                        partialAmount = int.parse(
-                                                            partialPaymentController
-                                                                .text);
-                                                        partialPaymentController
-                                                            .clear();
-                                                      });
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Text('Ok')),
-                                              ],
-                                            ));
-                                  }
-                                },
-                              )
+                              // InkWell(
+                              //   child: const Padding(
+                              //     padding: EdgeInsets.all(8.0),
+                              //     child: Text('/ Partial Payment'),
+                              //   ),
+                              //   onTap: () {
+                              //     {
+                              //       showDialog(
+                              //           context: context,
+                              //           builder: (context) => AlertDialog(
+                              //                 title: Text('Partial Payment'),
+                              //                 content: Column(
+                              //                   mainAxisSize: MainAxisSize.min,
+                              //                   children: [
+                              //                     const Text(
+                              //                         'How much amount you want to pay?'),
+                              //                     TextField(
+                              //                       keyboardType:
+                              //                           TextInputType.number,
+                              //                       controller:
+                              //                           partialPaymentController,
+                              //                       decoration: InputDecoration(),
+                              //                     )
+                              //                   ],
+                              //                 ),
+                              //                 actions: [
+                              //                   ElevatedButton(
+                              //                       onPressed: () {
+                              //                         setState(() {
+                              //                           showPartialPaymentInfo =
+                              //                               true;
+                              //                           partialAmount = int.parse(
+                              //                               partialPaymentController
+                              //                                   .text);
+                              //                           partialPaymentController
+                              //                               .clear();
+                              //                         });
+                              //                         Navigator.pop(context);
+                              //                       },
+                              //                       child: Text('Ok')),
+                              //                 ],
+                              //               ));
+                              //     }
+                              //   },
+                              // )
                             ],
                           ),
                         ),
                         const SizedBox(
-                          height: 5,
+                          height: 20,
                         ),
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             setState(() {
-                              onlinePayment=false;
-                              bkashPayment=true;
+                              paymentMethod='bkash';
+                              finalTotal= getFinalTotal(courseModel.trainingPrice!, 1.5);
+                              charge=1.5;
                             });
+                            print('paymentMethod ${paymentMethod}');
                           },
                           child: Row(
                             children: [
                               Container(
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle, border: Border.all()),
-                                child:  Icon(
-                                  bkashPayment==true?Icons.circle:Icons.circle_outlined,
+                                    shape: BoxShape.circle,
+                                    border: Border.all()),
+                                child: Icon(
+                                  paymentMethod=='bkash'
+                                      ? Icons.circle
+                                      : Icons.circle_outlined,
                                   size: 15,
                                 ),
                               ),
@@ -593,11 +624,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 width: 5,
                               ),
                               Text('Bkash Payment'),
-
                             ],
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 20,
+                        ),
                         const Text(
                             'Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.'),
                         const SizedBox(
@@ -607,7 +639,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.orangeAccent),
                             onPressed: () async {
-
                               // if(bkashPayment==true){
                               //
                               //   try {
@@ -665,5 +696,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
         ],
       ),
     );
+  }
+
+  double getFinalTotal(int trainingPrice, double rate) {
+
+    return trainingPrice+((trainingPrice*rate)/100);
   }
 }

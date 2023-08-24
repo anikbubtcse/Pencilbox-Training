@@ -27,6 +27,7 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
 
+
   @override
   void didChangeDependencies() {
     courseModel = ModalRoute.of(context)!.settings.arguments as CourseModel;
@@ -411,8 +412,7 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
     EasyLoading.show();
 
     try {
-      final response = await http.post(
-          Uri.parse('https://pencilbox.edu.bd/api/course-registration'),
+      final response = await http.post(Uri.parse('https://pencilbox.edu.bd/api/course-registration'),
           body: {
             'email_address': emailController.text,
             'phone_number': phoneNumberController.text,
@@ -420,7 +420,8 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
             'training_id': courseModel.trainingId.toString(),
             'full_name': fullNameController.text,
             'only_course': '6'
-          });
+          }
+          );
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body.toString());
         if (data['304'] == null) {

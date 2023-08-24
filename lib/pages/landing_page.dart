@@ -74,8 +74,8 @@ class _LandingPageState extends State<LandingPage> {
     }
 
     timer = Timer(const Duration(seconds: 5), () {
-     Navigator.of(context).pushReplacementNamed('bottom_nav_screen');
-     // Navigator.of(context).pushReplacementNamed('checkout_page');
+     //Navigator.of(context).pushReplacementNamed('bottom_nav_screen');
+      Navigator.of(context).pushReplacementNamed('checkout_page');
     });
     super.didChangeDependencies();
   }
