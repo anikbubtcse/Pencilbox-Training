@@ -11,6 +11,7 @@ import 'package:screen_design/provider/trainer_provider.dart';
 import 'package:screen_design/provider/course_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:screen_design/service/notification_services.dart';
 import '../custom/main_app_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,21 +30,14 @@ class _HomePageState extends State<HomePage> {
   late CourseProvider courseProvider;
   late StreamSubscription<ConnectivityResult> subscription;
   List<String> favoriteList = [];
+  NotificationServices notificationServices=NotificationServices();
 
 
-  addToFavorite() async {
-    final SharedPreferences favoritePrefs =
-        await SharedPreferences.getInstance();
-    favoriteList = favoritePrefs.getStringList('items')??[];
-    favoriteList.forEach((element) {
-      print('INITIAL ${element}');
-    });
 
-  }
 
   @override
   initState() {
-    addToFavorite();
+
 
     checkConnectivity();
     subscription = Connectivity()
@@ -58,6 +52,18 @@ class _HomePageState extends State<HomePage> {
       }
     });
 
+    notificationServices.requestForPermission();
+
+    //notification
+
+    notificationServices.firebaseInit(context);
+    // services.isTokenExperied();
+    notificationServices.setupInteractMessage(context);
+    notificationServices.getTokens().then((value) {
+      print('Token is $value');
+    });
+
+    addToFavorite();
     super.initState();
   }
 
@@ -556,5 +562,14 @@ class _HomePageState extends State<HomePage> {
     //         .showSnackBar(snackBar);
     //   });
     // }
+  }
+  addToFavorite() async {
+    final SharedPreferences favoritePrefs =
+    await SharedPreferences.getInstance();
+    favoriteList = favoritePrefs.getStringList('items')??[];
+    favoriteList.forEach((element) {
+      print('INITIAL ${element}');
+    });
+
   }
 }

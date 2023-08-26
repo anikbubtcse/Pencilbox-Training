@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "422444249204",
+    "project_id": "contactappproject-13104",
+    "storage_bucket": "contactappproject-13104.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422444249204:android:d873e0c146c8443032a121",
+        "android_client_info": {
+          "package_name": "com.bitbirds.push_notification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422444249204-g3i4u85roaib6j18eqf8mtt2nsrj711f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGidsuWAxXOsYWaBqk_dUTyOTKNyJRbmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422444249204-g3i4u85roaib6j18eqf8mtt2nsrj711f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "422444249204-0gd8ts752tgoshfuu58f72vit2da4b9p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bitbirds.pushnotification"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422444249204:android:fabe78a26712aec432a121",
+        "android_client_info": {
+          "package_name": "com.example.contact_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422444249204-g3i4u85roaib6j18eqf8mtt2nsrj711f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGidsuWAxXOsYWaBqk_dUTyOTKNyJRbmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422444249204-g3i4u85roaib6j18eqf8mtt2nsrj711f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "422444249204-0gd8ts752tgoshfuu58f72vit2da4b9p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bitbirds.pushnotification"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422444249204:android:b6d49e8fd85b373f32a121",
+        "android_client_info": {
+          "package_name": "com.pencilbox.training"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422444249204-g3i4u85roaib6j18eqf8mtt2nsrj711f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGidsuWAxXOsYWaBqk_dUTyOTKNyJRbmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422444249204-g3i4u85roaib6j18eqf8mtt2nsrj711f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "422444249204-0gd8ts752tgoshfuu58f72vit2da4b9p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bitbirds.pushnotification"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
