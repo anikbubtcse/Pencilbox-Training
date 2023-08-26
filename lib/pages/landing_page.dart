@@ -40,6 +40,11 @@ class _LandingPageState extends State<LandingPage> {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp, // Fix the orientation to portrait mode
     ]);
+    timer = Timer(const Duration(seconds: 5), () {
+      Navigator.of(context).pushReplacementNamed('bottom_nav_screen');
+      // Navigator.of(context).pushReplacementNamed('checkout_page');
+    });
+
     super.initState();
   }
 
@@ -70,13 +75,11 @@ class _LandingPageState extends State<LandingPage> {
       userProvider.getAllStudentReviews();
       areaProvider.getAllDistrict();
       areaProvider.getAllSubDistrict();
-      callOnce = false;
     }
+    callOnce = false;
 
-    timer = Timer(const Duration(seconds: 5), () {
-     //Navigator.of(context).pushReplacementNamed('bottom_nav_screen');
-      Navigator.of(context).pushReplacementNamed('checkout_page');
-    });
+
+
     super.didChangeDependencies();
   }
 

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:email_validator/email_validator.dart';
@@ -6,6 +8,9 @@ import 'package:provider/provider.dart';
 import 'package:screen_design/models/billing_detail_student_model.dart';
 import 'package:screen_design/models/course_model.dart';
 import 'package:screen_design/provider/area_provider.dart';
+import 'package:flutter_bkash/flutter_bkash.dart';
+import 'dart:developer' as dev;
+import '../custom/bkash_style.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});
@@ -37,16 +42,18 @@ class _CheckoutPageState extends State<CheckoutPage> {
   String chargeText='Online Charge';
   late double finalTotal;
 
+
   @override
   void didChangeDependencies() {
-    // final arguments = ModalRoute.of(context)!.settings.arguments as List;
-    //  courseModel = arguments[0];
-    //  courseRegId = arguments[1];
-    courseModel = CourseModel(
-        trainingName: 'Flutter', trainingPrice: 1000, trainerId: 121);
-    courseRegId = 11222;
+    final arguments = ModalRoute.of(context)!.settings.arguments as List;
+     courseModel = arguments[0];
+     courseRegId = arguments[1];
 
-    finalTotal=getFinalTotal(courseModel.trainingPrice!,3.0);
+
+    //testing
+    // courseModel = CourseModel(trainingName: 'Flutter', trainingPrice: 1000, trainerId: 121);
+    // courseRegId = 11222;
+    // finalTotal=getFinalTotal(courseModel.trainingPrice!,3.0);
 
     super.didChangeDependencies();
   }
@@ -639,48 +646,56 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.orangeAccent),
                             onPressed: () async {
-                              // if(bkashPayment==true){
+
+                              ////live
+
+                              // final flutterBkash = FlutterBkash(
+                              //   bkashCredentials: BkashCredentials(
+                              //       username: '01313363836',
+                              //       password: 'mK1Y-#h7>T%',
+                              //       appKey: 'QXQRLiHi7ekxPThXuDju7i0rtc',
+                              //       appSecret: 'wPFqjEQFkqpEJFY6oEWYD7rCDM26cEaQ9xrcgm0eEUwSGiUMxGk5',
+                              //       isSandbox: false
+                              //   ));
+
+                              // final flutterBkash = FlutterBkash();
                               //
-                              //   try {
-                              //     final flutterBkash = FlutterBkash();
-                              //     final result = await flutterBkash.pay(
-                              //       context: context, // BuildContext context
-                              //       amount: 1.0, // amount as double
-                              //       merchantInvoiceNumber: "invoice123",
-                              //     );
-                              //     print(result.toString());
-                              //   } on BkashFailure catch (e) {
-                              //     // Handle the error
-                              //     print(e.message);
-                              //   }
+                              // final result = await flutterBkash.pay(
+                              //   context: context, // BuildContext context
+                              //   amount: 1.0, // amount as double
+                              //   merchantInvoiceNumber: "invoice123",
+                              // );
                               //
-                              //
-                              //
-                              // }
+                              // print('RETURN RESULT ${result.toString()}');
+
 
                               if (formKey.currentState!.validate()) {
-                                // final billingDetails =
-                                //     BillingDetailsStudentModel(
-                                //         email: emailController.text,
-                                //         phone: phoneNumberController.text,
-                                //         country: 'Bangladesh',
-                                //         state: selectDistrict,
-                                //         city: selectSubDistrict,
-                                //         address1: addressController.text,
-                                //         postCode: postCodeController.text,
-                                //         name: nameController.text,
-                                //         batchId: courseModel.batchId.toString(),
-                                //         courseId: courseRegId.toString(),
-                                //         amount: partialAmount == 0
-                                //             ? courseModel.trainingPrice
-                                //                 .toString()
-                                //             : partialAmount.toString(),
-                                //         courseName: courseModel.trainingName!);
+                                final billingDetails = BillingDetailsStudentModel(
+                                        email: emailController.text,
+                                        phone: phoneNumberController.text,
+                                        country: 'Bangladesh',
+                                        state: selectDistrict,
+                                        city: selectSubDistrict,
+                                        address1: addressController.text,
+                                        postCode: postCodeController.text,
+                                        name: nameController.text,
+                                        batchId: courseModel.batchId.toString(),
+                                        courseId: courseRegId.toString(),
+                                        amount:finalTotal.toString(),
+                                        courseName: courseModel.trainingName!);
 
-                                // Navigator.of(context).pushReplacementNamed(
-                                //     'aamar_pay_page',
-                                //     arguments: billingDetails);
+                                Navigator.of(context).pushReplacementNamed(
+                                    'aamar_pay_page',
+                                    arguments: billingDetails);
                               }
+
+
+
+
+
+
+
+
                             },
                             child: const Text(
                               'Place Order',

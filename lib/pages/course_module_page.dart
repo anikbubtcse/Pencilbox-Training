@@ -15,7 +15,7 @@ class CourseModulePage extends StatefulWidget {
   State<CourseModulePage> createState() => _CourseModulePageState();
 }
 
-class _CourseModulePageState extends State<CourseModulePage> {
+class _CourseModulePageState extends State<CourseModulePage>  {
   late CourseModel courseModel;
   late TrainerModel trainerModel;
   late CourseModuleProvider courseModuleProvider;
