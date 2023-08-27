@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
-import 'package:screen_design/models/event_model.dart';
 import '../helper/helper_method.dart';
 import '../provider/event_provider.dart';
 

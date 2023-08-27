@@ -8,9 +8,9 @@
         </intent>
     </queries>
     <application
-        android:label="Pencilbox"
+        android:label="Pencilbox Training"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"

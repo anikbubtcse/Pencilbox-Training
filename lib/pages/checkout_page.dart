@@ -45,15 +45,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
   @override
   void didChangeDependencies() {
-    final arguments = ModalRoute.of(context)!.settings.arguments as List;
-     courseModel = arguments[0];
-     courseRegId = arguments[1];
+    // final arguments = ModalRoute.of(context)!.settings.arguments as List;
+    //  courseModel = arguments[0];
+    //  courseRegId = arguments[1];
 
 
     //testing
-    // courseModel = CourseModel(trainingName: 'Flutter', trainingPrice: 1000, trainerId: 121);
-    // courseRegId = 11222;
-    // finalTotal=getFinalTotal(courseModel.trainingPrice!,3.0);
+    courseModel = CourseModel(trainingName: 'Flutter', trainingPrice: 1000, trainerId: 121);
+    courseRegId = 11222;
+    finalTotal=getFinalTotal(courseModel.trainingPrice!,3.0);
 
     super.didChangeDependencies();
   }
@@ -647,26 +647,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 backgroundColor: Colors.orangeAccent),
                             onPressed: () async {
 
-                              ////live
 
-                              // final flutterBkash = FlutterBkash(
-                              //   bkashCredentials: BkashCredentials(
-                              //       username: '01313363836',
-                              //       password: 'mK1Y-#h7>T%',
-                              //       appKey: 'QXQRLiHi7ekxPThXuDju7i0rtc',
-                              //       appSecret: 'wPFqjEQFkqpEJFY6oEWYD7rCDM26cEaQ9xrcgm0eEUwSGiUMxGk5',
-                              //       isSandbox: false
-                              //   ));
-
-                              // final flutterBkash = FlutterBkash();
-                              //
-                              // final result = await flutterBkash.pay(
-                              //   context: context, // BuildContext context
-                              //   amount: 1.0, // amount as double
-                              //   merchantInvoiceNumber: "invoice123",
-                              // );
-                              //
-                              // print('RETURN RESULT ${result.toString()}');
 
 
                               if (formKey.currentState!.validate()) {
@@ -684,9 +665,34 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                         amount:finalTotal.toString(),
                                         courseName: courseModel.trainingName!);
 
-                                Navigator.of(context).pushReplacementNamed(
-                                    'aamar_pay_page',
-                                    arguments: billingDetails);
+                                if(paymentMethod=='online'){
+                                  Navigator.of(context).pushReplacementNamed(
+                                      'aamar_pay_page',
+                                      arguments: billingDetails);
+                                }
+                                if(paymentMethod=='bkash'){
+                                  ////live
+
+                                  final flutterBkash = FlutterBkash(
+                                    bkashCredentials: BkashCredentials(
+                                        username: '01313363836',
+                                        password: 'mK1Y-#h7>T%',
+                                        appKey: 'QXQRLiHi7ekxPThXuDju7i0rtc',
+                                        appSecret: 'wPFqjEQFkqpEJFY6oEWYD7rCDM26cEaQ9xrcgm0eEUwSGiUMxGk5',
+                                        isSandbox: false
+                                    ));
+
+                                 // final flutterBkash = FlutterBkash();
+
+                                  final result = await flutterBkash.pay(
+                                    context: context, // BuildContext context
+                                    amount: 1.0, // amount as double
+                                    merchantInvoiceNumber: "invoice123",
+                                  );
+
+                                  print('RETURN RESULT ${result.toString()}');
+                                }
+
                               }
 
 

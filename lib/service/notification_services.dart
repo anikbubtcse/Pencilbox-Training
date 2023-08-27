@@ -2,7 +2,6 @@
 
 import 'dart:io';
 import 'dart:math';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/foundation.dart';
@@ -12,6 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:screen_design/provider/blog_provider.dart';
 import 'package:screen_design/provider/course_provider.dart';
 import '../pages/contact_page.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
 
 class NotificationServices {
 
@@ -42,7 +43,7 @@ class NotificationServices {
   }
 
   initLocalNotification(BuildContext context,RemoteMessage message)async{
-    var androidSettings=const AndroidInitializationSettings('mipmap/ic_launcher');
+    var androidSettings= AndroidInitializationSettings('mipmap/launcher_icon');
     var iosSettings=const DarwinInitializationSettings();
 
     var intialization=InitializationSettings(
@@ -60,14 +61,47 @@ class NotificationServices {
     AndroidNotificationChannel channel=AndroidNotificationChannel(Random.secure().nextInt(1000).toString(),
         'High Importance nitification',importance: Importance.high);
 
+   //// extra
+    final BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
+      //additional text
+      message.data['details'], // Expanded Text
+      htmlFormatContentTitle: true, // Optional: Format text as HTML
+      htmlFormatSummaryText: true, // Optional: Format text as HTML
+    );
+
+
+    // Create a custom image layout for the notification
+
+    final largeIconPath=await downloadFile(
+      message.data['icon'],
+      'largeIcon'
+    );
+
+    final bigPicturePath=await downloadFile(
+        message.data['image'],
+        'bigPicture'
+    );
+
+    final imageStyleInformation=BigPictureStyleInformation(
+      FilePathAndroidBitmap(bigPicturePath),
+      contentTitle: message.data['content_title'],
+      summaryText: message.data['summary'],
+      largeIcon: FilePathAndroidBitmap(largeIconPath)
+    );
+
+
+
     AndroidNotificationDetails androidNotificationDetails=AndroidNotificationDetails(
         channel.id.toString(),
         channel.name.toString(),
         channelDescription: 'My loading description',
         priority: Priority.high,
         importance: Importance.high ,
-        ticker: 'Ticker'
+        ticker: 'Ticker',
+        styleInformation: imageStyleInformation
+        // styleInformation: bigTextStyleInformation
     );
+
     DarwinNotificationDetails details=DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
@@ -78,11 +112,13 @@ class NotificationServices {
       android: androidNotificationDetails,
       // iOS: details
     );
+
     await _localNotificationsPlugin.show(
         0,
         message.notification!.title.toString(),
         message.notification!.body.toString(),
-        notificationDetails
+        notificationDetails,
+
     );
 
   }
@@ -117,7 +153,6 @@ class NotificationServices {
       print('refresh');
     });
   }
-
 
   void handleMessage(BuildContext context,RemoteMessage message){
 
@@ -155,8 +190,8 @@ class NotificationServices {
     }
 
 
-  }
 
+  }
 
   Future<void> setupInteractMessage(BuildContext context)async{
     //when app is terminated
@@ -170,6 +205,16 @@ class NotificationServices {
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       handleMessage(context, event);
     });
+
+  }
+
+  downloadFile(String url, String fileName) async{
+    final directory=await getApplicationDocumentsDirectory();
+    final filePath='${directory.path}/$fileName';
+    final response=await http.get(Uri.parse(url));
+    final file=File(filePath);
+    await file.writeAsBytes(response.bodyBytes);
+    return filePath;
 
   }
 

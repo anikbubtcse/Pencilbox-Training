@@ -16,6 +16,7 @@ class CourseProvider extends ChangeNotifier {
   List<CourseModel> rplCourseList = [];
   List<CourseModel> industrialAttachmentList = [];
   List<CourseModel> coursesByTrainerIdList = [];
+  List<CourseModel> favoriteCoursesList = [];
 
   getCourseServiceData() async {
     oldCoursesList.clear();
@@ -130,7 +131,6 @@ class CourseProvider extends ChangeNotifier {
           }
         });
       }
-      print('filteredCourseList ${filteredCourseList.length}');
     }
 
     filteredCourseList.sort((a, b) => b.startDate!.compareTo(a.startDate!));

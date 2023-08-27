@@ -17,6 +17,7 @@ import 'package:screen_design/pages/edit_profile_page.dart';
 import 'package:screen_design/pages/event_details_page.dart';
 import 'package:screen_design/pages/event_page.dart';
 import 'package:screen_design/pages/faq_page.dart';
+import 'package:screen_design/pages/favorite_page.dart';
 import 'package:screen_design/pages/forgot_password_page.dart';
 import 'package:screen_design/pages/home_page.dart';
 import 'package:screen_design/pages/industrial_attachment.dart';
@@ -84,7 +85,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       builder: EasyLoading.init(),
-      title: 'Flutter Demo',
+      title: 'Pencilbox Training',
       theme: ThemeData(
         scrollbarTheme: ScrollbarThemeData(
           thumbVisibility: MaterialStateProperty.all(true),
@@ -136,6 +137,7 @@ class MyApp extends StatelessWidget {
         'apply_course_page': (_) => ApplyCoursePage(),
         'checkout_page': (_) => CheckoutPage(),
         'aamar_pay_page': (_) => AamarPayPage(),
+        'favorite_page': (_) => FavoritePage(),
       },
     );
   }

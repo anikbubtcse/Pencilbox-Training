@@ -16,12 +16,12 @@ class CategoryDetailPage extends StatefulWidget {
 class _CategoryDetailPageState extends State<CategoryDetailPage> {
   late CourseProvider courseProvider;
   bool callOnce = true;
-  late String caregoryName;
+  dynamic categoryName;
 
   @override
   void didChangeDependencies() {
     final args = ModalRoute.of(context)?.settings.arguments as List;
-    caregoryName = args[0];
+    categoryName = args[0];
 
     courseProvider = Provider.of(context, listen: true);
 
@@ -40,7 +40,7 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
         backgroundColor: const Color(0xffFFFFFF),
         centerTitle: true,
         title: Text(
-          caregoryName,
+          categoryName.runtimeType == String ? categoryName : 'Category detail',
           style: GoogleFonts.poppins(
               fontSize: 16,
               fontWeight: FontWeight.w500,
@@ -142,7 +142,8 @@ class _CategoryDetailPageState extends State<CategoryDetailPage> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () {
-                                                      Navigator.of(context).pop();
+                                                      Navigator.of(context)
+                                                          .pop();
                                                       Navigator.of(context).pushNamed(
                                                           'Trainer_details_page',
                                                           arguments: provider

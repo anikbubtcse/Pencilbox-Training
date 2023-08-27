@@ -5,7 +5,6 @@ import 'package:screen_design/provider/course_provider.dart';
 import 'package:screen_design/provider/user_provider.dart';
 import '../models/student_info_model.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/trainer_provider.dart';
 
 class MyCoursePage extends StatefulWidget {
@@ -90,116 +89,104 @@ class _MyCoursePageState extends State<MyCoursePage> {
                                 flex: 5,
                                 child: SizedBox(
                                   height: MediaQuery.of(context).size.width / 3,
-                                  child: Stack(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 15),
+                                            child: Text(
+                                              userProvider
+                                                  .billingList[index]
+                                                  .courseRegStudents!
+                                                  .batch!
+                                                  .training!
+                                                  .trainingName!,
+                                              style: GoogleFonts.poppins(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                                color: Color(0xffDE1E36),
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          Text(
+                                            trainerName,
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w300,
+                                              color: Color(0xff716F6F),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        '${userProvider.billingList[index].courseRegStudents!.batch!.trainingPrice}/-BDT',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight:
+                                            FontWeight.w500,
+                                            color: Colors.red),
+                                      ),
+                                      Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                          Row(
                                             children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 15),
-                                                child: Text(
-                                                  userProvider
-                                                      .billingList[index]
-                                                      .courseRegStudents!
-                                                      .batch!
-                                                      .training!
-                                                      .trainingName!,
-                                                  style: GoogleFonts.poppins(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xffDE1E36),
-                                                  ),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
+                                              const Icon(
+                                                Icons.access_time,
+                                                color: Color(0xff808080),
+                                                size: 13,
+                                              ),
+                                              const SizedBox(
+                                                width: 2,
                                               ),
                                               Text(
-                                                trainerName,
+                                                '${userProvider.billingList[index].courseRegStudents!.batch!.hours!.toString()} h',
                                                 style: GoogleFonts.poppins(
-                                                  fontSize: 14,
+                                                  fontSize: 12,
                                                   fontWeight: FontWeight.w300,
-                                                  color: Color(0xff716F6F),
+                                                  color: Color(0xff808080),
                                                 ),
                                               ),
                                             ],
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Row(
-                                                children: [
-                                                  const Icon(
-                                                    Icons.access_time,
-                                                    color: Color(0xff808080),
-                                                    size: 13,
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 2,
-                                                  ),
-                                                  Text(
-                                                    '${userProvider.billingList[index].courseRegStudents!.batch!.hours!.toString()} h',
-                                                    style: GoogleFonts.poppins(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      color: Color(0xff808080),
-                                                    ),
-                                                  ),
-                                                ],
+                                              const Icon(
+                                                Icons.date_range,
+                                                color: Color(0xff808080),
+                                                size: 13,
                                               ),
-                                              Row(
-                                                children: [
-                                                  const Icon(
-                                                    Icons.date_range,
-                                                    color: Color(0xff808080),
-                                                    size: 13,
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 2,
-                                                  ),
-                                                  Text(
-                                                    HelperMethod.getDateFormat(
-                                                        'dd-MM-yyyy',
-                                                        DateTime.parse(userProvider
-                                                            .billingList[index]
-                                                            .courseRegStudents!
-                                                            .batch!
-                                                            .startDate!)),
-                                                    style: GoogleFonts.poppins(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                      color: Color(0xff808080),
-                                                    ),
-                                                  ),
-                                                ],
+                                              const SizedBox(
+                                                width: 2,
+                                              ),
+                                              Text(
+                                                HelperMethod.getDateFormat(
+                                                    'dd-MM-yyyy',
+                                                    DateTime.parse(userProvider
+                                                        .billingList[index]
+                                                        .courseRegStudents!
+                                                        .batch!
+                                                        .startDate!)),
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w300,
+                                                  color: Color(0xff808080),
+                                                ),
                                               ),
                                             ],
                                           ),
                                         ],
                                       ),
-                                      Positioned(
-                                        top: -15,
-                                        right: -10,
-                                        child: IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.favorite_border_outlined,
-                                              color: Color(
-                                                0xffDB1E37,
-                                              ),
-                                              size: 13,
-                                            )),
-                                      )
                                     ],
                                   ),
                                 ),
