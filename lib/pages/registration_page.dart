@@ -150,6 +150,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       Container(
                           height: 48,
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             controller: phoneNumberController,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -255,7 +256,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   borderRadius: BorderRadius.circular(8),
                                   borderSide:
                                       BorderSide(color: Color(0xffD0D5DD))),
-                              hintText: "exhgskdld",
+                              hintText: "..........",
                               // labelStyle: GoogleFonts.poppins(
                               //     fontSize: 16,
                               //     fontWeight: FontWeight.w500,
@@ -311,7 +312,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   borderRadius: BorderRadius.circular(8),
                                   borderSide:
                                       BorderSide(color: Color(0xffD0D5DD))),
-                              hintText: "exhgskdld",
+                              hintText: "..........",
                               // labelStyle: GoogleFonts.poppins(
                               //     fontSize: 16,
                               //     fontWeight: FontWeight.w500,

@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:http/http.dart' as http;
+import 'package:email_validator/email_validator.dart';
 
 class ApplyCoursePage extends StatefulWidget {
   const ApplyCoursePage({super.key});
@@ -264,9 +265,11 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Email is required';
+                          } else if (!EmailValidator.validate(value)) {
+                            return 'Please give us a valid email';
+                          } else {
+                            return null;
                           }
-
-                          return null;
                         },
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(8),
@@ -307,7 +310,10 @@ class _ApplyCoursePageState extends State<ApplyCoursePage> {
                           if (value!.isEmpty) {
                             return 'Phone Number is required';
                           } else if (value.length != 11) {
-                            return 'phone number must be 11 charecter';
+                            return 'The phone number must be 11 digits';
+                          } else if (!value
+                              .contains(RegExp(r'^01[3-9][0-9]{8}$'))) {
+                            return 'The phone number format is invalid';
                           } else {
                             return null;
                           }

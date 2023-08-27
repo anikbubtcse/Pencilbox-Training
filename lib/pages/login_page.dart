@@ -5,6 +5,7 @@ import 'package:screen_design/helper/helper_method.dart';
 import 'package:screen_design/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
+import 'package:email_validator/email_validator.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -87,6 +88,10 @@ class _LoginPageState extends State<LoginPage> {
                             validator: (value) {
                               if (value!.isEmpty || value == null) {
                                 return 'email is required';
+                              } else if (!EmailValidator.validate(value)) {
+                                return 'Please give us a valid email';
+                              } else {
+                                return null;
                               }
                             },
                             decoration: InputDecoration(
@@ -96,8 +101,8 @@ class _LoginPageState extends State<LoginPage> {
                                   borderSide: BorderSide(color: Colors.amber)),
                               enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
-                                  borderSide:
-                                      BorderSide(color: Color(0xffD0D5DD))),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffD0D5DD))),
                             ),
                           ),
                         ),
@@ -164,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                                     borderRadius: BorderRadius.circular(8),
                                     borderSide:
                                         BorderSide(color: Color(0xffD0D5DD))),
-                                hintText: "exhgskdld",
+                                hintText: "..........",
                                 // labelStyle: GoogleFonts.poppins(
                                 //     fontSize: 16,
                                 //     fontWeight: FontWeight.w500,

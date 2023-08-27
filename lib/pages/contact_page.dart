@@ -280,6 +280,8 @@ class _ContactPageState extends State<ContactPage> {
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return 'Phone Number is required';
+                                  } else if (value.length != 11) {
+                                    return 'please give 11 digit phone number';
                                   }
                                 },
                                 keyboardType: TextInputType.phone,
@@ -743,9 +745,9 @@ class _ContactPageState extends State<ContactPage> {
   }
 
   launchDialer(String number) async {
-    String url = 'tel:' + number;
-    if (await canLaunch(url)) {
-      await launch(url);
+    Uri phoneno = Uri.parse('tel:+8801714121719');
+    if (await launchUrl(phoneno)) {
+      launchUrl(phoneno);
     } else {
       throw 'Application unable to open dialer.';
     }

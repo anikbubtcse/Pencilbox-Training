@@ -69,7 +69,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   color: Colors.black.withOpacity(0.8)),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Form(
@@ -103,7 +103,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 6,
                 ),
                 TextFormField(
@@ -111,6 +111,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Phone number is Required';
+                    } else if (value.length != 11) {
+                      return 'please give 11 digit phone number';
                     } else {
                       return null;
                     }
@@ -133,7 +135,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 6,
                 ),
                 TextFormField(
@@ -513,7 +515,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             InkWell(
                               child: const Padding(
                                 padding: EdgeInsets.all(8.0),
-                                child: Text('/partial payment'),
+                                child: Text('/ partial payment'),
                               ),
                               onTap: () {
                                 {
